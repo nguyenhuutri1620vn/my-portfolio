@@ -10,7 +10,6 @@ export const site = {
   },
   heroChips: [
     'Go',
-    'React',
     'PostgreSQL',
     'Elasticsearch',
     'ClickHouse',

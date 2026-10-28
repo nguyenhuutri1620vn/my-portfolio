@@ -11,7 +11,7 @@ Work top to bottom. One task per commit/PR. Tick `[x]` when done. Read `CLAUDE.m
 - [x] T0.6 GitHub Actions: install, lint, build, check scripts. Cloudflare Pages deploy config.
 
 ## Phase 1 — Layout, Home hero, For-clients page
-- [ ] T1.0 Preflight: `npm run build` passes on a clean checkout; `@astrojs/tailwind` is installed if `astro.config.mjs` imports it; fonts load via `@fontsource` imports in the base layout (no hand-written `@font-face` for them); token values match `docs/DESIGN.md` (buttons radius 8px, tags 999px).
+- [x] T1.0 Preflight: `npm run build` passes on a clean checkout; `@astrojs/tailwind` is installed if `astro.config.mjs` imports it; fonts load via `@fontsource` imports in the base layout (no hand-written `@font-face` for them); token values match `docs/DESIGN.md` (buttons radius 8px, tags 999px).
 - [ ] T1.1 `BaseLayout` + `Header` + `Footer`: anchors `Projects · Engineering · Stack · Contact` (link to `/{lang}/#anchor` when not on home), distinct `For clients` link, `LangSwitch` keeping the current path, skip link, focus styles, per-page `<title>`/description/`hreflang` from CONTENT §8.
 - [ ] T1.2 Home `Hero` (CONTENT §1): vision, title + "Nearly 5 years", positioning, server-side chips, primary `View Case Studies` → `#projects`, secondary `Download Resume` + `GitHub`, small link to `/for-clients`. No Start-a-Project button. Optional portrait slot.
 - [ ] T1.3 Resume files in `public/resume/`; hide the VI resume link if its file is missing (fall back to EN).

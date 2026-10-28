@@ -1,16 +1,23 @@
 {
   "meta": {
-    "title": "Tri Huu Nguyen — Kỹ sư phần mềm (Go, React, Hệ thống dữ liệu)",
-    "description": "Kỹ sư phần mềm gần 5 năm kinh nghiệm xây dựng backend và hệ thống dữ liệu hiệu năng cao. Dự án, dịch vụ và CV."
+    "home": {
+      "title": "Tri Huu Nguyen — Kỹ sư phần mềm (Go, Backend & Hệ thống dữ liệu)",
+      "description": "Kỹ sư phần mềm gần 5 năm xây dựng backend đa tenant và hệ thống dữ liệu: tìm kiếm, phân tích, xử lý bất đồng bộ. Dự án và CV."
+    },
+    "forClients": {
+      "title": "Hợp tác với Tri Huu Nguyen — Backend & Hệ thống dữ liệu",
+      "description": "API, dashboard phân tích, pipeline dữ liệu và tự động hóa, có demo mỗi 3 ngày và bàn giao đầy đủ."
+    }
   },
   "a11y": {
     "skipLink": "Chuyển đến nội dung chính"
   },
   "nav": {
     "projects": "Dự án",
-    "services": "Dịch vụ",
+    "engineering": "Kỹ thuật",
     "stack": "Công nghệ",
-    "contact": "Liên hệ"
+    "contact": "Liên hệ",
+    "forClients": "Dành cho khách hàng"
   },
   "langSwitch": {
     "label": "Ngôn ngữ"
@@ -22,25 +29,44 @@
   },
   "hero": {
     "vision": "Xây dựng hệ thống giúp doanh nghiệp của bạn thắng.",
-    "positioning": "Kỹ sư phần mềm với gần 5 năm kinh nghiệm xây dựng hệ thống backend hiệu năng cao, tự động hóa dữ liệu và phát triển ứng dụng web trọn gói. Tôi sử dụng AI một cách chuyên nghiệp trong quy trình SDLC chuẩn: lập kế hoạch, review, kiểm thử và cổng chất lượng đi trước, để AI giúp giao hàng nhanh hơn mà không sinh ra rác.",
-    "microcopy": "Phản hồi trong 1 ngày làm việc. [TODO: xác nhận cam kết]"
-  },
-  "cta": {
-    "startProject": "Bắt đầu dự án",
+    "positioning": "Kỹ sư phần mềm với gần 5 năm kinh nghiệm xây dựng hệ thống backend và dữ liệu cho SaaS đa tenant: tìm kiếm và phân tích dưới 1 giây, export bất đồng bộ quy mô lớn, và pipeline dữ liệu phía sau dashboard BI. Tôi chú trọng kiến trúc rõ ràng, hiệu năng đo được và quy trình review chặt chẽ, trong đó AI là công cụ hỗ trợ chứ không thay thế quy trình.",
+    "viewCaseStudies": "Xem dự án",
     "downloadResume": "Tải CV (PDF)",
     "github": "GitHub",
-    "linkedin": "LinkedIn"
-  },
-  "mailto": {
-    "subject": "Trao đổi dự án",
-    "body": "Chào Trí, tôi muốn trao đổi về một dự án.\n\nNhu cầu:\nThời gian:\nNgân sách dự kiến:"
+    "forClientsLink": "Cần xây dựng hệ thống? Xem cách tôi làm việc với khách hàng →"
   },
   "caseStudies": {
     "title": "Dự án tiêu biểu",
     "subtitle": "Hệ thống thực tế, đã ẩn danh. Kết quả ở ngay trên thẻ; bài phân tích kỹ thuật nằm trong phần chi tiết.",
     "viewDetails": "Xem chi tiết"
   },
-  "services": {
+  "engineering": {
+    "title": "Quyết định & Thực hành kỹ thuật",
+    "subtitle": "Những lựa chọn phía sau kết quả, và cái giá của từng lựa chọn."
+  },
+  "stack": {
+    "title": "Công nghệ & Kinh nghiệm",
+    "statement": "Tôi mạnh nhất ở Go, kết hợp React phía front-end, cho các bài toán vừa tính toán nặng vừa đòi hỏi hiệu năng: xử lý dữ liệu khối lượng lớn, tìm kiếm và phân tích, tác vụ chạy dài, với logic nghiệp vụ sạch và dễ thay thế bên dưới.",
+    "timeline": "Kỹ sư phần mềm, công ty sản phẩm chuỗi cung ứng y tế · 02/2022 – nay",
+    "certification": "AWS Certified Cloud Practitioner (CLF-C02)"
+  },
+  "contact": {
+    "title": "Cùng trao đổi",
+    "text": "Bạn đang tuyển dụng, hoặc muốn trao đổi về thiết kế hệ thống? Liên hệ tôi tại đây.",
+    "downloadResume": "Tải CV",
+    "forClientsLink": "Muốn xây dựng sản phẩm? → Dành cho khách hàng"
+  },
+  "forClients": {
+    "startProject": "Bắt đầu dự án",
+    "closing": {
+      "note": "Phản hồi trong 1 ngày làm việc. [TODO: xác nhận cam kết]"
+    }
+  },
+  "mailto": {
+    "subject": "Trao đổi dự án",
+    "body": "Chào Trí, tôi muốn trao đổi về một dự án.\n\nNhu cầu:\nThời gian:\nNgân sách dự kiến:"
+  },
+  "workflow": {
     "title": "Dịch vụ & Quy trình",
     "subtitle": "Quy trình rõ ràng từ cuộc trao đổi đầu tiên đến khi vận hành ổn định.",
     "steps": {
@@ -70,24 +96,6 @@
         "text": "Kiểm thử tự động, quản lý thông tin xác thực an toàn, hỗ trợ bảo trì và giám sát sau bàn giao.",
         "tag": "Đã bao gồm"
       }
-    }
-  },
-  "stack": {
-    "title": "Công nghệ & Kinh nghiệm",
-    "statement": "Tôi mạnh nhất ở Go và React cho các bài toán vừa tính toán nặng vừa đòi hỏi hiệu năng: xử lý dữ liệu khối lượng lớn, tìm kiếm và phân tích, tác vụ chạy dài, với logic nghiệp vụ sạch và dễ thay thế bên dưới.",
-    "timeline": "Kỹ sư phần mềm, công ty sản phẩm chuỗi cung ứng y tế · 02/2022 – nay",
-    "certification": "AWS Certified Cloud Practitioner (CLF-C02)"
-  },
-  "contact": {
-    "title": "Cùng trao đổi",
-    "project": {
-      "title": "Bạn có dự án?",
-      "text": "Cho tôi biết nhu cầu, tôi sẽ phản hồi các bước tiếp theo."
-    },
-    "hiring": {
-      "title": "Bạn đang tuyển dụng?",
-      "text": "CV, GitHub và LinkedIn ở bên dưới.",
-      "resume": "Tải CV"
     }
   },
   "footer": {

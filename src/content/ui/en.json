@@ -1,16 +1,23 @@
 {
   "meta": {
-    "title": "Tri Huu Nguyen — Software Engineer (Go, React, Data Systems)",
-    "description": "Software Engineer with nearly 5 years building high-performance backend and data systems. Case studies, services, and resume."
+    "home": {
+      "title": "Tri Huu Nguyen — Software Engineer (Go, Backend & Data Systems)",
+      "description": "Software Engineer with nearly 5 years building multi-tenant backend and data systems: search, analytics, async processing. Case studies and resume."
+    },
+    "forClients": {
+      "title": "Work with Tri Huu Nguyen — Backend & Data Systems",
+      "description": "APIs, analytics dashboards, data pipelines, and automation, delivered with demos every 3 days and full handover."
+    }
   },
   "a11y": {
     "skipLink": "Skip to content"
   },
   "nav": {
     "projects": "Projects",
-    "services": "Services",
+    "engineering": "Engineering",
     "stack": "Stack",
-    "contact": "Contact"
+    "contact": "Contact",
+    "forClients": "For clients"
   },
   "langSwitch": {
     "label": "Language"
@@ -22,25 +29,44 @@
   },
   "hero": {
     "vision": "Build systems that make your business win.",
-    "positioning": "Software Engineer with nearly 5 years of experience building high-performance backend systems, automating data pipelines, and delivering complete web applications. I work with AI professionally inside a standard SDLC: planning, review, tests, and quality gates come first, so AI speeds up delivery without adding noise.",
-    "microcopy": "Reply within 1 business day. [TODO: confirm promise]"
-  },
-  "cta": {
-    "startProject": "Start a Project",
+    "positioning": "Software Engineer with nearly 5 years of experience building backend and data systems for multi-tenant SaaS: sub-second search and analytics, large-scale async exports, and data pipelines behind BI dashboards. I care about clear architecture, measurable performance, and a disciplined review process, with AI tools used inside that process, not instead of it.",
+    "viewCaseStudies": "View Case Studies",
     "downloadResume": "Download Resume (PDF)",
     "github": "GitHub",
-    "linkedin": "LinkedIn"
-  },
-  "mailto": {
-    "subject": "Project inquiry",
-    "body": "Hi Tri, I'd like to discuss a project.\n\nWhat we need:\nTimeline:\nBudget range:"
+    "forClientsLink": "Need a system built? See how I work with clients →"
   },
   "caseStudies": {
     "title": "Featured Case Studies",
     "subtitle": "Real systems, anonymized. Results first; the technical write-up is one click away.",
     "viewDetails": "View details"
   },
-  "services": {
+  "engineering": {
+    "title": "Engineering Decisions & Practices",
+    "subtitle": "The choices behind the results, and what each one cost."
+  },
+  "stack": {
+    "title": "Technical Stack & Experience",
+    "statement": "I am strongest in Go, with React on the front end, for problems that combine heavy computation with real performance requirements: high-volume data processing, search and analytics, and long-running jobs, built so business logic stays clean and replaceable underneath.",
+    "timeline": "Software Engineer, healthcare supply chain product company · Feb 2022 – Present",
+    "certification": "AWS Certified Cloud Practitioner (CLF-C02)"
+  },
+  "contact": {
+    "title": "Let's talk",
+    "text": "Hiring, or want to talk about a system design? Reach me here.",
+    "downloadResume": "Download Resume",
+    "forClientsLink": "Looking to build something? → For clients"
+  },
+  "forClients": {
+    "startProject": "Start a Project",
+    "closing": {
+      "note": "Reply within 1 business day. [TODO: confirm promise]"
+    }
+  },
+  "mailto": {
+    "subject": "Project inquiry",
+    "body": "Hi Tri, I'd like to discuss a project.\n\nWhat we need:\nTimeline:\nBudget range:"
+  },
+  "workflow": {
     "title": "Services & Workflow",
     "subtitle": "A clear process from first call to stable operation.",
     "steps": {
@@ -70,24 +96,6 @@
         "text": "Automated tests, secure credential handling, and post-handover maintenance and monitoring support.",
         "tag": "Included"
       }
-    }
-  },
-  "stack": {
-    "title": "Technical Stack & Experience",
-    "statement": "I am strongest in Go and React for problems that combine heavy computation with real performance requirements: high-volume data processing, search and analytics, and long-running jobs, built so business logic stays clean and replaceable underneath.",
-    "timeline": "Software Engineer, healthcare supply chain product company · Feb 2022 – Present",
-    "certification": "AWS Certified Cloud Practitioner (CLF-C02)"
-  },
-  "contact": {
-    "title": "Let's talk",
-    "project": {
-      "title": "Have a project?",
-      "text": "Tell me what you need and I'll reply with next steps."
-    },
-    "hiring": {
-      "title": "Hiring?",
-      "text": "Resume, GitHub, and LinkedIn are below.",
-      "resume": "Download Resume"
     }
   },
   "footer": {
