@@ -1,0 +1,21 @@
+---
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { defaultLocale, locales, type Locale } from '../i18n/config';
+
+interface Props {
+  lang: Locale;
+  title: string;
+  description?: string;
+}
+
+const { lang, title, description } = Astro.props;
+
+// Locale-agnostic path of this page, e.g. "services" for /vi/services/.
+const path = Astro.url.pathname.replace(new RegExp(`^/${lang}(/|$)`), '');
+---
+
+<title>{title}</title>
+{description && <meta name="description" content={description} />}
+<link rel="canonical" href={getAbsoluteLocaleUrl(lang, path)} />
+{locales.map((l) => <link rel="alternate" hreflang={l} href={getAbsoluteLocaleUrl(l, path)} />)}
+<link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(defaultLocale, path)} />

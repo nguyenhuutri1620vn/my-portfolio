@@ -1,11 +1,13 @@
 ---
 import '../styles/fonts';
 import '../styles/globals.css';
+import SeoHead from '../components/SeoHead.astro';
+import type { Locale } from '../i18n/config';
 
 interface Props {
-  lang: string;
+  lang: Locale;
   title: string;
-  description: string;
+  description?: string;
 }
 
 const { lang, title, description } = Astro.props;
@@ -16,8 +18,7 @@ const { lang, title, description } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <SeoHead lang={lang} title={title} description={description} />
   </head>
   <body>
     <slot />

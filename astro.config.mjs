@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
+  site: 'https://tri-nguyen-portfolio.pages.dev',
   integrations: [mdx(), tailwind({ applyBaseStyles: false })],
   i18n: {
     defaultLocale: 'en',

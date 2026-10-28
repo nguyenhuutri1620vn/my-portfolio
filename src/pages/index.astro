@@ -1,0 +1,33 @@
+---
+// Static site: no server to read Accept-Language, so the browser picks the locale.
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
+import { site } from '../data/site';
+import { defaultLocale, localeStorageKey, locales } from '../i18n/config';
+
+const urls = Object.fromEntries(locales.map((l) => [l, getRelativeLocaleUrl(l)]));
+---
+
+<!doctype html>
+<html lang={defaultLocale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>{site.name}</title>
+    {locales.map((l) => <link rel="alternate" hreflang={l} href={getAbsoluteLocaleUrl(l)} />)}
+    <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(defaultLocale)} />
+    <noscript><meta http-equiv="refresh" content={`0;url=${urls[defaultLocale]}`} /></noscript>
+    <script is:inline define:vars={{ urls, defaultLocale, localeStorageKey }}>
+      let saved = null;
+      try {
+        saved = localStorage.getItem(localeStorageKey);
+      } catch {
+        // Storage blocked: fall back to browser languages.
+      }
+      const preferred = (navigator.languages || [navigator.language]).map((l) =>
+        l.slice(0, 2).toLowerCase(),
+      );
+      const lang = saved in urls ? saved : preferred.find((l) => l in urls) || defaultLocale;
+      location.replace(urls[lang]);
+    </script>
+  </head>
+</html>
