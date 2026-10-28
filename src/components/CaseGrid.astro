@@ -1,0 +1,40 @@
+---
+import type { Locale } from '../i18n/config';
+import { caseStudies } from '../lib/case-studies';
+import CaseCard from './CaseCard.astro';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const entries = caseStudies(lang);
+
+// Desktop uses a 6-column track with each card spanning 2, so a short last row can be
+// centered by its start column (3 + 2 layout: the last two start at 2 and 4).
+const lastRow = entries.length % 3;
+const desktopStart = (i: number) => {
+  const fromEnd = entries.length - i;
+  if (lastRow === 2 && fromEnd === 2) return 'lg:col-start-2';
+  if (lastRow === 1 && fromEnd === 1) return 'lg:col-start-3';
+  return undefined;
+};
+// Tablet has 2 columns; an odd last card is centered at single-card width.
+const tabletCentered = (i: number) => entries.length % 2 === 1 && i === entries.length - 1;
+---
+
+<ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
+  {
+    entries.map((entry, i) => (
+      <li
+        class:list={[
+          'lg:col-span-2',
+          desktopStart(i),
+          { 'sm:col-span-2 sm:mx-auto sm:w-[calc(50%-12px)] lg:w-auto': tabletCentered(i) },
+        ]}
+      >
+        <CaseCard entry={entry} lang={lang} />
+      </li>
+    ))
+  }
+</ul>

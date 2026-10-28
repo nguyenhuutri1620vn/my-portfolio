@@ -41,7 +41,12 @@
   "caseStudies": {
     "title": "Dự án tiêu biểu",
     "subtitle": "Hệ thống thực tế, đã ẩn danh. Kết quả ở ngay trên thẻ; bài phân tích kỹ thuật nằm trong phần chi tiết.",
-    "viewDetails": "Xem chi tiết"
+    "viewDetails": "Xem chi tiết",
+    "labels": {
+      "context": "Bối cảnh",
+      "solution": "Giải pháp",
+      "result": "Kết quả"
+    }
   },
   "engineering": {
     "title": "Quyết định & Thực hành kỹ thuật",

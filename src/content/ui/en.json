@@ -41,7 +41,12 @@
   "caseStudies": {
     "title": "Featured Case Studies",
     "subtitle": "Real systems, anonymized. Results first; the technical write-up is one click away.",
-    "viewDetails": "View details"
+    "viewDetails": "View details",
+    "labels": {
+      "context": "Context",
+      "solution": "Solution",
+      "result": "Result"
+    }
   },
   "engineering": {
     "title": "Engineering Decisions & Practices",

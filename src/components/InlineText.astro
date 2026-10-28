@@ -1,0 +1,24 @@
+---
+import Metric from './Metric.astro';
+import Todo from './Todo.astro';
+
+// Frontmatter strings (CONTENT.md) carry two inline marks: **key number** and [TODO: note].
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const parts = text.split(/(\*\*[^*]+\*\*|\[TODO:[^\]]*\])/).filter(Boolean);
+---
+
+{
+  parts.map((part) => {
+    if (part.startsWith('**')) {
+      return <Metric>{part.slice(2, -2)}</Metric>;
+    }
+    if (part.startsWith('[TODO:')) {
+      return <Todo>{part.slice(6, -1).trim()}</Todo>;
+    }
+    return part;
+  })
+}

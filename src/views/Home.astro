@@ -1,4 +1,5 @@
 ---
+import CaseGrid from '../components/CaseGrid.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import type { Locale } from '../i18n/config';
@@ -15,7 +16,9 @@ const t = useTranslations(lang);
 
 <BaseLayout lang={lang} title={t('meta.home.title')} description={t('meta.home.description')}>
   <Hero lang={lang} />
-  <Section id="projects" title={t('caseStudies.title')} subtitle={t('caseStudies.subtitle')} />
+  <Section id="projects" title={t('caseStudies.title')} subtitle={t('caseStudies.subtitle')}>
+    <CaseGrid lang={lang} />
+  </Section>
   <Section id="engineering" title={t('engineering.title')} subtitle={t('engineering.subtitle')} />
   <Section id="stack" title={t('stack.title')} />
   <Section id="contact" title={t('contact.title')} />
