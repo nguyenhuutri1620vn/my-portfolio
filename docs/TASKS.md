@@ -7,7 +7,7 @@ Work top to bottom. One task per commit/PR. Tick `[x]` when done. Read `CLAUDE.m
 - [x] T0.2 Define design tokens from `docs/DESIGN.md` as CSS variables and Tailwind theme (colors, fonts, spacing, radius).
 - [x] T0.3 Astro i18n routing `/en` and `/vi`, default `en`, redirect `/` by `Accept-Language`, `hreflang` tags.
 - [x] T0.4 Create `src/content/ui/en.json` and `vi.json`; helper `t(key)`; build fails on missing key in either language.
-- [ ] T0.5 ESLint, Prettier, `npm run check:todo` (finds `[TODO` in built output), `npm run check:names` (greps for forbidden employer/product names).
+- [x] T0.5 ESLint, Prettier, `npm run check:todo` (finds `[TODO` in built output), `npm run check:names` (greps for forbidden employer/product names).
 - [ ] T0.6 GitHub Actions: install, lint, build, check scripts. Cloudflare Pages deploy config.
 
 ## Phase 1 — Layout & Hero
