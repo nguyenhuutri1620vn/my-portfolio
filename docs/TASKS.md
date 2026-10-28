@@ -10,29 +10,28 @@ Work top to bottom. One task per commit/PR. Tick `[x]` when done. Read `CLAUDE.m
 - [x] T0.5 ESLint, Prettier, `npm run check:todo` (finds `[TODO` in built output), `npm run check:names` (greps for forbidden employer/product names).
 - [x] T0.6 GitHub Actions: install, lint, build, check scripts. Cloudflare Pages deploy config.
 
-## Phase 1 — Layout & Hero
-- [ ] T1.1 Base layout: header (logo, anchors, language switch), footer, skip link, focus styles.
-- [ ] T1.2 Hero: vision line, title, experience badge, positioning text, tech chips, CTA pair (primary mailto with i18n subject/body, secondary resume + GitHub link). Portrait slot optional.
-- [ ] T1.3 Place resume PDFs in `public/resume/` (VI file may be missing: hide VI resume button until present, fall back to EN).
-- [ ] T1.4 Add "How I work" text link (small, below CTAs) → `/services`; microcopy EN `Explore how I work` · VI `Tìm hiểu cách tôi làm việc` (optional, for clients curious about the process).
-
-## Phase 1.5 — Services page
-- [ ] T1.5 Create `src/pages/{en,vi}/services.astro`: reuse WorkflowGrid component, same styling as home. Layout: header (title + intro) → 6-card workflow grid → closing statement + CTA "Ready to start a project?" (button mailto, same as hero).
-- [ ] T1.6 Update navigation: add anchor link `Services` in header nav (scrolls to services section on home, or links to `/services` if on another page).
+## Phase 1 — Layout, Home hero, For-clients page
+- [ ] T1.0 Preflight: `npm run build` passes on a clean checkout; `@astrojs/tailwind` is installed if `astro.config.mjs` imports it; fonts load via `@fontsource` imports in the base layout (no hand-written `@font-face` for them); token values match `docs/DESIGN.md` (buttons radius 8px, tags 999px).
+- [ ] T1.1 `BaseLayout` + `Header` + `Footer`: anchors `Projects · Engineering · Stack · Contact` (link to `/{lang}/#anchor` when not on home), distinct `For clients` link, `LangSwitch` keeping the current path, skip link, focus styles, per-page `<title>`/description/`hreflang` from CONTENT §8.
+- [ ] T1.2 Home `Hero` (CONTENT §1): vision, title + "Nearly 5 years", positioning, server-side chips, primary `View Case Studies` → `#projects`, secondary `Download Resume` + `GitHub`, small link to `/for-clients`. No Start-a-Project button. Optional portrait slot.
+- [ ] T1.3 Resume files in `public/resume/`; hide the VI resume link if its file is missing (fall back to EN).
+- [ ] T1.4 Home skeleton: empty `<section>`s with ids `projects`, `engineering`, `stack`, `contact` and their titles from CONTENT, so anchors work before content lands.
+- [ ] T1.5 `/{lang}/for-clients` page (CONTENT §6, §7): `ClientHero` (Start a Project mailto + See case studies), `OfferCard` ×4, `ProofStrip` ×4 linking to case studies, `WorkflowGrid` 6 cards 3×2 with tags `AI` (05) and `Included` (06), closing CTA block.
+- [ ] T1.6 Phase review: both languages, keyboard pass, 360/768/1440 widths, `npm run lint && npm run build && npm run check:todo && npm run check:names`.
 
 ## Phase 2 — Case studies
-- [ ] T2.1 `CaseCard` component and grid (3 + 2 centered desktop, 2 tablet, 1 mobile), content from the case-study collection frontmatter.
-- [ ] T2.2 Content collection schema (`title, tag, context, solution, result, slug, diagram, lang`), 5 MDX files × 2 languages from `docs/CONTENT.md` section 2.
-- [ ] T2.3 Diagram components (SVG, themed): `platform-overview`, `insight-dashboard`, `value-analysis`, `clickhouse-superset`, `kafka-exports`. Generic labels only, `<title>`/`<desc>`.
-- [ ] T2.4 Case-study page layout: Overview (Context/Solution/Result) → "Technical deep dive" divider → diagram → data design → decisions → failure handling → security → results; prev/next case links; back to projects.
-- [ ] T2.5 Key-number highlighting (accent) via a small `<Metric>` MDX component.
-- [ ] T2.6 Optional UI image slot (frame, lazy, alt text) — disabled until images supplied.
+- [ ] T2.1 Content collection schema (`title, tag, context, solution, result, slug, diagram, lang, order`); 5 MDX files × 2 languages from CONTENT §2.
+- [ ] T2.2 `CaseCard` + grid (3 + 2 centered desktop, 2 tablet, 1 mobile) in `#projects`.
+- [ ] T2.3 Diagram components (SVG, themed via CSS variables): `platform-overview`, `insight-dashboard`, `value-analysis`, `clickhouse-superset`, `kafka-exports`. Generic labels, `<title>`/`<desc>`.
+- [ ] T2.4 Case-study page per PRD §6 (Overview → Technical deep dive → … → What I'd do next), prev/next links, back to `#projects`.
+- [ ] T2.5 `<Metric>` MDX component for accent key numbers.
+- [ ] T2.6 Optional UI image slot (disabled until images supplied).
 
-## Phase 3 — Services, Stack, Contact
-- [ ] T3.1 `WorkflowGrid`: 6 cards 3×2, numbered 01–06, tags `AI` (05) and `Included` (06), connector line on desktop.
-- [ ] T3.2 `StackGrid`: groups of mono chips + Go/React statement + anonymous timeline + certification line.
-- [ ] T3.3 Contact section with two blocks (project / hiring) and links.
-- [ ] T3.4 Section anchors and smooth scroll, active nav state.
+## Phase 3 — Engineering, Stack, Contact (home)
+- [ ] T3.1 `DecisionCard` ×4 (Decision / Why / Trade-off / Outcome, 2×2) and `PracticeItem` ×4 in `#engineering` (CONTENT §3).
+- [ ] T3.2 `StackGrid`: grouped mono chips, statement, anonymous timeline, certification (CONTENT §4).
+- [ ] T3.3 `ContactBlock` (CONTENT §5): email, LinkedIn, GitHub, resume, small link to `/for-clients`.
+- [ ] T3.4 Active nav state on scroll; smooth scroll respecting reduced motion.
 
 ## Phase 4 — Quality
 - [ ] T4.1 SEO: titles/descriptions per language, OpenGraph image (generated from tokens), sitemap, robots, JSON-LD `Person`.

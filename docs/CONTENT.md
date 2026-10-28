@@ -13,26 +13,25 @@ Each block is `EN` then `VI`. Move these into `src/content/ui/{en,vi}.json` and 
 - LinkedIn: https://linkedin.com/in/tri-nguyen-huu
 - GitHub: https://github.com/nguyenhuutri1620vn
 - Resume: `/resume/Tri-Nguyen-CV-EN.pdf`, `/resume/Tri-Nguyen-CV-VI.pdf` [TODO: VI file]
-- Nav: EN `Projects · Services · Stack · Contact` · VI `Dự án · Dịch vụ · Công nghệ · Liên hệ`
+- Nav (home anchors): EN `Projects · Engineering · Stack · Contact` · VI `Dự án · Kỹ thuật · Công nghệ · Liên hệ`
+- Nav link to client page: EN `For clients` · VI `Dành cho khách hàng`
 - Phone is NOT shown on the site.
 
-## 1. Hero
+## 1. Home hero (Tech Lead / HR)
 **Vision**
 - EN: Build systems that make your business win.
 - VI: Xây dựng hệ thống giúp doanh nghiệp của bạn thắng.
 
 **Positioning**
-- EN: Software Engineer with nearly 5 years of experience building high-performance backend systems, automating data pipelines, and delivering complete web applications. I work with AI professionally inside a standard SDLC: planning, review, tests, and quality gates come first, so AI speeds up delivery without adding noise.
-- VI: Kỹ sư phần mềm với gần 5 năm kinh nghiệm xây dựng hệ thống backend hiệu năng cao, tự động hóa dữ liệu và phát triển ứng dụng web trọn gói. Tôi sử dụng AI một cách chuyên nghiệp trong quy trình SDLC chuẩn: lập kế hoạch, review, kiểm thử và cổng chất lượng đi trước, để AI giúp giao hàng nhanh hơn mà không sinh ra rác.
+- EN: Software Engineer with nearly 5 years of experience building backend and data systems for multi-tenant SaaS: sub-second search and analytics, large-scale async exports, and data pipelines behind BI dashboards. I care about clear architecture, measurable performance, and a disciplined review process, with AI tools used inside that process, not instead of it.
+- VI: Kỹ sư phần mềm với gần 5 năm kinh nghiệm xây dựng hệ thống backend và dữ liệu cho SaaS đa tenant: tìm kiếm và phân tích dưới 1 giây, export bất đồng bộ quy mô lớn, và pipeline dữ liệu phía sau dashboard BI. Tôi chú trọng kiến trúc rõ ràng, hiệu năng đo được và quy trình review chặt chẽ, trong đó AI là công cụ hỗ trợ chứ không thay thế quy trình.
 
-**Tech chips (mono):** Go · React · PostgreSQL · Elasticsearch · ClickHouse · Kafka · Superset · AWS · Docker
+**Tech chips (mono, server-side):** Go · PostgreSQL · Elasticsearch · ClickHouse · Kafka · Superset · AWS · Docker
 
 **CTAs**
-- Primary: EN `Start a Project` · VI `Bắt đầu dự án` → `mailto:nguyenhuutri1620vn@gmail.com?subject=<i18n>&body=<i18n>`
-  - subject EN `Project inquiry` · VI `Trao đổi dự án`
-  - body EN `Hi Tri, I'd like to discuss a project.%0A%0AWhat we need:%0ATimeline:%0ABudget range:` · VI `Chào Trí, tôi muốn trao đổi về một dự án.%0A%0ANhu cầu:%0AThời gian:%0ANgân sách dự kiến:`
-- Secondary: EN `Download Resume (PDF)` · VI `Tải CV (PDF)`; text link `GitHub`
-- Microcopy under CTAs: EN `Reply within 1 business day.` [TODO: confirm promise] · VI `Phản hồi trong 1 ngày làm việc.`
+- Primary: EN `View Case Studies` · VI `Xem dự án` → `#projects`
+- Secondary (outline): EN `Download Resume (PDF)` · VI `Tải CV (PDF)`; text link `GitHub`
+- Small line below: EN `Need a system built? See how I work with clients →` · VI `Cần xây dựng hệ thống? Xem cách tôi làm việc với khách hàng →` → `/{lang}/for-clients`
 
 ## 2. Featured Case Studies
 Section title: EN `Featured Case Studies` · VI `Dự án tiêu biểu`
@@ -112,7 +111,88 @@ Tag: `Async processing`
 **Article (VI):** tương ứng.
 
 ---
-## 3. Services & Workflow
+## 3. Engineering (home, `#engineering`)
+Title: EN `Engineering Decisions & Practices` · VI `Quyết định & Thực hành kỹ thuật`
+Subtitle: EN `The choices behind the results, and what each one cost.` · VI `Những lựa chọn phía sau kết quả, và cái giá của từng lựa chọn.`
+Card labels: EN `Decision · Why · Trade-off · Outcome` · VI `Quyết định · Lý do · Đánh đổi · Kết quả`
+
+### 3.1 Decisions
+**D1 — One database per organization** · VI **Mỗi tổ chức một database**
+- Why — EN: Hard isolation for 19+ healthcare organizations; per-organization backup, restore, and archiving; a missed filter cannot expose another tenant's data. · VI: Cô lập cứng cho 19+ tổ chức y tế; backup, restore và lưu trữ theo từng tổ chức; quên một bộ lọc cũng không thể lộ dữ liệu tenant khác.
+- Trade-off — EN: More databases to migrate and monitor. [TODO: how schema migrations are rolled out] · VI: Nhiều database hơn để migrate và giám sát.
+- Outcome — EN: **19+** organizations on one codebase. · VI: **19+** tổ chức trên cùng một codebase.
+
+**D2 — Elasticsearch as a read model for Insight Dashboard** · VI **Elasticsearch làm bản đọc cho Insight Dashboard**
+- Why — EN: The dashboard runs predefined, filter-heavy aggregations (period, corporation, vendor). PostgreSQL stays the single source of truth; the index can be rebuilt from it. · VI: Dashboard chạy các phép tổng hợp định sẵn, nhiều bộ lọc (kỳ, tập đoàn, nhà cung cấp). PostgreSQL vẫn là nguồn dữ liệu gốc duy nhất; index có thể dựng lại từ đó.
+- Trade-off — EN: A sync pipeline to run, and the index can lag behind the source. [TODO: sync mechanism and typical lag] · VI: Phải vận hành pipeline đồng bộ, và index có thể chậm hơn dữ liệu gốc.
+- Outcome — EN: One spend-analytics API from **15s to 1s**. · VI: Một API phân tích chi tiêu từ **15 giây xuống 1 giây**.
+
+**D3 — One engine for Custom Report Builder: ClickHouse** · VI **Một engine cho Custom Report Builder: ClickHouse**
+- Why — EN: Users choose their own criteria over big data. Adding Elasticsearch here would mean two query modes, two code paths, and two sync jobs to keep correct. One engine keeps one path. · VI: Người dùng tự chọn tiêu chí trên dữ liệu lớn. Thêm Elasticsearch ở đây nghĩa là hai chế độ truy vấn, hai đường code và hai job đồng bộ phải giữ đúng. Một engine giữ một đường duy nhất.
+- Trade-off — EN: Data arrives through full and incremental loads, not in real time; acceptable for reporting. · VI: Dữ liệu đến qua nạp full và incremental, không tức thời; chấp nhận được với báo cáo.
+- Outcome — EN: Query time down **over 90%** [TODO: baseline]; Superset dashboards rolled out to **19+** organizations by cloning. · VI: Thời gian truy vấn giảm **hơn 90%**; dashboard Superset triển khai cho **19+** tổ chức bằng cách nhân bản.
+
+**D4 — Exports off the request path, on Kafka** · VI **Đưa export ra khỏi request, chạy trên Kafka**
+- Why — EN: Generating 1M+ rows inside an HTTP request timed out. · VI: Tạo hơn 1 triệu dòng trong một HTTP request bị timeout.
+- Trade-off — EN: More moving parts: a topic, workers, and job status to track. · VI: Nhiều thành phần hơn: topic, worker và trạng thái job cần theo dõi.
+- Outcome — EN: **1M+ row** exports with streaming writes and automatic retries, split into files and zipped, without timeouts. · VI: Export **hơn 1M dòng** với ghi theo luồng và tự động thử lại, chia nhiều file và nén zip, không còn timeout.
+
+### 3.2 Practices
+- **P1 Clean, concurrent Go** — EN: Business logic separated from infrastructure through repository interfaces; goroutines, worker pools, bulk loading, transactions, and query tuning for high-volume processing. · VI: Tách logic nghiệp vụ khỏi hạ tầng qua repository interface; goroutine, worker pool, bulk loading, transaction và tối ưu truy vấn cho xử lý khối lượng lớn.
+- **P2 Tests where the risk is** — EN: Automated tests covering multi-facility approval workflows, tiered rebate calculations, and lifecycle state transitions. · VI: Kiểm thử tự động cho luồng phê duyệt nhiều cơ sở, tính rebate theo bậc và chuyển trạng thái vòng đời.
+- **P3 AI-assisted PR quality gate** — EN: Static analysis, security scan, dependency scan, then AI plus human review with checklists for code and unit tests. Review time from **30 to 5 minutes**. · VI: Phân tích tĩnh, quét bảo mật, quét dependency, rồi AI cùng người review theo checklist cho code và unit test. Thời gian review từ **30 xuống 5 phút**.
+- **P4 Backward-compatible APIs** — EN: **90+** REST APIs consumed by React applications, kept compatible across releases. · VI: **90+** REST API phục vụ ứng dụng React, giữ tương thích qua các bản phát hành.
+
+## 4. Stack & Experience (home, `#stack`)
+Title: EN `Technical Stack & Experience` · VI `Công nghệ & Kinh nghiệm`
+Statement — EN: I am strongest in Go, with React on the front end, for problems that combine heavy computation with real performance requirements: high-volume data processing, search and analytics, and long-running jobs, built so business logic stays clean and replaceable underneath. · VI: Tôi mạnh nhất ở Go, kết hợp React phía front-end, cho các bài toán vừa tính toán nặng vừa đòi hỏi hiệu năng: xử lý dữ liệu khối lượng lớn, tìm kiếm và phân tích, tác vụ chạy dài, với logic nghiệp vụ sạch và dễ thay thế bên dưới.
+
+Groups:
+- Backend: Go, Echo v4, REST APIs, Clean Architecture, Kafka, Ruby, Ruby on Rails
+- Data: PostgreSQL, Elasticsearch, ClickHouse, Solr
+- BI: Apache Superset
+- Infrastructure: Docker, AWS (S3, Redshift, Secrets Manager)
+- Frontend: React, TypeScript, Ant Design
+- AI tooling: Cursor, Claude Code, BMAD, Superpowers, TEA, MCP [TODO: confirm you want these listed as skills]
+
+Timeline (anonymous): EN `Software Engineer, healthcare supply chain product company · Feb 2022 – Present` · VI `Kỹ sư phần mềm, công ty sản phẩm chuỗi cung ứng y tế · 02/2022 – nay`. Two lines: Analytics team (Go, data platform) and Product team (Ruby on Rails, contract rebates and price discrepancy).
+Certification: AWS Certified Cloud Practitioner (CLF-C02).
+
+## 5. Home contact (`#contact`)
+Title: EN `Let's talk` · VI `Cùng trao đổi`
+Text: EN `Hiring, or want to talk about a system design? Reach me here.` · VI `Bạn đang tuyển dụng, hoặc muốn trao đổi về thiết kế hệ thống? Liên hệ tôi tại đây.`
+Links: Email · LinkedIn · GitHub · `Download Resume` / `Tải CV`
+Small line: EN `Looking to build something? → For clients` · VI `Muốn xây dựng sản phẩm? → Dành cho khách hàng`
+
+## 6. For-clients page (`/{lang}/for-clients`)
+**Hero**
+- H1 — EN: Backend and data systems, delivered with a clear process. · VI: Hệ thống backend và dữ liệu, giao hàng với quy trình rõ ràng.
+- Vision line (same as home).
+- Intro — EN: I build systems that handle real data volume: APIs, search and analytics, reporting, and background automation. You get regular demos, documentation, and a system your team can operate. · VI: Tôi xây dựng hệ thống chịu được khối lượng dữ liệu thực tế: API, tìm kiếm và phân tích, báo cáo, và tự động hóa chạy nền. Bạn nhận demo định kỳ, tài liệu đầy đủ và một hệ thống đội của bạn tự vận hành được.
+- CTAs: Primary `Start a Project` / `Bắt đầu dự án` (mailto, same subject/body as below) · Secondary outline `See case studies` / `Xem dự án` → `/{lang}/#projects`
+
+**What I build** (title EN `What I can build for you` · VI `Tôi có thể xây dựng gì cho bạn`)
+1. **Backend APIs & SaaS** — EN: REST APIs and multi-tenant backends in Go, structured to stay maintainable. · VI: REST API và backend đa tenant bằng Go, cấu trúc dễ bảo trì.
+2. **Search & analytics dashboards** — EN: Fast filtering and aggregation over large datasets. · VI: Lọc và tổng hợp nhanh trên dữ liệu lớn.
+3. **Data pipelines & reporting** — EN: ETL into an analytics database and BI dashboards your team can explore. · VI: ETL vào cơ sở dữ liệu phân tích và dashboard BI để đội của bạn tự khai thác.
+4. **Background jobs & automation** — EN: Large exports, batch processing, and scheduled work that runs reliably off the request path. · VI: Export lớn, xử lý theo lô và tác vụ định kỳ chạy ổn định ngoài luồng request.
+
+**Proof strip** (title EN `Results from production systems` · VI `Kết quả từ hệ thống thực tế`) — each links to its case study:
+- `19+` organizations on one multi-tenant platform → healthcare-supply-chain
+- `15s → 1s` spend-analytics API → insight-dashboard
+- `1M+` row exports without timeouts → kafka-exports
+- `30 → 5 min` code review with an AI-assisted gate → (no page; link to home `#engineering`)
+
+**Workflow** — use section 7 below (6 cards).
+
+**Closing CTA**
+- EN `Ready to start a project?` / `Tell me what you need; I'll reply with next steps.` · VI `Sẵn sàng bắt đầu dự án?` / `Cho tôi biết nhu cầu, tôi sẽ phản hồi các bước tiếp theo.`
+- Button `Start a Project` / `Bắt đầu dự án` → `mailto:nguyenhuutri1620vn@gmail.com?subject=<i18n>&body=<i18n>`
+  - subject EN `Project inquiry` · VI `Trao đổi dự án`
+  - body EN `Hi Tri, I'd like to discuss a project.%0A%0AWhat we need:%0ATimeline:%0ABudget range:` · VI `Chào Trí, tôi muốn trao đổi về một dự án.%0A%0ANhu cầu:%0AThời gian:%0ANgân sách dự kiến:`
+- Note: EN `Reply within 1 business day.` [TODO: confirm promise] · VI `Phản hồi trong 1 ngày làm việc.`
+
+## 7. Workflow (for-clients page only)
 Title: EN `Services & Workflow` · VI `Dịch vụ & Quy trình`
 Subtitle: EN `A clear process from first call to stable operation.` · VI `Quy trình rõ ràng từ cuộc trao đổi đầu tiên đến khi vận hành ổn định.`
 
@@ -127,31 +207,13 @@ Subtitle: EN `A clear process from first call to stable operation.` · VI `Quy t
 
 [TODO: confirm scope and duration of the "included" support period before publishing; keep wording as "Included" without promising an SLA until defined.]
 
-## 4. Technical Stack & Experience
-Title: EN `Technical Stack & Experience` · VI `Công nghệ & Kinh nghiệm`
-Statement — EN: I am strongest in Go and React for problems that combine heavy computation with real performance requirements: high-volume data processing, search and analytics, and long-running jobs, built so business logic stays clean and replaceable underneath. · VI: Tôi mạnh nhất ở Go và React cho các bài toán vừa tính toán nặng vừa đòi hỏi hiệu năng: xử lý dữ liệu khối lượng lớn, tìm kiếm và phân tích, tác vụ chạy dài, với logic nghiệp vụ sạch và dễ thay thế bên dưới.
+## 8. SEO
+- Home EN: `Tri Huu Nguyen — Software Engineer (Go, Backend & Data Systems)` · `Software Engineer with nearly 5 years building multi-tenant backend and data systems: search, analytics, async processing. Case studies and resume.`
+- Home VI: `Tri Huu Nguyen — Kỹ sư phần mềm (Go, Backend & Hệ thống dữ liệu)` · `Kỹ sư phần mềm gần 5 năm xây dựng backend đa tenant và hệ thống dữ liệu: tìm kiếm, phân tích, xử lý bất đồng bộ. Dự án và CV.`
+- For-clients EN: `Work with Tri Huu Nguyen — Backend & Data Systems` · `APIs, analytics dashboards, data pipelines, and automation, delivered with demos every 3 days and full handover.`
+- For-clients VI: `Hợp tác với Tri Huu Nguyen — Backend & Hệ thống dữ liệu` · `API, dashboard phân tích, pipeline dữ liệu và tự động hóa, có demo mỗi 3 ngày và bàn giao đầy đủ.`
 
-Groups:
-- Backend: Go, Echo v4, REST APIs, Clean Architecture, Kafka, Ruby, Ruby on Rails
-- Data: PostgreSQL, Elasticsearch, ClickHouse, Solr
-- BI: Apache Superset
-- Infrastructure: Docker, AWS (S3, Redshift, Secrets Manager)
-- Frontend: React, TypeScript, Ant Design
-- AI tooling: Cursor, Claude Code, BMAD, Superpowers, TEA, MCP [TODO: confirm you want these listed as skills]
-
-Timeline (anonymous): EN `Software Engineer, healthcare supply chain product company · Feb 2022 – Present` · VI `Kỹ sư phần mềm, công ty sản phẩm chuỗi cung ứng y tế · 02/2022 – nay`. Two lines: Analytics team (Go, data platform) and Product team (Ruby on Rails, contract rebates and price discrepancy).
-Certification: AWS Certified Cloud Practitioner (CLF-C02).
-
-## 5. Contact
-Title: EN `Let's talk` · VI `Cùng trao đổi`
-- Block A — EN `Have a project?` / `Tell me what you need and I'll reply with next steps.` / button `Start a Project` · VI `Bạn có dự án?` / `Cho tôi biết nhu cầu, tôi sẽ phản hồi các bước tiếp theo.` / `Bắt đầu dự án`
-- Block B — EN `Hiring?` / `Resume, GitHub, and LinkedIn are below.` / buttons `Download Resume`, `GitHub`, `LinkedIn` · VI `Bạn đang tuyển dụng?` / `CV, GitHub và LinkedIn ở bên dưới.` / `Tải CV`, `GitHub`, `LinkedIn`
-
-## 6. SEO
-- EN title: `Tri Huu Nguyen — Software Engineer (Go, React, Data Systems)` · desc: `Software Engineer with nearly 5 years building high-performance backend and data systems. Case studies, services, and resume.`
-- VI title: `Tri Huu Nguyen — Kỹ sư phần mềm (Go, React, Hệ thống dữ liệu)` · desc: `Kỹ sư phần mềm gần 5 năm kinh nghiệm xây dựng backend và hệ thống dữ liệu hiệu năng cao. Dự án, dịch vụ và CV.`
-
-## 7. Open TODO list (owner)
+## 9. Open TODO list (owner)
 1. Before/after figures: Value Analysis, ClickHouse (baseline for ">90%"), Kafka exports.
 2. Confirm 15s→1s percent wording (15s→1s ≈ 93%).
 3. Confirm PR-review wording (30→5 minutes ≈ 83% less; "up to 90%" only if measured).
@@ -159,3 +221,4 @@ Title: EN `Let's talk` · VI `Cùng trao đổi`
 5. Auth, encryption claims for Security sections.
 6. Support period definition for card 06; response-time promise.
 7. Portrait, UI mockups, VI resume, optional Calendly.
+8. Schema-migration rollout across tenant databases (Decision D1).

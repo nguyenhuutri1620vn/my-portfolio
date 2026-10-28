@@ -1,12 +1,13 @@
 # CLAUDE.md — Tri Huu Nguyen Portfolio
 
-Read this file first, then `docs/PRD.md`, `docs/DESIGN.md`, `docs/CONTENT.md`, `docs/TASKS.md`.
+Read this file first, then `docs/PORTFOLIO-BACKEND.md`, `docs/PRD.md`, `docs/DESIGN.md`, `docs/CONTENT.md`, `docs/TASKS.md`.
 
 ## Goal
 One bilingual (EN/VI) portfolio website for **Tri Huu Nguyen, Software Engineer (nearly 5 years)**.
-It serves two audiences with the same pages:
-- **Clients** (own freelance/project work): read the hero, Result lines on cards, Services & Workflow.
-- **Recruiters / Tech Leads**: read case-study detail pages, Technical Stack, Resume, GitHub.
+Two audiences, two entry points:
+- **Home `/{lang}`** for Recruiters / Tech Leads: backend credibility, case studies, engineering decisions and practices, stack, resume.
+- **`/{lang}/for-clients`** for clients: offerings, proof metrics, 6-step workflow, Start a Project.
+See `docs/PORTFOLIO-BACKEND.md` for the content principles of the home page.
 
 Vision line (hero): **"Build systems that make your business win."**
 
@@ -18,6 +19,8 @@ Vision line (hero): **"Build systems that make your business win."**
 5. Experience wording: **"Nearly 5 years"** (EN) / **"Gần 5 năm"** (VI).
 6. Max **4 palette colors** + neutral text. See `docs/DESIGN.md`. No gradients, no stock images, no emoji in UI.
 7. Every user-facing string exists in **both EN and VI**. No hard-coded strings in components.
+8. **Source of truth order:** `CONTENT.md` (facts, copy) > `PRD.md` (structure) > `DESIGN.md` (look) > `TASKS.md` (order). Prompt files are only instructions; if they conflict with docs, docs win.
+9. Home page has no "Start a Project" button; client CTAs live on `/for-clients`.
 
 ## Stack (default, change only with an ADR in `docs/adr/`)
 - Astro 4+ (static output), TypeScript strict, Tailwind CSS, MDX for case studies
@@ -32,9 +35,9 @@ src/
   content/
     case-studies/{en,vi}/*.mdx
     ui/{en,vi}.json          # all UI strings
-  components/ (Hero, CaseCard, WorkflowGrid, StackGrid, ContactCta, LangSwitch, diagrams/*)
+  components/ (Header, Footer, LangSwitch, Hero, CaseCard, DecisionCard, PracticeItem, StackGrid, ContactBlock, ClientHero, OfferCard, ProofStrip, WorkflowGrid, diagrams/*)
   layouts/
-  pages/{en,vi}/index.astro, services.astro, case-studies/[slug].astro
+  pages/{en,vi}/index.astro, for-clients.astro, case-studies/[slug].astro
 public/resume/ (Tri-Nguyen-CV-EN.pdf, Tri-Nguyen-CV-VI.pdf)
 docs/
 ```
