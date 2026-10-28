@@ -1,0 +1,97 @@
+---
+import type { Locale } from '../../i18n/config';
+import Arrow from './parts/Arrow.astro';
+import Box from './parts/Box.astro';
+import { diagramLabels } from './parts/labels';
+
+interface Props {
+  lang: Locale;
+  marker: string;
+}
+
+const { lang, marker } = Astro.props;
+const l = diagramLabels(lang, 'platform-overview');
+
+// 5 columns × 4 rows on the 640×360 canvas.
+const col = [8, 139, 270, 401, 532];
+const row = [20, 110, 200, 290];
+const w = 100;
+const h = 54;
+---
+
+<Box x={col[0]} y={row[1]} w={w} h={h} label={l('client')} sub={l('clientSub')} />
+<Box x={col[1]} y={row[1]} w={w} h={h} label={l('api')} sub={l('apiSub')} focus />
+<Box x={col[2]} y={row[1]} w={w} h={h} label={l('orgDb')} sub={l('orgDbSub')} stack />
+<Box x={col[2]} y={row[0]} w={w} h={h} label={l('kafka')} store />
+<Box x={col[3]} y={row[0]} w={w} h={h} label={l('workers')} />
+<Box x={col[2]} y={row[2]} w={w} h={h} label={l('search')} sub={l('searchSub')} store />
+<Box x={col[3]} y={row[1]} w={w} h={h} label={l('etl')} />
+<Box x={col[4]} y={row[1]} w={w} h={h} label={l('s3')} store />
+<Box x={col[4]} y={row[2]} w={w} h={h} label={l('clickhouse')} store />
+<Box x={col[4]} y={row[3]} w={w} h={h} label={l('superset')} />
+
+<Arrow
+  marker={marker}
+  points={[
+    [108, 137],
+    [138, 137],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [239, 137],
+    [269, 137],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [189, 110],
+    [189, 47],
+    [269, 47],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [370, 47],
+    [400, 47],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [189, 164],
+    [189, 227],
+    [269, 227],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [378, 137],
+    [400, 137],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [501, 137],
+    [531, 137],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [582, 164],
+    [582, 199],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [582, 254],
+    [582, 289],
+  ]}
+/>

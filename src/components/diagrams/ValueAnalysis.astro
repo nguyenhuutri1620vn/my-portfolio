@@ -1,0 +1,46 @@
+---
+import type { Locale } from '../../i18n/config';
+import Arrow from './parts/Arrow.astro';
+import Box from './parts/Box.astro';
+import { diagramLabels } from './parts/labels';
+
+interface Props {
+  lang: Locale;
+  marker: string;
+}
+
+const { lang, marker } = Astro.props;
+const l = diagramLabels(lang, 'value-analysis');
+
+const col = [8, 176, 344, 512];
+const y = 146;
+const w = 120;
+const h = 68;
+---
+
+<Box x={col[0]} y={y} w={w} h={h} label={l('offers')} sub={l('offersSub')} stack />
+<Box x={col[1]} y={y} w={w} h={h} label={l('normalize')} sub={l('normalizeSub')} focus />
+<Box x={col[2]} y={y} w={w} h={h} label={l('eachPrice')} />
+<Box x={col[3]} y={y} w={w} h={h} label={l('savings')} sub={l('savingsSub')} />
+
+<Arrow
+  marker={marker}
+  points={[
+    [136, 180],
+    [175, 180],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [296, 180],
+    [343, 180],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [464, 180],
+    [511, 180],
+  ]}
+/>

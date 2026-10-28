@@ -152,5 +152,85 @@
   },
   "footer": {
     "backToTop": "Back to top"
+  },
+  "diagrams": {
+    "platform-overview": {
+      "title": "Healthcare supply chain platform: architecture overview",
+      "desc": "A React client calls the Go API (Echo). The API reads and writes a separate PostgreSQL database per organization, sends async work through Kafka to workers, and serves the Insight Dashboard from Elasticsearch. An analytics branch moves data by ETL through S3 into ClickHouse for Superset.",
+      "labels": {
+        "client": "Client",
+        "clientSub": "React",
+        "api": "API",
+        "apiSub": "Go · Echo",
+        "orgDb": "Org DB",
+        "orgDbSub": "PostgreSQL × N",
+        "kafka": "Kafka",
+        "workers": "Workers",
+        "search": "Elasticsearch",
+        "searchSub": "Insight\nDashboard",
+        "etl": "ETL",
+        "s3": "S3",
+        "clickhouse": "ClickHouse",
+        "superset": "Superset"
+      }
+    },
+    "insight-dashboard": {
+      "title": "Insight Dashboard: search and aggregation layer",
+      "desc": "Data is synced from PostgreSQL, the single source of truth, into Elasticsearch, a rebuildable read model. The API runs filtered aggregations on Elasticsearch for the dashboard, where users filter by period, corporation, and vendor, then drill down.",
+      "labels": {
+        "source": "PostgreSQL",
+        "sourceSub": "source of truth",
+        "search": "Elasticsearch",
+        "searchSub": "read model",
+        "api": "API",
+        "apiSub": "aggregations",
+        "dashboard": "Dashboard",
+        "dashboardSub": "filter · drill down",
+        "sync": "sync"
+      }
+    },
+    "value-analysis": {
+      "title": "Value Analysis: one common each price",
+      "desc": "Vendor offers sold in boxes, cases, and packs are normalized by unit and pack size to a common each price, which is then used to calculate potential savings and profit or loss for a group of items.",
+      "labels": {
+        "offers": "Vendor offers",
+        "offersSub": "box · case · pack",
+        "normalize": "Normalize",
+        "normalizeSub": "units, pack sizes",
+        "eachPrice": "Each price",
+        "savings": "Savings &\nprofit/loss",
+        "savingsSub": "group of items"
+      }
+    },
+    "clickhouse-superset": {
+      "title": "One analytics engine: ClickHouse for dashboards and custom reports",
+      "desc": "ETL moves data from PostgreSQL through S3 into ClickHouse with full and incremental loads. ClickHouse serves both the Superset dashboards, cloned per organization, and the Custom Report Builder.",
+      "labels": {
+        "source": "PostgreSQL",
+        "etl": "ETL",
+        "etlSub": "full ·\nincremental",
+        "s3": "S3",
+        "clickhouse": "ClickHouse",
+        "superset": "Superset",
+        "supersetSub": "cloned per org",
+        "reports": "Custom Report\nBuilder"
+      }
+    },
+    "kafka-exports": {
+      "title": "Large exports: async flow on Kafka",
+      "desc": "The API enqueues an export job on a Kafka topic, off the request path. A worker streams rows into file chunks, zips them, stores the result, and sends a notification.",
+      "labels": {
+        "api": "API",
+        "apiSub": "enqueue job",
+        "kafka": "Kafka",
+        "kafkaSub": "topic",
+        "worker": "Worker",
+        "workerSub": "stream rows",
+        "chunks": "File chunks",
+        "zip": "Zip",
+        "store": "Store",
+        "notify": "Notify"
+      }
+    }
   }
 }

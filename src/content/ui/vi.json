@@ -152,5 +152,85 @@
   },
   "footer": {
     "backToTop": "Về đầu trang"
+  },
+  "diagrams": {
+    "platform-overview": {
+      "title": "Nền tảng chuỗi cung ứng y tế: tổng quan kiến trúc",
+      "desc": "Client React gọi API Go (Echo). API đọc ghi một cơ sở dữ liệu PostgreSQL riêng cho mỗi tổ chức, gửi tác vụ bất đồng bộ qua Kafka tới các worker, và phục vụ Insight Dashboard từ Elasticsearch. Nhánh phân tích chuyển dữ liệu bằng ETL qua S3 vào ClickHouse cho Superset.",
+      "labels": {
+        "client": "Client",
+        "clientSub": "React",
+        "api": "API",
+        "apiSub": "Go · Echo",
+        "orgDb": "DB tổ chức",
+        "orgDbSub": "PostgreSQL × N",
+        "kafka": "Kafka",
+        "workers": "Worker",
+        "search": "Elasticsearch",
+        "searchSub": "Insight\nDashboard",
+        "etl": "ETL",
+        "s3": "S3",
+        "clickhouse": "ClickHouse",
+        "superset": "Superset"
+      }
+    },
+    "insight-dashboard": {
+      "title": "Insight Dashboard: lớp tìm kiếm và tổng hợp",
+      "desc": "Dữ liệu được đồng bộ từ PostgreSQL, nguồn dữ liệu gốc duy nhất, sang Elasticsearch, bản đọc có thể dựng lại. API chạy các phép tổng hợp có bộ lọc trên Elasticsearch cho dashboard, nơi người dùng lọc theo kỳ, tập đoàn và nhà cung cấp rồi xem chi tiết.",
+      "labels": {
+        "source": "PostgreSQL",
+        "sourceSub": "nguồn dữ liệu gốc",
+        "search": "Elasticsearch",
+        "searchSub": "bản đọc",
+        "api": "API",
+        "apiSub": "tổng hợp",
+        "dashboard": "Dashboard",
+        "dashboardSub": "lọc · xem chi tiết",
+        "sync": "đồng bộ"
+      }
+    },
+    "value-analysis": {
+      "title": "Value Analysis: một giá mỗi đơn vị chung",
+      "desc": "Các đề nghị của nhà cung cấp theo hộp, thùng, gói được chuẩn hóa đơn vị và quy cách về một giá mỗi đơn vị chung, rồi dùng để tính khoản tiết kiệm tiềm năng và lãi/lỗ cho một nhóm mặt hàng.",
+      "labels": {
+        "offers": "Các đề nghị",
+        "offersSub": "hộp · thùng · gói",
+        "normalize": "Chuẩn hóa",
+        "normalizeSub": "đơn vị, quy cách",
+        "eachPrice": "Giá mỗi\nđơn vị",
+        "savings": "Tiết kiệm &\nlãi/lỗ",
+        "savingsSub": "nhóm mặt hàng"
+      }
+    },
+    "clickhouse-superset": {
+      "title": "Một engine phân tích: ClickHouse cho dashboard và báo cáo tùy chỉnh",
+      "desc": "ETL chuyển dữ liệu từ PostgreSQL qua S3 vào ClickHouse bằng nạp full và incremental. ClickHouse phục vụ cả dashboard Superset, được nhân bản cho từng tổ chức, lẫn Custom Report Builder.",
+      "labels": {
+        "source": "PostgreSQL",
+        "etl": "ETL",
+        "etlSub": "full ·\nincremental",
+        "s3": "S3",
+        "clickhouse": "ClickHouse",
+        "superset": "Superset",
+        "supersetSub": "nhân bản\ntheo tổ chức",
+        "reports": "Custom Report\nBuilder"
+      }
+    },
+    "kafka-exports": {
+      "title": "Export lớn: luồng bất đồng bộ trên Kafka",
+      "desc": "API đưa job export vào một topic Kafka, ngoài luồng request. Worker ghi các dòng theo luồng thành nhiều phần file, nén zip, lưu kết quả và gửi thông báo.",
+      "labels": {
+        "api": "API",
+        "apiSub": "tạo job",
+        "kafka": "Kafka",
+        "kafkaSub": "topic",
+        "worker": "Worker",
+        "workerSub": "ghi theo luồng",
+        "chunks": "Các phần file",
+        "zip": "Nén zip",
+        "store": "Lưu trữ",
+        "notify": "Thông báo"
+      }
+    }
   }
 }

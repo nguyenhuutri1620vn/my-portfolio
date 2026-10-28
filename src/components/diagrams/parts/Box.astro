@@ -1,0 +1,65 @@
+---
+// One diagram node. Labels may contain "\n" for a second line; `store` marks data stores
+// (mono label), `focus` the component the case study is about, `stack` a "one per tenant" set.
+interface Props {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  label: string;
+  sub?: string;
+  store?: boolean;
+  focus?: boolean;
+  stack?: boolean;
+}
+
+const { x, y, w, h, label, sub, store = false, focus = false, stack = false } = Astro.props;
+
+const LABEL_LINE = 15;
+const SUB_LINE = 14;
+const labelLines = label.split('\n');
+const subLines = sub ? sub.split('\n') : [];
+const blockHeight = labelLines.length * LABEL_LINE + subLines.length * SUB_LINE;
+// First baseline: center the text block, then drop by roughly a cap height.
+const firstBaseline = y + h / 2 - blockHeight / 2 + 11;
+const cx = x + w / 2;
+const backs = stack ? [8, 4] : [];
+---
+
+<g>
+  {
+    backs.map((offset) => (
+      <>
+        <rect class="dg-base" x={x + offset} y={y - offset} width={w} height={h} rx="6" />
+        <rect class="dg-box" x={x + offset} y={y - offset} width={w} height={h} rx="6" />
+      </>
+    ))
+  }
+  <rect class="dg-base" x={x} y={y} width={w} height={h} rx="6"></rect>
+  <rect class:list={['dg-box', { 'dg-focus': focus }]} x={x} y={y} width={w} height={h} rx="6"
+  ></rect>
+  {
+    labelLines.map((line, i) => (
+      <text
+        class:list={['dg-label', { 'dg-mono': store }]}
+        x={cx}
+        y={firstBaseline + i * LABEL_LINE}
+        text-anchor="middle"
+      >
+        {line}
+      </text>
+    ))
+  }
+  {
+    subLines.map((line, i) => (
+      <text
+        class="dg-sub"
+        x={cx}
+        y={firstBaseline + labelLines.length * LABEL_LINE + i * SUB_LINE}
+        text-anchor="middle"
+      >
+        {line}
+      </text>
+    ))
+  }
+</g>

@@ -1,0 +1,64 @@
+---
+import type { Locale } from '../../i18n/config';
+import Arrow from './parts/Arrow.astro';
+import Box from './parts/Box.astro';
+import { diagramLabels } from './parts/labels';
+
+interface Props {
+  lang: Locale;
+  marker: string;
+}
+
+const { lang, marker } = Astro.props;
+const l = diagramLabels(lang, 'clickhouse-superset');
+
+const col = [8, 139, 270, 401, 532];
+const w = 100;
+---
+
+<Box x={col[0]} y={153} w={w} h={54} label={l('source')} store />
+<Box x={col[1]} y={153} w={w} h={54} label={l('etl')} sub={l('etlSub')} />
+<Box x={col[2]} y={153} w={w} h={54} label={l('s3')} store />
+<Box x={col[3]} y={153} w={w} h={54} label={l('clickhouse')} store focus />
+<Box x={col[4]} y={80} w={w} h={64} label={l('superset')} sub={l('supersetSub')} />
+<Box x={col[4]} y={216} w={w} h={64} label={l('reports')} />
+
+<Arrow
+  marker={marker}
+  points={[
+    [108, 180],
+    [138, 180],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [239, 180],
+    [269, 180],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [370, 180],
+    [400, 180],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [501, 172],
+    [516, 172],
+    [516, 112],
+    [531, 112],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [501, 188],
+    [516, 188],
+    [516, 248],
+    [531, 248],
+  ]}
+/>

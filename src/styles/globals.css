@@ -94,6 +94,52 @@
   .link {
     @apply text-accent underline underline-offset-4 hover:no-underline;
   }
+
+}
+
+/* Diagrams (src/components/diagrams): every color comes from the tokens above. */
+.dg text {
+  font-family: 'Inter', system-ui, sans-serif;
+  fill: rgb(var(--ink));
+}
+
+.dg .dg-label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.dg .dg-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+}
+
+.dg .dg-sub {
+  font-size: 11px;
+}
+
+.dg-base {
+  fill: rgb(var(--bg));
+}
+
+.dg-box {
+  fill: rgb(var(--surface) / 0.6);
+  stroke: rgb(var(--brown));
+  stroke-width: 1.25;
+}
+
+.dg-box.dg-focus {
+  stroke: rgb(var(--accent));
+  stroke-width: 2;
+}
+
+.dg-arrow {
+  fill: none;
+  stroke: rgb(var(--brown));
+  stroke-width: 1.25;
+}
+
+.dg-head {
+  fill: rgb(var(--brown));
 }
 
 @media (prefers-reduced-motion: reduce) {

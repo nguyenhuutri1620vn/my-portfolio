@@ -1,0 +1,72 @@
+---
+import type { Locale } from '../../i18n/config';
+import Arrow from './parts/Arrow.astro';
+import Box from './parts/Box.astro';
+import { diagramLabels } from './parts/labels';
+
+interface Props {
+  lang: Locale;
+  marker: string;
+}
+
+const { lang, marker } = Astro.props;
+const l = diagramLabels(lang, 'kafka-exports');
+
+// Request side on the top row; the worker's output folds back along the bottom row.
+const col = [8, 139, 270, 401, 532];
+const top = 90;
+const bottom = 216;
+const w = 100;
+const h = 54;
+---
+
+<Box x={col[0]} y={top} w={w} h={h} label={l('api')} sub={l('apiSub')} />
+<Box x={col[1]} y={top} w={w} h={h} label={l('kafka')} sub={l('kafkaSub')} store />
+<Box x={col[2]} y={top} w={w} h={h} label={l('worker')} sub={l('workerSub')} focus />
+<Box x={col[3]} y={top} w={w} h={h} label={l('chunks')} stack />
+<Box x={col[4]} y={top} w={w} h={h} label={l('zip')} />
+<Box x={col[4]} y={bottom} w={w} h={h} label={l('store')} store />
+<Box x={col[3]} y={bottom} w={w} h={h} label={l('notify')} />
+
+<Arrow
+  marker={marker}
+  points={[
+    [108, 117],
+    [138, 117],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [239, 117],
+    [269, 117],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [370, 117],
+    [400, 117],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [509, 117],
+    [531, 117],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [582, 144],
+    [582, 215],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [531, 243],
+    [502, 243],
+  ]}
+/>

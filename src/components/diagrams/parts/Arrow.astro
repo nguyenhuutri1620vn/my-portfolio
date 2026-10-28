@@ -1,0 +1,23 @@
+---
+// A connector through `points`, ending in the arrowhead defined once per diagram.
+interface Props {
+  points: [number, number][];
+  marker: string;
+  label?: string;
+  labelAt?: [number, number];
+}
+
+const { points, marker, label, labelAt } = Astro.props;
+---
+
+<polyline
+  class="dg-arrow"
+  points={points.map((p) => p.join(',')).join(' ')}
+  marker-end={`url(#${marker})`}></polyline>
+{
+  label && labelAt && (
+    <text class="dg-sub" x={labelAt[0]} y={labelAt[1]} text-anchor="middle">
+      {label}
+    </text>
+  )
+}
