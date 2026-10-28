@@ -20,11 +20,6 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('@fontsource/jetbrains-mono');
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
