@@ -1,0 +1,43 @@
+src/content/config.ts
+  s_8d7c4c5332c3c4::t_4cb0a2bc3ba6df 1-6
+src/data/site.ts
+  s_8d7c4c5332c3c4::t_b8f24188c68496 4-21
+src/i18n/ui.ts
+  s_8d7c4c5332c3c4::t_b8f24188c68496 1-2,4-28,35,38-43,45-49
+  s_8d7c4c5332c3c4::t_013415455d5978 3,29-34,36-37,44
+src/pages/vi/index.astro
+  s_8d7c4c5332c3c4::t_b8f24188c68496 3-5,8
+src/content/ui/en.json
+  s_8d7c4c5332c3c4::t_dbbb1c1a4c3965 1-96
+src/pages/en/index.astro
+  s_8d7c4c5332c3c4::t_b8f24188c68496 3-5,8
+src/components/SeoHead.astro
+  s_8d7c4c5332c3c4::t_b8f24188c68496 8,18
+src/content/ui/vi.json
+  s_8d7c4c5332c3c4::t_edf6113dd28860 1-96
+src/layouts/BaseLayout.astro
+  s_8d7c4c5332c3c4::t_b8f24188c68496 10
+docs/TASKS.md
+  s_8d7c4c5332c3c4::t_a2b32ae20a5085 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "83cb0098f684ed319e62515351a00d1275ad2e0c",
+  "prompts": {},
+  "humans": {
+    "h_bda9c181404a81": {
+      "author": "Tri Nguyen <nguyenhuutri1620vn@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_8d7c4c5332c3c4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2342d07e-0d4c-451b-a836-0c459c29526a",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Tri Nguyen <nguyenhuutri1620vn@gmail.com>"
+    }
+  }
+}
