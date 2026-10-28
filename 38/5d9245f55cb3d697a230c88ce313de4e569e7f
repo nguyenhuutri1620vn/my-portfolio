@@ -1,0 +1,38 @@
+.eslintrc.cjs
+  h_bda9c181404a81 1-12
+.gitignore
+  h_bda9c181404a81 1-6
+CLAUDE.md
+  h_bda9c181404a81 1-53
+README.md
+  h_bda9c181404a81 1-15
+astro.config.mjs
+  h_bda9c181404a81 1-14
+docs/CONTENT.md
+  h_bda9c181404a81 1-161
+docs/DESIGN.md
+  h_bda9c181404a81 1-45
+docs/PRD.md
+  h_bda9c181404a81 1-66
+docs/TASKS.md
+  h_bda9c181404a81 1-50
+package.json
+  h_bda9c181404a81 1-29
+src/styles/globals.css
+  h_bda9c181404a81 1-37
+tailwind.config.mjs
+  h_bda9c181404a81 1-19
+tsconfig.json
+  h_bda9c181404a81 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "385d9245f55cb3d697a230c88ce313de4e569e7f",
+  "prompts": {},
+  "humans": {
+    "h_bda9c181404a81": {
+      "author": "Tri Nguyen <nguyenhuutri1620vn@gmail.com>"
+    }
+  }
+}
