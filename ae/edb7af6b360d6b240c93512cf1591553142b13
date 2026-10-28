@@ -1,0 +1,28 @@
+src/components/Section.astro
+  s_8d7c4c5332c3c4::t_f8922d1c95db16 1-15
+src/views/Home.astro
+  s_8d7c4c5332c3c4::t_f8922d1c95db16 3,18-21
+docs/TASKS.md
+  s_8d7c4c5332c3c4::t_81d7525ab0682e 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "aeedb7af6b360d6b240c93512cf1591553142b13",
+  "prompts": {},
+  "humans": {
+    "h_bda9c181404a81": {
+      "author": "Tri Nguyen <nguyenhuutri1620vn@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_8d7c4c5332c3c4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2342d07e-0d4c-451b-a836-0c459c29526a",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Tri Nguyen <nguyenhuutri1620vn@gmail.com>"
+    }
+  }
+}
