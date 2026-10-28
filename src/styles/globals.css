@@ -2,22 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Design tokens (docs/DESIGN.md). Colors are RGB channels so they work with
+ * Tailwind opacity modifiers (bg-surface/45) and plain CSS: rgb(var(--surface) / 0.6).
+ */
 :root {
-  --bg: #FFF1E7;
-  --surface: #B5D2E6;
-  --brown: #805232;
-  --accent: #326080;
-  --ink: #2B2B2B;
+  --bg: 255 241 231; /* #FFF1E7 */
+  --surface: 181 210 230; /* #B5D2E6 */
+  --brown: 128 82 50; /* #805232 */
+  --accent: 50 96 128; /* #326080 */
+  --ink: 43 43 43; /* #2B2B2B */
+  --white: 255 255 255;
+
+  --radius-card: 10px;
+  --radius-btn: 8px;
+  --radius-tag: 999px;
+  --radius-frame: 12px;
+
+  --container: 1120px;
+  --article: 720px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--ink));
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.65;
+  }
+
+  h1 {
+    @apply text-h1 font-semibold;
+  }
+
+  h2 {
+    @apply text-h2 font-semibold;
+  }
+
+  h3 {
+    @apply text-h3 font-semibold;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--brown));
+    outline-offset: 2px;
+  }
 }
 
-body {
-  background-color: var(--bg);
-  color: var(--ink);
-  font-family: 'Inter', system-ui, sans-serif;
+@layer components {
+  .tag {
+    @apply inline-block rounded-tag border border-brown/40 bg-surface/45 px-2.5 py-0.5 font-mono text-tag text-brown;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

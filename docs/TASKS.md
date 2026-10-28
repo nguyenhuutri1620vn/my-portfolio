@@ -4,7 +4,7 @@ Work top to bottom. One task per commit/PR. Tick `[x]` when done. Read `CLAUDE.m
 
 ## Phase 0 — Setup
 - [x] T0.1 Init Astro (TypeScript strict) + Tailwind + MDX; add `@fontsource` Inter and JetBrains Mono (latin + vietnamese subsets).
-- [ ] T0.2 Define design tokens from `docs/DESIGN.md` as CSS variables and Tailwind theme (colors, fonts, spacing, radius).
+- [x] T0.2 Define design tokens from `docs/DESIGN.md` as CSS variables and Tailwind theme (colors, fonts, spacing, radius).
 - [ ] T0.3 Astro i18n routing `/en` and `/vi`, default `en`, redirect `/` by `Accept-Language`, `hreflang` tags.
 - [ ] T0.4 Create `src/content/ui/en.json` and `vi.json`; helper `t(key)`; build fails on missing key in either language.
 - [ ] T0.5 ESLint, Prettier, `npm run check:todo` (finds `[TODO` in built output), `npm run check:names` (greps for forbidden employer/product names).
