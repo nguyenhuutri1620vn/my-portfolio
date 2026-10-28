@@ -1,8 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { useTranslations } from '../../i18n/ui';
-
-const t = useTranslations('en');
+import Home from '../../views/Home.astro';
 ---
 
-<BaseLayout lang="en" title={t('meta.home.title')} description={t('meta.home.description')} />
+<Home lang="en" />

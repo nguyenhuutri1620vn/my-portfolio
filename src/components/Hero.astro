@@ -1,0 +1,53 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { site } from '../data/site';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const hasPortrait = Astro.slots.has('portrait');
+---
+
+<section aria-labelledby="hero-title" class="container-page pb-section-sm pt-16 lg:pt-24">
+  <div class:list={['grid gap-10', hasPortrait && 'items-center lg:grid-cols-[1fr_auto]']}>
+    <div class="max-w-3xl">
+      <h1 id="hero-title">{t('hero.vision')}</h1>
+      <p class="mt-5 flex flex-wrap items-center gap-3 text-lg font-medium">
+        {t('profile.title')}
+        <span class="tag">{t('profile.experience')}</span>
+      </p>
+      <p class="mt-6 max-w-prose">{t('hero.positioning')}</p>
+      <ul class="mt-6 flex flex-wrap gap-2">
+        {
+          site.heroChips.map((chip) => (
+            <li>
+              <span class="tag">{chip}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <a href="#projects" class="btn-primary">{t('hero.viewCaseStudies')}</a>
+        <a href={site.resume[lang]} class="btn-secondary">{t('hero.downloadResume')}</a>
+        <a href={site.github} class="link self-start sm:self-auto">{t('hero.github')}</a>
+      </div>
+      <p class="mt-6 text-sm">
+        <a href={getRelativeLocaleUrl(lang, 'for-clients')} class="link">
+          {t('hero.forClientsLink')}
+        </a>
+      </p>
+    </div>
+    {
+      hasPortrait && (
+        <div class="order-first lg:order-none">
+          <slot name="portrait" />
+        </div>
+      )
+    }
+  </div>
+</section>
