@@ -3,7 +3,7 @@
 Read this file first, then `docs/PORTFOLIO-BACKEND.md`, `docs/PRD.md`, `docs/DESIGN.md`, `docs/CONTENT.md`, `docs/TASKS.md`.
 
 ## Goal
-One bilingual (EN/VI) portfolio website for **Tri Huu Nguyen, Software Engineer (nearly 5 years)**.
+One bilingual (EN/VI) portfolio website for **Tri Huu Nguyen, Software Engineer (5 years)**.
 Two audiences, two entry points:
 - **Home `/{lang}`** for Recruiters / Tech Leads: backend credibility, case studies, engineering decisions and practices, stack, resume.
 - **`/{lang}/for-clients`** for clients: offerings, proof metrics, 6-step workflow, Start a Project.
@@ -16,7 +16,7 @@ Vision line (hero): **"Build systems that make your business win."**
 2. **Anonymity:** never write company or product names (no "BESTARION", no "Meperia", no "MSSS"). Use "Healthcare supply chain platform". Product/module names allowed: **Value Analysis**, **Insight Dashboard**, **Custom Report Builder**.
 3. No client data, screenshots with real data, or proprietary code. Diagrams are redrawn, generic, synthetic.
 4. Job title everywhere is **Software Engineer**. Do not use "Senior", "AI Engineer" or "Solution Architect" in titles.
-5. Experience wording: **"Nearly 5 years"** (EN) / **"Gần 5 năm"** (VI).
+5. Experience wording: **"5 years"** (EN) / **"Gần 5 năm"** (VI).
 6. Max **4 palette colors** + neutral text. See `docs/DESIGN.md`. No gradients, no stock images, no emoji in UI.
 7. Every user-facing string exists in **both EN and VI**. No hard-coded strings in components.
 8. **Source of truth order:** `CONTENT.md` (facts, copy) > `PRD.md` (structure) > `DESIGN.md` (look) > `TASKS.md` (order). Prompt files are only instructions; if they conflict with docs, docs win.

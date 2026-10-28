@@ -2,7 +2,7 @@
   "meta": {
     "home": {
       "title": "Tri Huu Nguyen — Software Engineer (Go, Backend & Data Systems)",
-      "description": "Software Engineer with nearly 5 years building multi-tenant backend and data systems: search, analytics, async processing. Case studies and resume."
+      "description": "Software Engineer with 5 years building multi-tenant backend and data systems: search, analytics, async processing. Case studies and resume."
     },
     "forClients": {
       "title": "Work with Tri Huu Nguyen — Backend & Data Systems",
@@ -27,12 +27,12 @@
   },
   "profile": {
     "title": "Software Engineer",
-    "experience": "Nearly 5 years",
+    "experience": "5 years",
     "location": "Ho Chi Minh City, Vietnam"
   },
   "hero": {
     "vision": "Build systems that make your business win.",
-    "positioning": "Software Engineer with nearly 5 years of experience building backend and data systems for multi-tenant SaaS: sub-second search and analytics, large-scale async exports, and data pipelines behind BI dashboards. I care about clear architecture, measurable performance, and a disciplined review process, with AI tools used inside that process, not instead of it.",
+    "positioning": "Software Engineer with 5 years of experience building backend and data systems for multi-tenant SaaS: sub-second search and analytics, large-scale async exports, and data pipelines behind BI dashboards. I care about clear architecture, measurable performance, and a disciplined review process, with AI tools used inside that process, not instead of it.",
     "viewCaseStudies": "View Case Studies",
     "downloadResume": "Download Resume (PDF)",
     "github": "GitHub",

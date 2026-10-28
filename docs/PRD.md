@@ -21,7 +21,7 @@ Success signals: Resume downloads, GitHub clicks, case-study detail views (home)
 
 ## 4. Home sections
 **1. Hero (backend credibility).**
-Vision line, title "Software Engineer · Nearly 5 years", backend positioning paragraph, server-side tech chips.
+Vision line, title "Software Engineer · 5 years", backend positioning paragraph, server-side tech chips.
 CTAs: **Primary** "View Case Studies" (→ `#projects`). **Secondary outline** "Download Resume (PDF)" + text link "GitHub". Below, one small line linking to `/for-clients`. No "Start a Project" button on home.
 Optional portrait slot; layout works without it.
 

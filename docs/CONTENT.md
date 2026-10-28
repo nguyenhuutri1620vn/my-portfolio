@@ -7,7 +7,7 @@ Each block is `EN` then `VI`. Move these into `src/content/ui/{en,vi}.json` and 
 ## 0. Global
 - Name: Tri Huu Nguyen
 - Title: EN `Software Engineer` · VI `Kỹ sư phần mềm`
-- Experience badge: EN `Nearly 5 years` · VI `Gần 5 năm`
+- Experience badge: EN `5 years` · VI `Gần 5 năm`
 - Location: Ho Chi Minh City, Vietnam
 - Email: nguyenhuutri1620vn@gmail.com
 - LinkedIn: https://linkedin.com/in/tri-nguyen-huu
@@ -23,7 +23,7 @@ Each block is `EN` then `VI`. Move these into `src/content/ui/{en,vi}.json` and 
 - VI: Xây dựng hệ thống giúp doanh nghiệp của bạn thắng.
 
 **Positioning**
-- EN: Software Engineer with nearly 5 years of experience building backend and data systems for multi-tenant SaaS: sub-second search and analytics, large-scale async exports, and data pipelines behind BI dashboards. I care about clear architecture, measurable performance, and a disciplined review process, with AI tools used inside that process, not instead of it.
+- EN: Software Engineer with 5 years of experience building backend and data systems for multi-tenant SaaS: sub-second search and analytics, large-scale async exports, and data pipelines behind BI dashboards. I care about clear architecture, measurable performance, and a disciplined review process, with AI tools used inside that process, not instead of it.
 - VI: Kỹ sư phần mềm với gần 5 năm kinh nghiệm xây dựng hệ thống backend và dữ liệu cho SaaS đa tenant: tìm kiếm và phân tích dưới 1 giây, export bất đồng bộ quy mô lớn, và pipeline dữ liệu phía sau dashboard BI. Tôi chú trọng kiến trúc rõ ràng, hiệu năng đo được và quy trình review chặt chẽ, trong đó AI là công cụ hỗ trợ chứ không thay thế quy trình.
 
 **Tech chips (mono, server-side):** Go · PostgreSQL · Elasticsearch · ClickHouse · Kafka · Superset · AWS · Docker
@@ -208,7 +208,7 @@ Subtitle: EN `A clear process from first call to stable operation.` · VI `Quy t
 [TODO: confirm scope and duration of the "included" support period before publishing; keep wording as "Included" without promising an SLA until defined.]
 
 ## 8. SEO
-- Home EN: `Tri Huu Nguyen — Software Engineer (Go, Backend & Data Systems)` · `Software Engineer with nearly 5 years building multi-tenant backend and data systems: search, analytics, async processing. Case studies and resume.`
+- Home EN: `Tri Huu Nguyen — Software Engineer (Go, Backend & Data Systems)` · `Software Engineer with 5 years building multi-tenant backend and data systems: search, analytics, async processing. Case studies and resume.`
 - Home VI: `Tri Huu Nguyen — Kỹ sư phần mềm (Go, Backend & Hệ thống dữ liệu)` · `Kỹ sư phần mềm gần 5 năm xây dựng backend đa tenant và hệ thống dữ liệu: tìm kiếm, phân tích, xử lý bất đồng bộ. Dự án và CV.`
 - For-clients EN: `Work with Tri Huu Nguyen — Backend & Data Systems` · `APIs, analytics dashboards, data pipelines, and automation, delivered with demos every 3 days and full handover.`
 - For-clients VI: `Hợp tác với Tri Huu Nguyen — Backend & Hệ thống dữ liệu` · `API, dashboard phân tích, pipeline dữ liệu và tự động hóa, có demo mỗi 3 ngày và bàn giao đầy đủ.`
