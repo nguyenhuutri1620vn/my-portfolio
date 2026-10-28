@@ -1,0 +1,55 @@
+---
+title: Insight Dashboard
+tag: Phân tích chi tiêu
+context: Truy vấn phân tích chi tiêu trên lượng lịch sử mua hàng lớn quá chậm để dùng tương tác.
+solution: Lớp tìm kiếm và tổng hợp trên Elasticsearch, với một nguồn dữ liệu gốc rõ ràng, lọc theo kỳ, tập đoàn và nhà cung cấp.
+result: 'Một API phân tích chi tiêu giảm từ **15 giây xuống 1 giây** so với truy vấn trực tiếp PostgreSQL.'
+diagram: insight-dashboard
+lang: vi
+order: 2
+---
+
+_Insight Dashboard là một module của nền tảng chuỗi cung ứng y tế, giúp người dùng xem báo cáo chi tiêu và phân tích mua bán theo từng tổ chức bệnh viện._
+
+## Vấn đề
+
+Người dùng mở dashboard, lọc chi tiêu theo kỳ, tập đoàn, nhà cung cấp, rồi đi sâu vào chi tiết.
+
+## Hướng tiếp cận & phương án đã cân nhắc
+
+Vì sao dùng Elasticsearch ở đây:
+
+1. Kiểu truy cập là đọc và tổng hợp nặng với nhiều bộ lọc và group-by; PostgreSQL mất khoảng 15 giây cho một API.
+2. Dữ liệu được dẫn xuất từ database chính, nên PostgreSQL vẫn là **nguồn dữ liệu gốc duy nhất** và Elasticsearch là bản đọc có thể dựng lại.
+3. Ở đây tốc độ lọc nhanh và nhất quán quan trọng hơn ràng buộc giao dịch.
+
+Phương án đã cân nhắc: index và materialized view trong PostgreSQL (hạn chế với tổng hợp linh hoạt nhiều bộ lọc) <Todo>confirm alternatives you actually evaluated</Todo>; ClickHouse (được chọn cho một workload khác, xem case Custom Report Builder).
+
+## Kiến trúc
+
+<Diagram />
+
+## Thiết kế dữ liệu
+
+Index theo tổ chức hoặc routing theo tenant <Todo>confirm</Todo>, mapping tối ưu cho bộ lọc keyword và tổng hợp số; đồng bộ từ PostgreSQL qua <Todo>describe sync mechanism and refresh latency</Todo>.
+
+## Xử lý lỗi
+
+<Todo>reindex strategy, behavior when ES unavailable</Todo>
+
+## Bảo mật
+
+Giới hạn theo tenant trên mọi truy vấn <Todo>confirm</Todo>.
+
+## Đánh đổi
+
+Phải vận hành pipeline đồng bộ, và index có thể chậm hơn dữ liệu gốc. <Todo>sync mechanism and typical lag</Todo>
+
+## Kết quả
+
+<Metric>15 giây → 1 giây</Metric> trên một API (dưới 1 giây với phần lớn request có bộ lọc).
+<Todo>confirm the exact percentage; 15s→1s is ~93% / ~15x</Todo>
+
+## Hướng phát triển tiếp theo
+
+<Todo>what you would do next</Todo>

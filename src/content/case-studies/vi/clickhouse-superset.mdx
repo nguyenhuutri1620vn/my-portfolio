@@ -1,0 +1,50 @@
+---
+title: ClickHouse × Superset và Custom Report Builder
+tag: Data & BI
+context: Người dùng muốn báo cáo tự phục vụ, linh hoạt trên dữ liệu rất lớn, và dashboard của 19+ tổ chức cần được triển khai nhất quán.
+solution: Một engine phân tích duy nhất là ClickHouse, nạp qua ETL từ PostgreSQL qua S3 (full và incremental), phục vụ cả dashboard Superset lẫn Custom Report Builder; dashboard được nhân bản tự động cho từng tổ chức.
+result: 'Thời gian truy vấn giảm **hơn 90%** [TODO: mốc so sánh], dashboard triển khai cho **19+** tổ chức bằng cách nhân bản thay vì dựng lại.'
+diagram: clickhouse-superset
+lang: vi
+order: 4
+---
+
+_Custom Report Builder cho phép người dùng tự tạo báo cáo theo các tiêu chí họ cần._
+
+## Vấn đề
+
+<Todo>problem statement for this case</Todo>
+
+## Hướng tiếp cận & phương án đã cân nhắc
+
+Một nguồn, một engine. Insight Dashboard dùng Elasticsearch vì truy vấn là các phép tổng hợp có bộ lọc định sẵn. Custom Report Builder cố ý **không** dùng Elasticsearch: tiêu chí do người dùng tự chọn sẽ buộc phải duy trì hai chế độ truy vấn, nhân đôi đường code, job đồng bộ và kiểu lỗi. Quy về ClickHouse cho một nguồn dữ liệu và một đường truy vấn cho báo cáo dữ liệu lớn.
+
+Triển khai Superset: nhân bản dashboard, chart và dataset bằng script cho <Metric>19+</Metric> tổ chức thay vì dựng lại thủ công.
+
+## Kiến trúc
+
+<Diagram />
+
+## Thiết kế dữ liệu
+
+ETL PostgreSQL → S3 → ClickHouse; nạp full cho lần đầu/backfill, incremental cho cập nhật thường xuyên; model ClickHouse xây cho phân tích chi tiêu và xu hướng. <Todo>engine/ordering keys if you want to show</Todo>
+
+## Xử lý lỗi
+
+<Todo>ETL retries, idempotent loads, row-count checks, reconciliation</Todo>
+
+## Bảo mật
+
+Giới hạn dataset theo tổ chức <Todo>confirm</Todo>; thông tin xác thực qua Secrets Manager.
+
+## Đánh đổi
+
+ClickHouse nhất quán sau (batch/incremental), chấp nhận được với báo cáo.
+
+## Kết quả
+
+Thời gian truy vấn giảm <Metric>hơn 90%</Metric> <Todo>mốc so sánh</Todo>, dashboard triển khai cho <Metric>19+</Metric> tổ chức bằng cách nhân bản thay vì dựng lại.
+
+## Hướng phát triển tiếp theo
+
+<Todo>what you would do next</Todo>

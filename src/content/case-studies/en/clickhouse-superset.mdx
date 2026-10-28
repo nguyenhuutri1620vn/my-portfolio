@@ -1,0 +1,50 @@
+---
+title: ClickHouse × Superset and Custom Report Builder
+tag: Data & BI
+context: Users wanted flexible, self-service reports over very large datasets, and dashboards for 19+ organizations had to be rolled out consistently.
+solution: One analytics engine, ClickHouse, fed by ETL from PostgreSQL through S3 (full and incremental loads), serving both Superset dashboards and the Custom Report Builder; dashboards cloned automatically per organization.
+result: 'Query time down by **over 90%** [TODO: baseline and measured query], dashboards rolled out to **19+** organizations by cloning instead of rebuilding.'
+diagram: clickhouse-superset
+lang: en
+order: 4
+---
+
+_Custom Report Builder lets users build their own reports by choosing the criteria they need._
+
+## Problem
+
+<Todo>problem statement for this case</Todo>
+
+## Approach & alternatives considered
+
+One source, one engine. Insight Dashboard uses Elasticsearch because its queries are predefined filtered aggregations. Custom Report Builder deliberately does **not** use Elasticsearch: arbitrary user-chosen criteria would require supporting two query modes (ES for some reports, another path for big data), doubling the code paths, the sync jobs, and the failure modes. Consolidating on ClickHouse gives a single data source and one query path for big-data reports.
+
+Superset rollout: scripted cloning of dashboards, charts, and datasets across <Metric>19+</Metric> organizations instead of manual rebuild.
+
+## Architecture
+
+<Diagram />
+
+## Data design
+
+ETL PostgreSQL → S3 → ClickHouse; full load for initial/backfill, incremental for ongoing; ClickHouse models built for spend and trend analysis. <Todo>engine/ordering keys if you want to show</Todo>
+
+## Failure handling
+
+<Todo>ETL retries, idempotent loads, row-count checks, reconciliation</Todo>
+
+## Security
+
+Org scoping on datasets <Todo>confirm</Todo>; credentials via Secrets Manager.
+
+## Trade-offs
+
+ClickHouse is eventually consistent via batch/incremental loads, which is acceptable for reporting.
+
+## Results
+
+Query time down by <Metric>over 90%</Metric> <Todo>baseline and measured query</Todo>, dashboards rolled out to <Metric>19+</Metric> organizations by cloning instead of rebuilding.
+
+## What I'd do next
+
+<Todo>what you would do next</Todo>

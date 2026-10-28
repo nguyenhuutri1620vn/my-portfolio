@@ -1,0 +1,52 @@
+---
+title: Healthcare supply chain platform
+tag: Healthcare supply chain
+context: Hospitals need one place to track procurement spend, vendor performance, and savings across many organizations.
+solution: Multi-tenant SaaS backend in Go (Clean Architecture) with a separate PostgreSQL database per organization, plus search, analytics, and async export layers.
+result: '**19+** organizations isolated on one platform, **90+** REST APIs in production.'
+diagram: platform-overview
+lang: en
+order: 1
+---
+
+## Problem
+
+The platform helps hospitals track procurement spending, vendor performance, and cost savings. Each hospital organization is a tenant with its own data and reporting needs.
+
+## Approach & alternatives considered
+
+Clean Architecture in Go, business rules separated from infrastructure through repository interfaces, so storage engines (PostgreSQL, Elasticsearch, ClickHouse) can change without touching use cases. Concurrency with goroutines and worker pools, bulk loading and transactions for high-volume writes.
+
+## Architecture
+
+<Diagram />
+
+- Client (React) → API (Go, Echo) → Org DB (PostgreSQL, one per organization)
+- Async branch: Kafka → Workers
+- Read branch: Elasticsearch (Insight Dashboard)
+- Analytics branch: ETL → S3 → ClickHouse → Superset
+
+## Data design
+
+**Database-per-organization.** Each organization has its own PostgreSQL database; a request resolves its tenant first and the repository layer receives that tenant's connection. Why: hard data isolation, per-tenant backup/restore and archiving, no cross-tenant query by accident.
+
+## Failure handling
+
+Kafka export workers retry automatically. <Todo>confirm patterns, e.g. timeouts, retries, idempotency, structured errors</Todo>
+
+## Security
+
+Credentials in AWS Secrets Manager, never in code; tenant isolation at the database level; AWS S3 for archival. <Todo>authn/authz approach, encryption at rest/in transit if you want to claim it</Todo>
+
+## Trade-offs
+
+More databases to migrate and monitor; handled by <Todo>describe migration/rollout approach</Todo>
+
+## Results
+
+<Metric>19+</Metric> organizations, <Metric>90+</Metric> REST APIs; backward compatible across
+releases for React clients.
+
+## What I'd do next
+
+<Todo>what you would do next</Todo>

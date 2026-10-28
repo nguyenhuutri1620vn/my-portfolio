@@ -1,0 +1,52 @@
+---
+title: Nền tảng chuỗi cung ứng y tế
+tag: Chuỗi cung ứng y tế
+context: Bệnh viện cần một nơi duy nhất để theo dõi chi tiêu mua sắm, hiệu quả nhà cung cấp và khoản tiết kiệm của nhiều tổ chức.
+solution: Backend SaaS đa tenant bằng Go (Clean Architecture), mỗi tổ chức một cơ sở dữ liệu PostgreSQL riêng, kèm các lớp tìm kiếm, phân tích và export bất đồng bộ.
+result: '**19+** tổ chức được cô lập trên cùng một nền tảng, **90+** REST API đang vận hành.'
+diagram: platform-overview
+lang: vi
+order: 1
+---
+
+## Vấn đề
+
+Nền tảng giúp bệnh viện theo dõi chi tiêu mua sắm, hiệu quả nhà cung cấp và khoản tiết kiệm. Mỗi tổ chức bệnh viện là một tenant với dữ liệu và nhu cầu báo cáo riêng.
+
+## Hướng tiếp cận & phương án đã cân nhắc
+
+Clean Architecture bằng Go, tách quy tắc nghiệp vụ khỏi hạ tầng qua repository interface, để có thể thay engine lưu trữ (PostgreSQL, Elasticsearch, ClickHouse) mà không động đến use case. Xử lý đồng thời bằng goroutine và worker pool, bulk loading và transaction cho ghi dữ liệu khối lượng lớn.
+
+## Kiến trúc
+
+<Diagram />
+
+- Client (React) → API (Go, Echo) → Org DB (PostgreSQL, mỗi tổ chức một database)
+- Nhánh bất đồng bộ: Kafka → Worker
+- Nhánh đọc: Elasticsearch (Insight Dashboard)
+- Nhánh phân tích: ETL → S3 → ClickHouse → Superset
+
+## Thiết kế dữ liệu
+
+**Mỗi tổ chức một database.** Mỗi request xác định tenant trước, rồi tầng repository nhận kết nối của đúng tenant đó. Lý do: cô lập dữ liệu cứng, backup/restore và lưu trữ theo từng tổ chức, không thể truy vấn nhầm chéo tenant.
+
+## Xử lý lỗi
+
+Worker export trên Kafka tự động thử lại. <Todo>confirm patterns, e.g. timeouts, retries, idempotency, structured errors</Todo>
+
+## Bảo mật
+
+Thông tin xác thực lưu trong AWS Secrets Manager, không nằm trong mã nguồn; cô lập ở mức database; AWS S3 cho lưu trữ dài hạn. <Todo>authn/authz approach, encryption at rest/in transit if you want to claim it</Todo>
+
+## Đánh đổi
+
+Nhiều database hơn để migrate và giám sát; xử lý bằng <Todo>cách migrate/rollout</Todo>
+
+## Kết quả
+
+<Metric>19+</Metric> tổ chức, <Metric>90+</Metric> REST API; tương thích ngược qua các bản phát hành
+cho ứng dụng React.
+
+## Hướng phát triển tiếp theo
+
+<Todo>what you would do next</Todo>

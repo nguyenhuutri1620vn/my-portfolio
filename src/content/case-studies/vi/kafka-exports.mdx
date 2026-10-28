@@ -1,0 +1,48 @@
+---
+title: Export dữ liệu lớn với Kafka
+tag: Xử lý bất đồng bộ
+context: Export hơn 1 triệu dòng ra Excel bị timeout và chặn người dùng.
+solution: Worker bất đồng bộ trên Kafka, ghi theo luồng, tự động thử lại; export lớn được chia nhiều file và nén zip.
+result: 'Export **hơn 1M dòng** hoàn tất không còn timeout. [TODO: thời gian trước/sau]'
+diagram: kafka-exports
+lang: vi
+order: 5
+---
+
+## Vấn đề
+
+Tạo hơn 1 triệu dòng trong một HTTP request bị timeout.
+
+## Hướng tiếp cận & phương án đã cân nhắc
+
+Đưa export ra khỏi request, chạy trên Kafka. <Todo>alternatives considered</Todo>
+
+## Kiến trúc
+
+<Diagram />
+
+API đưa job vào hàng đợi → Kafka topic → worker ghi dòng theo luồng ra các file → nén zip → lưu trữ → thông báo.
+
+## Thiết kế dữ liệu
+
+Ghi theo luồng giữ bộ nhớ ổn định. Kích thước mỗi phần: <Todo>chunk size</Todo>
+
+## Xử lý lỗi
+
+Tự động thử lại. Job id idempotent <Todo>confirm</Todo>; dead-letter <Todo>confirm</Todo>.
+
+## Bảo mật
+
+Truy vấn giới hạn theo tenant. Link tải có chữ ký/hết hạn <Todo>confirm</Todo>.
+
+## Đánh đổi
+
+Nhiều thành phần hơn: topic, worker và trạng thái job cần theo dõi.
+
+## Kết quả
+
+Export <Metric>hơn 1M dòng</Metric> hoàn tất không còn timeout. <Todo>thời gian trước/sau</Todo>
+
+## Hướng phát triển tiếp theo
+
+<Todo>what you would do next</Todo>

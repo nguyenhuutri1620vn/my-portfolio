@@ -20,7 +20,7 @@ Work top to bottom. One task per commit/PR. Tick `[x]` when done. Read `CLAUDE.m
 - [x] T1.6 Phase review: both languages, keyboard pass, 360/768/1440 widths, `npm run lint && npm run build && npm run check:todo && npm run check:names`.
 
 ## Phase 2 — Case studies
-- [ ] T2.1 Content collection schema (`title, tag, context, solution, result, slug, diagram, lang, order`); 5 MDX files × 2 languages from CONTENT §2.
+- [x] T2.1 Content collection schema (`title, tag, context, solution, result, slug, diagram, lang, order`); 5 MDX files × 2 languages from CONTENT §2.
 - [ ] T2.2 `CaseCard` + grid (3 + 2 centered desktop, 2 tablet, 1 mobile) in `#projects`.
 - [ ] T2.3 Diagram components (SVG, themed via CSS variables): `platform-overview`, `insight-dashboard`, `value-analysis`, `clickhouse-superset`, `kafka-exports`. Generic labels, `<title>`/`<desc>`.
 - [ ] T2.4 Case-study page per PRD §6 (Overview → Technical deep dive → … → What I'd do next), prev/next links, back to `#projects`.

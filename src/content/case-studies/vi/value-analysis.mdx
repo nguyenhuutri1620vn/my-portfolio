@@ -1,0 +1,48 @@
+---
+title: Value Analysis
+tag: Phân tích giá
+context: Cùng một sản phẩm bán theo hộp, thùng, gói; đội mua hàng khó biết đề nghị nào thực sự rẻ hơn.
+solution: Backend chuẩn hóa đơn vị và quy cách về giá mỗi đơn vị, rồi tính khoản tiết kiệm tiềm năng và lãi/lỗ cho một nhóm mặt hàng.
+result: 'So sánh giá minh bạch giữa các nhà cung cấp; [TODO: kết quả đo được].'
+diagram: value-analysis
+lang: vi
+order: 3
+---
+
+_Value Analysis quy đổi nhiều đơn vị và quy cách đóng gói về một giá "mỗi đơn vị" chung để so sánh công bằng các mặt hàng của nhiều nhà cung cấp, nhà sản xuất._
+
+## Vấn đề
+
+<Todo>domain glossary: each price, pack size, conversion factor</Todo>
+
+## Hướng tiếp cận & phương án đã cân nhắc
+
+<Todo>rules engine vs hard-coded conversions</Todo>
+
+## Kiến trúc
+
+<Diagram />
+
+## Thiết kế dữ liệu
+
+Quy tắc quy đổi lưu dưới dạng dữ liệu; độ chính xác bằng kiểu decimal, không dùng số thực dấu phẩy động. <Todo>confirm</Todo>
+
+## Xử lý lỗi
+
+Dữ liệu đơn vị thiếu hoặc không nhất quán được gắn cờ, không đoán. <Todo>confirm</Todo>
+
+## Bảo mật
+
+<Todo>security approach for this module</Todo>
+
+## Đánh đổi
+
+<Todo>trade-offs for this module</Todo>
+
+## Kết quả
+
+So sánh giá minh bạch giữa các nhà cung cấp. <Todo>kết quả đo được</Todo>
+
+## Hướng phát triển tiếp theo
+
+<Todo>what you would do next</Todo>

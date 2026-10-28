@@ -1,0 +1,48 @@
+---
+title: Value Analysis
+tag: Pricing intelligence
+context: The same product is sold in boxes, cases, and packs; teams could not tell which offer was really cheaper.
+solution: Backend that normalizes units and pack sizes to a common each price, then calculates potential savings and profit/loss for a group of items.
+result: 'Apples-to-apples price comparison across vendors; [TODO: measurable outcome, e.g. hours saved per analysis or savings found].'
+diagram: value-analysis
+lang: en
+order: 3
+---
+
+_Value Analysis converts different units and pack sizes into one common "each" price so items from different vendors and manufacturers can be compared fairly._
+
+## Problem
+
+<Todo>domain glossary: each price, pack size, conversion factor</Todo>
+
+## Approach & alternatives considered
+
+<Todo>rules engine vs hard-coded conversions</Todo>
+
+## Architecture
+
+<Diagram />
+
+## Data design
+
+Conversion rules as data; precision with decimal types, never floats. <Todo>confirm</Todo>
+
+## Failure handling
+
+Missing or inconsistent unit data is flagged, not guessed. <Todo>confirm</Todo>
+
+## Security
+
+<Todo>security approach for this module</Todo>
+
+## Trade-offs
+
+<Todo>trade-offs for this module</Todo>
+
+## Results
+
+Apples-to-apples price comparison across vendors. <Todo>measurable outcome, e.g. hours saved per analysis or savings found</Todo>
+
+## What I'd do next
+
+<Todo>what you would do next</Todo>

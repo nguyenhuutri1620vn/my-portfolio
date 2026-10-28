@@ -1,0 +1,55 @@
+---
+title: Insight Dashboard
+tag: Spend analytics
+context: Spend analytics queries over large purchase history were too slow to use interactively.
+solution: A search and aggregation layer on Elasticsearch, with a clear single source of truth, filtered by period, corporation, and vendor.
+result: 'One spend-analytics API went from **15s to 1s** against direct PostgreSQL queries.'
+diagram: insight-dashboard
+lang: en
+order: 2
+---
+
+_Insight Dashboard is a module of the healthcare supply chain platform. It lets users view spend reports and analyze purchasing for each hospital organization._
+
+## Problem
+
+Users open the dashboard and filter spend by period, corporation, vendor, then drill down.
+
+## Approach & alternatives considered
+
+Why Elasticsearch here:
+
+1. The access pattern is read-heavy aggregation with several filters and group-bys, which PostgreSQL handled at about 15s for one API.
+2. Data is derived from the primary database, so PostgreSQL stays the **single source of truth** and Elasticsearch is a rebuildable read model.
+3. Fast, consistent filtering matters more here than transactional guarantees.
+
+Alternatives considered: indexes and materialized views in PostgreSQL (limited for flexible multi-filter aggregations) <Todo>confirm alternatives you actually evaluated</Todo>; ClickHouse (chosen for a different workload, see the Custom Report Builder case).
+
+## Architecture
+
+<Diagram />
+
+## Data design
+
+Index per org or per-tenant routing <Todo>confirm</Todo>, mapping tuned for keyword filters and numeric aggregations; sync from PostgreSQL via <Todo>describe sync mechanism and refresh latency</Todo>.
+
+## Failure handling
+
+<Todo>reindex strategy, behavior when ES unavailable</Todo>
+
+## Security
+
+Tenant scoping on every query <Todo>confirm</Todo>.
+
+## Trade-offs
+
+A sync pipeline to run, and the index can lag behind the source. <Todo>sync mechanism and typical lag</Todo>
+
+## Results
+
+<Metric>15s → 1s</Metric> on one API (sub-second for most filtered requests).
+<Todo>confirm the exact percentage; 15s→1s is ~93% / ~15x</Todo>
+
+## What I'd do next
+
+<Todo>what you would do next</Todo>
