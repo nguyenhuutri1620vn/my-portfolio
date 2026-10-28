@@ -95,6 +95,40 @@
     @apply text-accent underline underline-offset-4 hover:no-underline;
   }
 
+  .callout {
+    @apply rounded-r-btn border-l-[3px] border-accent bg-surface/40 px-5 py-4;
+  }
+
+  /* Case-study MDX body (DESIGN "Article"). */
+  .prose-case h2 {
+    @apply mt-12 border-t border-brown/25 pt-6;
+  }
+
+  .prose-case p,
+  .prose-case ul,
+  .prose-case ol {
+    @apply mt-4;
+  }
+
+  .prose-case ul {
+    @apply list-disc pl-6;
+  }
+
+  .prose-case ol {
+    @apply list-decimal pl-6;
+  }
+
+  .prose-case li + li {
+    @apply mt-1;
+  }
+
+  .prose-case strong {
+    @apply font-semibold;
+  }
+
+  .prose-case a {
+    @apply link;
+  }
 }
 
 /* Diagrams (src/components/diagrams): every color comes from the tokens above. */

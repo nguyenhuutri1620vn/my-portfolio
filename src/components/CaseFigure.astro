@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import { isLocale } from '../i18n/config';
+import { caseStudies } from '../lib/case-studies';
+import Diagram from './diagrams/Diagram.astro';
+
+// Rendered by `<Diagram />` inside case-study MDX, which passes no props: the case is
+// resolved from the page route (/{lang}/case-studies/{slug}).
+const lang = Astro.currentLocale;
+const slug = Astro.params.slug;
+const entry = isLocale(lang) ? caseStudies(lang).find((e) => e.caseSlug === slug) : undefined;
+if (!entry || !isLocale(lang)) {
+  throw new Error(`CaseFigure: no case study for ${Astro.url.pathname}`);
+}
+const { diagram, image } = entry.data;
+---
+
+<figure class="my-8 rounded-card border border-brown/25 bg-white/70 p-4">
+  <Diagram name={diagram} lang={lang} />
+</figure>
+{
+  image && (
+    <figure class="my-8 rounded-frame border border-brown/25 bg-white p-2">
+      <Image src={image.src} alt={image.alt} class="h-auto w-full rounded-btn" />
+    </figure>
+  )
+}

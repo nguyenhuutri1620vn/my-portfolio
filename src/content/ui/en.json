@@ -48,6 +48,14 @@
       "result": "Result"
     }
   },
+  "caseStudy": {
+    "back": "Back to case studies",
+    "overview": "Overview",
+    "deepDive": "Technical deep dive",
+    "navLabel": "More case studies",
+    "prev": "Previous",
+    "next": "Next"
+  },
   "engineering": {
     "title": "Engineering Decisions & Practices",
     "subtitle": "The choices behind the results, and what each one cost."

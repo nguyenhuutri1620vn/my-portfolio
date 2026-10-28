@@ -48,6 +48,14 @@
       "result": "Kết quả"
     }
   },
+  "caseStudy": {
+    "back": "Quay lại các dự án",
+    "overview": "Tổng quan",
+    "deepDive": "Phân tích kỹ thuật chuyên sâu",
+    "navLabel": "Các dự án khác",
+    "prev": "Trước",
+    "next": "Tiếp theo"
+  },
   "engineering": {
     "title": "Quyết định & Thực hành kỹ thuật",
     "subtitle": "Những lựa chọn phía sau kết quả, và cái giá của từng lựa chọn."

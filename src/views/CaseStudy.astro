@@ -1,0 +1,104 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import CaseFigure from '../components/CaseFigure.astro';
+import InlineText from '../components/InlineText.astro';
+import Metric from '../components/Metric.astro';
+import Todo from '../components/Todo.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { caseStudies, type CaseStudy } from '../lib/case-studies';
+
+interface Props {
+  entry: CaseStudy;
+  lang: Locale;
+}
+
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const { title, tag, context, solution, result } = entry.data;
+const { Content } = await entry.render();
+
+const all = caseStudies(lang);
+const index = all.findIndex((e) => e.caseSlug === entry.caseSlug);
+const overview = [
+  { label: t('caseStudies.labels.context'), text: context },
+  { label: t('caseStudies.labels.solution'), text: solution },
+  { label: t('caseStudies.labels.result'), text: result, callout: true },
+];
+// Next always sits in the right column, even on the first case.
+const neighbors = [
+  { entry: all[index - 1], label: t('caseStudy.prev'), class: '' },
+  { entry: all[index + 1], label: t('caseStudy.next'), class: 'sm:col-start-2 sm:text-right' },
+].filter((n): n is typeof n & { entry: CaseStudy } => n.entry !== undefined);
+const caseUrl = (e: CaseStudy) => getRelativeLocaleUrl(lang, `case-studies/${e.caseSlug}`);
+---
+
+<BaseLayout lang={lang} title={`${title} — Tri Huu Nguyen`} description={context}>
+  <article class="container-page section">
+    <div class="mx-auto max-w-prose">
+      <a href={`${getRelativeLocaleUrl(lang)}#projects`} class="link text-sm">
+        <span aria-hidden="true">← </span>{t('caseStudy.back')}
+      </a>
+
+      <header class="mt-8">
+        <span class="tag">{tag}</span>
+        <h1 class="mt-4">{title}</h1>
+      </header>
+
+      <section aria-labelledby="overview-title" class="mt-10">
+        <h2
+          id="overview-title"
+          class="font-mono text-sm font-medium uppercase tracking-wider text-brown"
+        >
+          {t('caseStudy.overview')}
+        </h2>
+        <dl class="mt-4 space-y-4">
+          {
+            overview.map(({ label, text, callout }) => (
+              <div class:list={{ callout }}>
+                <dt class="font-mono text-[11px] uppercase tracking-wider text-brown">{label}</dt>
+                <dd class="mt-1">
+                  <InlineText text={text} />
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+
+      <div
+        class="mt-16 flex items-center gap-4"
+        role="separator"
+        aria-label={t('caseStudy.deepDive')}
+      >
+        <span class="h-px flex-1 bg-brown/25"></span>
+        <span class="font-mono text-sm text-brown" aria-hidden="true"
+          >{t('caseStudy.deepDive')}</span
+        >
+        <span class="h-px flex-1 bg-brown/25"></span>
+      </div>
+
+      <div class="prose-case">
+        <Content components={{ Diagram: CaseFigure, Metric, Todo }} />
+      </div>
+
+      <nav aria-label={t('caseStudy.navLabel')} class="mt-16 border-t border-brown/25 pt-8">
+        <ul class="grid gap-4 sm:grid-cols-2">
+          {
+            neighbors.map((n) => (
+              <li class={n.class}>
+                <a href={caseUrl(n.entry)} class="card block hover:border-accent">
+                  <span class="block font-mono text-[11px] uppercase tracking-wider text-brown">
+                    {n.label}
+                  </span>
+                  <span class="mt-1 block font-medium text-accent">{n.entry.data.title}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </article>
+</BaseLayout>
