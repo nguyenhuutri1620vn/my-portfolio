@@ -24,7 +24,7 @@ Work top to bottom. One task per commit/PR. Tick `[x]` when done. Read `CLAUDE.m
 - [ ] T2.2 `CaseCard` + grid (3 + 2 centered desktop, 2 tablet, 1 mobile) in `#projects`.
 - [x] T2.3 Diagram components (SVG, themed via CSS variables): `platform-overview`, `insight-dashboard`, `value-analysis`, `clickhouse-superset`, `kafka-exports`. Generic labels, `<title>`/`<desc>`.
 - [ ] T2.4 Case-study page per PRD §6 (Overview → Technical deep dive → … → What I'd do next), prev/next links, back to `#projects`.
-- [ ] T2.5 `<Metric>` MDX component for accent key numbers.
+- [x] T2.5 `<Metric>` MDX component for accent key numbers.
 - [ ] T2.6 Optional UI image slot (disabled until images supplied).
 
 ## Phase 3 — Engineering, Stack, Contact (home)
