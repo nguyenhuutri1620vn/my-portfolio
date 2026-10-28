@@ -1,0 +1,22 @@
+docs/TASKS.md
+  h_bda9c181404a81 16
+src/content/ui/en.json
+  h_bda9c181404a81 5,30,35
+CLAUDE.md
+  h_bda9c181404a81 6,19
+docs/PRD.md
+  h_bda9c181404a81 24
+docs/CONTENT.md
+  h_bda9c181404a81 10,26,211
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9b0a98662c4439ddf9615d08853a659e5c1ad407",
+  "prompts": {},
+  "humans": {
+    "h_bda9c181404a81": {
+      "author": "Tri Nguyen <nguyenhuutri1620vn@gmail.com>"
+    }
+  }
+}
