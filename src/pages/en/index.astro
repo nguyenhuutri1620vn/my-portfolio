@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { site } from '../../data/site';
+import { useTranslations } from '../../i18n/ui';
+
+const t = useTranslations('en');
 ---
 
-<BaseLayout lang="en" title={site.name} />
+<BaseLayout lang="en" title={t('meta.title')} description={t('meta.description')} />

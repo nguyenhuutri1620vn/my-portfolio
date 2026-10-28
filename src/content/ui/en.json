@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "Tri Huu Nguyen — Software Engineer (Go, React, Data Systems)",
+    "description": "Software Engineer with nearly 5 years building high-performance backend and data systems. Case studies, services, and resume."
+  },
+  "a11y": {
+    "skipLink": "Skip to content"
+  },
+  "nav": {
+    "projects": "Projects",
+    "services": "Services",
+    "stack": "Stack",
+    "contact": "Contact"
+  },
+  "langSwitch": {
+    "label": "Language"
+  },
+  "profile": {
+    "title": "Software Engineer",
+    "experience": "Nearly 5 years",
+    "location": "Ho Chi Minh City, Vietnam"
+  },
+  "hero": {
+    "vision": "Build systems that make your business win.",
+    "positioning": "Software Engineer with nearly 5 years of experience building high-performance backend systems, automating data pipelines, and delivering complete web applications. I work with AI professionally inside a standard SDLC: planning, review, tests, and quality gates come first, so AI speeds up delivery without adding noise.",
+    "microcopy": "Reply within 1 business day. [TODO: confirm promise]"
+  },
+  "cta": {
+    "startProject": "Start a Project",
+    "downloadResume": "Download Resume (PDF)",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
+  },
+  "mailto": {
+    "subject": "Project inquiry",
+    "body": "Hi Tri, I'd like to discuss a project.\n\nWhat we need:\nTimeline:\nBudget range:"
+  },
+  "caseStudies": {
+    "title": "Featured Case Studies",
+    "subtitle": "Real systems, anonymized. Results first; the technical write-up is one click away.",
+    "viewDetails": "View details"
+  },
+  "services": {
+    "title": "Services & Workflow",
+    "subtitle": "A clear process from first call to stable operation.",
+    "steps": {
+      "01": {
+        "title": "Discovery & Scope",
+        "text": "Listen to the problem, analyze business requirements, and lock a clear scope."
+      },
+      "02": {
+        "title": "Architecture & Design",
+        "text": "Design the database and API flows; choose technology for the best cost/performance balance."
+      },
+      "03": {
+        "title": "Agile Development",
+        "text": "Build in sprints with transparent progress and automated tests. A short demo video every 3 days."
+      },
+      "04": {
+        "title": "Deployment & Handover",
+        "text": "Deploy to your server, hand over full documentation, and support stable operation."
+      },
+      "05": {
+        "title": "AI-Assisted Engineering",
+        "text": "AI speeds up coding and cuts cost and time, inside a strict process (BMAD, Superpowers, TEA) and MCP tooling, so no AI junk reaches your codebase. Example: an AI-assisted pull-request quality gate (static analysis, security and dependency scans, AI plus human review) cut review time from 30 to 5 minutes.",
+        "tag": "AI"
+      },
+      "06": {
+        "title": "Quality, Security & Support",
+        "text": "Automated tests, secure credential handling, and post-handover maintenance and monitoring support.",
+        "tag": "Included"
+      }
+    }
+  },
+  "stack": {
+    "title": "Technical Stack & Experience",
+    "statement": "I am strongest in Go and React for problems that combine heavy computation with real performance requirements: high-volume data processing, search and analytics, and long-running jobs, built so business logic stays clean and replaceable underneath.",
+    "timeline": "Software Engineer, healthcare supply chain product company · Feb 2022 – Present",
+    "certification": "AWS Certified Cloud Practitioner (CLF-C02)"
+  },
+  "contact": {
+    "title": "Let's talk",
+    "project": {
+      "title": "Have a project?",
+      "text": "Tell me what you need and I'll reply with next steps."
+    },
+    "hiring": {
+      "title": "Hiring?",
+      "text": "Resume, GitHub, and LinkedIn are below.",
+      "resume": "Download Resume"
+    }
+  },
+  "footer": {
+    "backToTop": "Back to top"
+  }
+}

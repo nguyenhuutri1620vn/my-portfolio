@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "Tri Huu Nguyen — Kỹ sư phần mềm (Go, React, Hệ thống dữ liệu)",
+    "description": "Kỹ sư phần mềm gần 5 năm kinh nghiệm xây dựng backend và hệ thống dữ liệu hiệu năng cao. Dự án, dịch vụ và CV."
+  },
+  "a11y": {
+    "skipLink": "Chuyển đến nội dung chính"
+  },
+  "nav": {
+    "projects": "Dự án",
+    "services": "Dịch vụ",
+    "stack": "Công nghệ",
+    "contact": "Liên hệ"
+  },
+  "langSwitch": {
+    "label": "Ngôn ngữ"
+  },
+  "profile": {
+    "title": "Kỹ sư phần mềm",
+    "experience": "Gần 5 năm",
+    "location": "TP. Hồ Chí Minh, Việt Nam"
+  },
+  "hero": {
+    "vision": "Xây dựng hệ thống giúp doanh nghiệp của bạn thắng.",
+    "positioning": "Kỹ sư phần mềm với gần 5 năm kinh nghiệm xây dựng hệ thống backend hiệu năng cao, tự động hóa dữ liệu và phát triển ứng dụng web trọn gói. Tôi sử dụng AI một cách chuyên nghiệp trong quy trình SDLC chuẩn: lập kế hoạch, review, kiểm thử và cổng chất lượng đi trước, để AI giúp giao hàng nhanh hơn mà không sinh ra rác.",
+    "microcopy": "Phản hồi trong 1 ngày làm việc. [TODO: xác nhận cam kết]"
+  },
+  "cta": {
+    "startProject": "Bắt đầu dự án",
+    "downloadResume": "Tải CV (PDF)",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
+  },
+  "mailto": {
+    "subject": "Trao đổi dự án",
+    "body": "Chào Trí, tôi muốn trao đổi về một dự án.\n\nNhu cầu:\nThời gian:\nNgân sách dự kiến:"
+  },
+  "caseStudies": {
+    "title": "Dự án tiêu biểu",
+    "subtitle": "Hệ thống thực tế, đã ẩn danh. Kết quả ở ngay trên thẻ; bài phân tích kỹ thuật nằm trong phần chi tiết.",
+    "viewDetails": "Xem chi tiết"
+  },
+  "services": {
+    "title": "Dịch vụ & Quy trình",
+    "subtitle": "Quy trình rõ ràng từ cuộc trao đổi đầu tiên đến khi vận hành ổn định.",
+    "steps": {
+      "01": {
+        "title": "Khám phá & Phạm vi",
+        "text": "Lắng nghe bài toán, phân tích nghiệp vụ và chốt phạm vi công việc rõ ràng."
+      },
+      "02": {
+        "title": "Kiến trúc & Thiết kế",
+        "text": "Thiết kế cơ sở dữ liệu, luồng API và chọn công nghệ tối ưu chi phí/hiệu năng."
+      },
+      "03": {
+        "title": "Phát triển Agile",
+        "text": "Phát triển theo từng chặng (sprint), tiến độ minh bạch, kiểm thử tự động. Mỗi 3 ngày có một video demo ngắn."
+      },
+      "04": {
+        "title": "Triển khai & Bàn giao",
+        "text": "Triển khai lên server, bàn giao tài liệu đầy đủ và hỗ trợ vận hành ổn định."
+      },
+      "05": {
+        "title": "Kỹ thuật có AI hỗ trợ",
+        "text": "AI tăng tốc coding, giảm chi phí và thời gian, trong một quy trình chặt chẽ (BMAD, Superpowers, TEA) cùng công cụ MCP, để không có \"rác AI\" lọt vào codebase. Ví dụ: cổng chất lượng pull request có AI (phân tích tĩnh, quét bảo mật và dependency, AI cùng review của người) giảm thời gian review từ 30 xuống 5 phút.",
+        "tag": "AI"
+      },
+      "06": {
+        "title": "Chất lượng, Bảo mật & Hỗ trợ",
+        "text": "Kiểm thử tự động, quản lý thông tin xác thực an toàn, hỗ trợ bảo trì và giám sát sau bàn giao.",
+        "tag": "Đã bao gồm"
+      }
+    }
+  },
+  "stack": {
+    "title": "Công nghệ & Kinh nghiệm",
+    "statement": "Tôi mạnh nhất ở Go và React cho các bài toán vừa tính toán nặng vừa đòi hỏi hiệu năng: xử lý dữ liệu khối lượng lớn, tìm kiếm và phân tích, tác vụ chạy dài, với logic nghiệp vụ sạch và dễ thay thế bên dưới.",
+    "timeline": "Kỹ sư phần mềm, công ty sản phẩm chuỗi cung ứng y tế · 02/2022 – nay",
+    "certification": "AWS Certified Cloud Practitioner (CLF-C02)"
+  },
+  "contact": {
+    "title": "Cùng trao đổi",
+    "project": {
+      "title": "Bạn có dự án?",
+      "text": "Cho tôi biết nhu cầu, tôi sẽ phản hồi các bước tiếp theo."
+    },
+    "hiring": {
+      "title": "Bạn đang tuyển dụng?",
+      "text": "CV, GitHub và LinkedIn ở bên dưới.",
+      "resume": "Tải CV"
+    }
+  },
+  "footer": {
+    "backToTop": "Về đầu trang"
+  }
+}
