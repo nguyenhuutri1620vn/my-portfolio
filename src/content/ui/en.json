@@ -17,10 +17,13 @@
     "engineering": "Engineering",
     "stack": "Stack",
     "contact": "Contact",
-    "forClients": "For clients"
+    "forClients": "For clients",
+    "label": "Main navigation"
   },
   "langSwitch": {
-    "label": "Language"
+    "label": "Language",
+    "en": "EN",
+    "vi": "VI"
   },
   "profile": {
     "title": "Software Engineer",

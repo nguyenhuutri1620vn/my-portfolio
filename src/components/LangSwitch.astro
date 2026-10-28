@@ -1,0 +1,56 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { locales, pathWithoutLocale, type Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const path = pathWithoutLocale(Astro.url.pathname, lang);
+---
+
+<nav aria-label={t('langSwitch.label')}>
+  <ul class="flex items-center gap-2 font-mono text-sm">
+    {
+      locales.map((l, i) => (
+        <li class="flex items-center gap-2">
+          {i > 0 && (
+            <span aria-hidden="true" class="text-brown/60">
+              |
+            </span>
+          )}
+          <a
+            href={getRelativeLocaleUrl(l, path)}
+            hreflang={l}
+            lang={l}
+            data-lang-link={l}
+            aria-current={l === lang ? 'true' : undefined}
+            class:list={[
+              'underline-offset-4',
+              l === lang ? 'text-accent underline' : 'text-ink hover:underline',
+            ]}
+          >
+            {t(`langSwitch.${l}`)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script>
+  import { localeStorageKey } from '../i18n/config';
+
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-lang-link]')) {
+    link.addEventListener('click', () => {
+      try {
+        localStorage.setItem(localeStorageKey, link.dataset.langLink ?? '');
+      } catch {
+        // Storage blocked: the switch still navigates.
+      }
+    });
+  }
+</script>

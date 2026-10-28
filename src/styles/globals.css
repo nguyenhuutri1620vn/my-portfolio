@@ -53,11 +53,46 @@
     outline: 2px solid rgb(var(--brown));
     outline-offset: 2px;
   }
+
+  /* Keep anchored sections clear of the sticky header (two rows on mobile). */
+  [id] {
+    scroll-margin-top: 7rem;
+  }
+
+  @media (min-width: 1024px) {
+    [id] {
+      scroll-margin-top: 5rem;
+    }
+  }
 }
 
 @layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-container px-4 sm:px-6;
+  }
+
+  .section {
+    @apply py-section-sm lg:py-section;
+  }
+
+  .card {
+    @apply rounded-card border border-brown/25 bg-white/70 p-6 shadow-sm;
+  }
+
   .tag {
     @apply inline-block rounded-tag border border-brown/40 bg-surface/45 px-2.5 py-0.5 font-mono text-tag text-brown;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-btn bg-accent px-[22px] py-3 font-medium text-white hover:brightness-[.92];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-btn border border-accent px-[22px] py-3 font-medium text-accent hover:bg-surface/40;
+  }
+
+  .link {
+    @apply text-accent underline underline-offset-4 hover:no-underline;
   }
 }
 

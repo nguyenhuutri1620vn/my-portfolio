@@ -1,6 +1,6 @@
 ---
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
-import { defaultLocale, locales, type Locale } from '../i18n/config';
+import { defaultLocale, locales, pathWithoutLocale, type Locale } from '../i18n/config';
 
 interface Props {
   lang: Locale;
@@ -10,8 +10,7 @@ interface Props {
 
 const { lang, title, description } = Astro.props;
 
-// Locale-agnostic path of this page, e.g. "services" for /vi/services/.
-const path = Astro.url.pathname.replace(new RegExp(`^/${lang}(/|$)`), '');
+const path = pathWithoutLocale(Astro.url.pathname, lang);
 ---
 
 <title>{title}</title>

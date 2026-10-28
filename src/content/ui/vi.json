@@ -17,10 +17,13 @@
     "engineering": "Kỹ thuật",
     "stack": "Công nghệ",
     "contact": "Liên hệ",
-    "forClients": "Dành cho khách hàng"
+    "forClients": "Dành cho khách hàng",
+    "label": "Điều hướng chính"
   },
   "langSwitch": {
-    "label": "Ngôn ngữ"
+    "label": "Ngôn ngữ",
+    "en": "EN",
+    "vi": "VI"
   },
   "profile": {
     "title": "Kỹ sư phần mềm",

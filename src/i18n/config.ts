@@ -8,3 +8,8 @@ export const localeStorageKey = 'lang';
 export function isLocale(value: unknown): value is Locale {
   return locales.includes(value as Locale);
 }
+
+// Locale-agnostic part of a path, e.g. "for-clients/" for /vi/for-clients/.
+export function pathWithoutLocale(pathname: string, lang: Locale): string {
+  return pathname.replace(new RegExp(`^/${lang}(/|$)`), '');
+}

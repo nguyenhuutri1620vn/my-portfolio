@@ -1,8 +1,11 @@
 ---
 import '../styles/fonts';
 import '../styles/globals.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 import SeoHead from '../components/SeoHead.astro';
 import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
 
 interface Props {
   lang: Locale;
@@ -11,6 +14,7 @@ interface Props {
 }
 
 const { lang, title, description } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <!doctype html>
@@ -20,7 +24,17 @@ const { lang, title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <SeoHead lang={lang} title={title} description={description} />
   </head>
-  <body>
-    <slot />
+  <body id="top">
+    <a
+      href="#main"
+      class="sr-only z-20 rounded-btn bg-accent px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+    >
+      {t('a11y.skipLink')}
+    </a>
+    <Header lang={lang} />
+    <main id="main" tabindex="-1" class="focus:outline-none">
+      <slot />
+    </main>
+    <Footer lang={lang} />
   </body>
 </html>

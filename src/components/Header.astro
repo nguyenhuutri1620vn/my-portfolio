@@ -1,0 +1,61 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { site } from '../data/site';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+import LangSwitch from './LangSwitch.astro';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const home = getRelativeLocaleUrl(lang);
+const forClients = getRelativeLocaleUrl(lang, 'for-clients');
+const onForClients = Astro.url.pathname.replace(/\/$/, '') === forClients.replace(/\/$/, '');
+
+// Full /{lang}/#id links work from every page and only scroll when already on home.
+const anchors = [
+  { id: 'projects', label: t('nav.projects') },
+  { id: 'engineering', label: t('nav.engineering') },
+  { id: 'stack', label: t('nav.stack') },
+  { id: 'contact', label: t('nav.contact') },
+];
+---
+
+<header class="sticky top-0 z-10 border-b border-brown/25 bg-bg/95 backdrop-blur-sm">
+  <div class="container-page flex flex-wrap items-center gap-x-6 gap-y-2 py-3">
+    <a href={home} class="font-semibold text-ink">{site.name}</a>
+
+    <nav aria-label={t('nav.label')} class="order-last w-full lg:order-none lg:w-auto">
+      <ul class="flex gap-x-5 overflow-x-auto text-sm">
+        {
+          anchors.map(({ id, label }) => (
+            <li>
+              <a href={`${home}#${id}`} class="whitespace-nowrap text-ink hover:text-accent">
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="ml-auto flex items-center gap-4">
+      <a
+        href={forClients}
+        aria-current={onForClients ? 'page' : undefined}
+        class:list={[
+          'whitespace-nowrap rounded-btn border px-3 py-1.5 text-sm',
+          onForClients
+            ? 'border-accent text-accent'
+            : 'border-brown/40 text-brown hover:bg-surface/40',
+        ]}
+      >
+        {t('nav.forClients')}
+      </a>
+      <LangSwitch lang={lang} />
+    </div>
+  </div>
+</header>
