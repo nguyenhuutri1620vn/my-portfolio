@@ -16,7 +16,7 @@ Work top to bottom. One task per commit/PR. Tick `[x]` when done. Read `CLAUDE.m
 - [x] T1.2 Home `Hero` (CONTENT §1): vision, title + "Nearly 5 years", positioning, server-side chips, primary `View Case Studies` → `#projects`, secondary `Download Resume` + `GitHub`, small link to `/for-clients`. No Start-a-Project button. Optional portrait slot.
 - [x] T1.3 Resume files in `public/resume/`; hide the VI resume link if its file is missing (fall back to EN).
 - [x] T1.4 Home skeleton: empty `<section>`s with ids `projects`, `engineering`, `stack`, `contact` and their titles from CONTENT, so anchors work before content lands.
-- [ ] T1.5 `/{lang}/for-clients` page (CONTENT §6, §7): `ClientHero` (Start a Project mailto + See case studies), `OfferCard` ×4, `ProofStrip` ×4 linking to case studies, `WorkflowGrid` 6 cards 3×2 with tags `AI` (05) and `Included` (06), closing CTA block.
+- [x] T1.5 `/{lang}/for-clients` page (CONTENT §6, §7): `ClientHero` (Start a Project mailto + See case studies), `OfferCard` ×4, `ProofStrip` ×4 linking to case studies, `WorkflowGrid` 6 cards 3×2 with tags `AI` (05) and `Included` (06), closing CTA block.
 - [ ] T1.6 Phase review: both languages, keyboard pass, 360/768/1440 widths, `npm run lint && npm run build && npm run check:todo && npm run check:names`.
 
 ## Phase 2 — Case studies

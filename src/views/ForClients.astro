@@ -1,0 +1,55 @@
+---
+import ClientHero from '../components/ClientHero.astro';
+import OfferCard from '../components/OfferCard.astro';
+import ProofStrip from '../components/ProofStrip.astro';
+import Section from '../components/Section.astro';
+import WorkflowGrid from '../components/WorkflowGrid.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { projectMailto } from '../lib/mailto';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const offers = ['apis', 'search', 'pipelines', 'jobs'] as const;
+---
+
+<BaseLayout
+  lang={lang}
+  title={t('meta.forClients.title')}
+  description={t('meta.forClients.description')}
+>
+  <ClientHero lang={lang} />
+
+  <Section id="offers" title={t('forClients.offers.title')}>
+    <ul class="mt-8 grid gap-6 sm:grid-cols-2">
+      {
+        offers.map((key) => (
+          <li>
+            <OfferCard
+              title={t(`forClients.offers.items.${key}.title`)}
+              text={t(`forClients.offers.items.${key}.text`)}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="proof" title={t('forClients.proof.title')}>
+    <ProofStrip lang={lang} />
+  </Section>
+
+  <Section id="workflow" title={t('workflow.title')} subtitle={t('workflow.subtitle')}>
+    <WorkflowGrid lang={lang} />
+  </Section>
+
+  <Section id="start" title={t('forClients.closing.title')} subtitle={t('forClients.closing.text')}>
+    <a href={projectMailto(lang)} class="btn-primary mt-6">{t('forClients.startProject')}</a>
+    <p class="mt-4 text-sm">{t('forClients.closing.note')}</p>
+  </Section>
+</BaseLayout>

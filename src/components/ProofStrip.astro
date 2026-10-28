@@ -1,0 +1,36 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Each metric links to the case study that backs it; the review gate has no page, so it
+// points at the home Engineering section.
+const items = [
+  { key: 'tenants', href: getRelativeLocaleUrl(lang, 'case-studies/healthcare-supply-chain') },
+  { key: 'analytics', href: getRelativeLocaleUrl(lang, 'case-studies/insight-dashboard') },
+  { key: 'exports', href: getRelativeLocaleUrl(lang, 'case-studies/kafka-exports') },
+  { key: 'review', href: `${getRelativeLocaleUrl(lang)}#engineering` },
+] as const;
+---
+
+<ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+  {
+    items.map(({ key, href }) => (
+      <li>
+        <a href={href} class="card block h-full hover:border-accent">
+          <span class="block text-h2 font-semibold text-accent">
+            {t(`forClients.proof.items.${key}.value`)}
+          </span>
+          <span class="mt-2 block text-ink">{t(`forClients.proof.items.${key}.label`)}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -61,7 +61,56 @@
   },
   "forClients": {
     "startProject": "Start a Project",
+    "hero": {
+      "title": "Backend and data systems, delivered with a clear process.",
+      "intro": "I build systems that handle real data volume: APIs, search and analytics, reporting, and background automation. You get regular demos, documentation, and a system your team can operate.",
+      "seeCaseStudies": "See case studies"
+    },
+    "offers": {
+      "title": "What I can build for you",
+      "items": {
+        "apis": {
+          "title": "Backend APIs & SaaS",
+          "text": "REST APIs and multi-tenant backends in Go, structured to stay maintainable."
+        },
+        "search": {
+          "title": "Search & analytics dashboards",
+          "text": "Fast filtering and aggregation over large datasets."
+        },
+        "pipelines": {
+          "title": "Data pipelines & reporting",
+          "text": "ETL into an analytics database and BI dashboards your team can explore."
+        },
+        "jobs": {
+          "title": "Background jobs & automation",
+          "text": "Large exports, batch processing, and scheduled work that runs reliably off the request path."
+        }
+      }
+    },
+    "proof": {
+      "title": "Results from production systems",
+      "items": {
+        "tenants": {
+          "value": "19+",
+          "label": "organizations on one multi-tenant platform"
+        },
+        "analytics": {
+          "value": "15s → 1s",
+          "label": "spend-analytics API"
+        },
+        "exports": {
+          "value": "1M+",
+          "label": "row exports without timeouts"
+        },
+        "review": {
+          "value": "30 → 5 min",
+          "label": "code review with an AI-assisted gate"
+        }
+      }
+    },
     "closing": {
+      "title": "Ready to start a project?",
+      "text": "Tell me what you need; I'll reply with next steps.",
       "note": "Reply within 1 business day. [TODO: confirm promise]"
     }
   },

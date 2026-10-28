@@ -61,7 +61,56 @@
   },
   "forClients": {
     "startProject": "Bắt đầu dự án",
+    "hero": {
+      "title": "Hệ thống backend và dữ liệu, giao hàng với quy trình rõ ràng.",
+      "intro": "Tôi xây dựng hệ thống chịu được khối lượng dữ liệu thực tế: API, tìm kiếm và phân tích, báo cáo, và tự động hóa chạy nền. Bạn nhận demo định kỳ, tài liệu đầy đủ và một hệ thống đội của bạn tự vận hành được.",
+      "seeCaseStudies": "Xem dự án"
+    },
+    "offers": {
+      "title": "Tôi có thể xây dựng gì cho bạn",
+      "items": {
+        "apis": {
+          "title": "Backend API & SaaS",
+          "text": "REST API và backend đa tenant bằng Go, cấu trúc dễ bảo trì."
+        },
+        "search": {
+          "title": "Dashboard tìm kiếm & phân tích",
+          "text": "Lọc và tổng hợp nhanh trên dữ liệu lớn."
+        },
+        "pipelines": {
+          "title": "Pipeline dữ liệu & báo cáo",
+          "text": "ETL vào cơ sở dữ liệu phân tích và dashboard BI để đội của bạn tự khai thác."
+        },
+        "jobs": {
+          "title": "Tác vụ nền & tự động hóa",
+          "text": "Export lớn, xử lý theo lô và tác vụ định kỳ chạy ổn định ngoài luồng request."
+        }
+      }
+    },
+    "proof": {
+      "title": "Kết quả từ hệ thống thực tế",
+      "items": {
+        "tenants": {
+          "value": "19+",
+          "label": "tổ chức trên cùng một nền tảng đa tenant"
+        },
+        "analytics": {
+          "value": "15 giây → 1 giây",
+          "label": "API phân tích chi tiêu"
+        },
+        "exports": {
+          "value": "1M+",
+          "label": "dòng export không còn timeout"
+        },
+        "review": {
+          "value": "30 → 5 phút",
+          "label": "review code với cổng chất lượng có AI"
+        }
+      }
+    },
     "closing": {
+      "title": "Sẵn sàng bắt đầu dự án?",
+      "text": "Cho tôi biết nhu cầu, tôi sẽ phản hồi các bước tiếp theo.",
       "note": "Phản hồi trong 1 ngày làm việc. [TODO: xác nhận cam kết]"
     }
   },

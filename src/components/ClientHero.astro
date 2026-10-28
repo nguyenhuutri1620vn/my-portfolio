@@ -1,0 +1,27 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+import { projectMailto } from '../lib/mailto';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section aria-labelledby="client-hero-title" class="container-page pb-section-sm pt-16 lg:pt-24">
+  <div class="max-w-3xl">
+    <h1 id="client-hero-title">{t('forClients.hero.title')}</h1>
+    <p class="mt-5 text-lg font-medium text-brown">{t('hero.vision')}</p>
+    <p class="mt-6 max-w-prose">{t('forClients.hero.intro')}</p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+      <a href={projectMailto(lang)} class="btn-primary">{t('forClients.startProject')}</a>
+      <a href={`${getRelativeLocaleUrl(lang)}#projects`} class="btn-secondary">
+        {t('forClients.hero.seeCaseStudies')}
+      </a>
+    </div>
+  </div>
+</section>
