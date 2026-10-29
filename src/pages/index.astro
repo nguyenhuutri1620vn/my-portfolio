@@ -1,6 +1,7 @@
 ---
 // Static site: no server to read Accept-Language, so the browser picks the locale.
 import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
+import Favicons from '../components/Favicons.astro';
 import { site } from '../data/site';
 import { defaultLocale, localeStorageKey, locales } from '../i18n/config';
 
@@ -13,6 +14,7 @@ const urls = Object.fromEntries(locales.map((l) => [l, getRelativeLocaleUrl(l)])
     <meta charset="utf-8" />
     <meta name="robots" content="noindex" />
     <title>{site.name}</title>
+    <Favicons />
     {locales.map((l) => <link rel="alternate" hreflang={l} href={getAbsoluteLocaleUrl(l)} />)}
     <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(defaultLocale)} />
     <noscript><meta http-equiv="refresh" content={`0;url=${urls[defaultLocale]}`} /></noscript>

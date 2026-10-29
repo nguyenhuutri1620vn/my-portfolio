@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- The header's </> mark: indigo glyph on an indigo-tinted dark tile. -->
+  <rect x="1" y="1" width="30" height="30" rx="7" fill="#141731" stroke="#6366f1" stroke-opacity="0.45" />
+  <g fill="none" stroke="#6366f1" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="10.5,10.5 5.5,16 10.5,21.5" />
+    <line x1="18.25" y1="9" x2="13.75" y2="23" />
+    <polyline points="21.5,10.5 26.5,16 21.5,21.5" />
+  </g>
+</svg>
