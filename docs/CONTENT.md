@@ -35,7 +35,7 @@ Hero layout: the vision as the largest text, then the CV summary. GitHub and Lin
 
 **CTAs**
 - Primary: EN `View Case Studies` · VI `Xem dự án` → `#projects`
-- Secondary (outline): EN `Download Resume (PDF)` · VI `Tải CV (PDF)`; text link `GitHub`
+- Secondary (outline): EN `Download Resume` · VI `Tải CV`; text link `GitHub`
 - Small line below: EN `Need a system built? See how I work with clients →` · VI `Cần xây dựng hệ thống? Xem cách tôi làm việc với khách hàng →` → `/{lang}/for-clients`
 
 ## 2. Featured Case Studies

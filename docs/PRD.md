@@ -22,7 +22,7 @@ Success signals: Resume downloads, GitHub clicks, case-study detail views (home)
 ## 4. Home sections
 **1. Hero (backend credibility).**
 Vision line, title "Software Engineer · 5 years", backend positioning paragraph, server-side tech chips.
-CTAs: **Primary** "View Case Studies" (→ `#projects`). **Secondary outline** "Download Resume (PDF)" + text link "GitHub". Below, one small line linking to `/for-clients`. No "Start a Project" button on home.
+CTAs: **Primary** "View Case Studies" (→ `#projects`). **Secondary outline** "Download Resume" + text link "GitHub". Below, one small line linking to `/for-clients`. No "Start a Project" button on home.
 Profile card on the right (desktop) / below (mobile): avatar, name, title, location, then the At a glance numbers. Layout works without the photo (initials shown).
 
 **2. Featured Case Studies** (`#projects`). 6 cards in two groups. **Key projects** first, large accent cards in a 2 × 2 grid (1 column on mobile): Insight Dashboard · Value Analysis · Future Price Review · Custom Report Builder. Then **More from the platform**, smaller cards: Healthcare supply chain platform · Daily Delta Build. Card: tag, title, short plain-English intro, one highlight line with the key number, "View details".

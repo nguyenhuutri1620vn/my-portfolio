@@ -5,3 +5,8 @@ dist/
 .env.local
 *.log
 .DS_Store
+
+# Local tool settings and unused source images
+.claude/
+public/images/hero-portrait.jpg
+public/images/avatar-cutout.png

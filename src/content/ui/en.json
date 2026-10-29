@@ -34,7 +34,7 @@
     "vision": "Developer with vision: Shared victory.",
     "positioning": "Software Engineer with 5 years building data-heavy SaaS for the healthcare supply chain. Strongest in Go: multi-tenant PostgreSQL for 19+ organizations, sub-second Elasticsearch analytics, large Kafka exports and ClickHouse pipelines behind Superset. Also ships Ruby on Rails features in a 12-person team, handles complex rules such as contracts, rebates and pricing, and self-reviews code with Cursor and Claude Code.",
     "viewCaseStudies": "View Case Studies",
-    "downloadResume": "Download Resume (PDF)",
+    "downloadResume": "Download Resume",
     "github": "GitHub",
     "forClientsLink": "Need a system built? See how I work with clients →",
     "avatarAlt": "Portrait of Tri Huu Nguyen"
