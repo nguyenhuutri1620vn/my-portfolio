@@ -283,6 +283,25 @@
         "sync": "sync"
       }
     },
+    "insight-drilldown": {
+      "title": "Insight Dashboard: drill-down from dashboard to purchase line",
+      "desc": "The Vendor Performance Summary report works like a funnel. Users start from 10 KPI cards on the dashboard, click a number to see the vendors behind it, then the items, then the purchase history with one row per PO or invoice line. Global filters for period, corporations and cost centers, and vendors carry to every level.",
+      "labels": {
+        "filters": "Global filters",
+        "filtersSub": "Period · Corporations & cost centers · Vendors",
+        "dashboard": "Dashboard",
+        "dashboardSub": "10 KPI cards",
+        "vendor": "Vendor level",
+        "vendorSub": "1 row per vendor",
+        "item": "Item level",
+        "itemSub": "1 row per item",
+        "purchase": "Purchase history",
+        "purchaseSub": "1 row per\nPO / invoice line",
+        "clickKpi": "click a KPI",
+        "clickValue": "click a value",
+        "note": "The same filters follow the user to every level, and each level has its own shareable URL."
+      }
+    },
     "value-analysis": {
       "title": "Value Analysis: one common each price",
       "desc": "Vendor offers sold in boxes, cases, and packs are normalized by unit and pack size to a common each price. An impact calculator then estimates potential savings for a group of items before the committee reviews it.",

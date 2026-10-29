@@ -3,9 +3,16 @@ import { Image } from 'astro:assets';
 import { isLocale } from '../i18n/config';
 import { caseStudies } from '../lib/case-studies';
 import Diagram from './diagrams/Diagram.astro';
+import type { DiagramName } from './diagrams/index';
 
-// Rendered by `<Diagram />` inside case-study MDX, which passes no props: the case is
-// resolved from the page route (/{lang}/case-studies/{slug}).
+// Rendered by `<Diagram />` inside case-study MDX: the case is resolved from the page route
+// (/{lang}/case-studies/{slug}). With no `name` it shows the case's architecture diagram and
+// optional UI image; `<Diagram name="..." />` shows just that extra diagram.
+interface Props {
+  name?: DiagramName;
+}
+
+const { name } = Astro.props;
 const lang = Astro.currentLocale;
 const slug = Astro.params.slug;
 const entry = isLocale(lang) ? caseStudies(lang).find((e) => e.caseSlug === slug) : undefined;
@@ -16,10 +23,10 @@ const { diagram, image } = entry.data;
 ---
 
 <figure class="card my-8 p-4">
-  <Diagram name={diagram} lang={lang} />
+  <Diagram name={name ?? diagram} lang={lang} />
 </figure>
 {
-  image && (
+  !name && image && (
     <figure class="card my-8 p-2">
       <Image src={image.src} alt={image.alt} class="h-auto w-full rounded-btn" />
     </figure>

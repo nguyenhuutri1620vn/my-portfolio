@@ -283,6 +283,25 @@
         "sync": "đồng bộ"
       }
     },
+    "insight-drilldown": {
+      "title": "Insight Dashboard: drill-down từ dashboard tới từng dòng mua hàng",
+      "desc": "Báo cáo Vendor Performance Summary hoạt động như một phễu. Người dùng bắt đầu từ 10 thẻ KPI trên dashboard, bấm vào một con số để xem các nhà cung cấp phía sau, rồi tới mặt hàng, rồi tới lịch sử mua hàng với mỗi dòng là một PO hoặc hóa đơn. Bộ lọc chung theo kỳ, tập đoàn và cost center, và nhà cung cấp đi theo tới mọi cấp.",
+      "labels": {
+        "filters": "Bộ lọc chung",
+        "filtersSub": "Kỳ · Tập đoàn & cost center · Nhà cung cấp",
+        "dashboard": "Dashboard",
+        "dashboardSub": "10 thẻ KPI",
+        "vendor": "Cấp nhà cung cấp",
+        "vendorSub": "1 dòng mỗi\nnhà cung cấp",
+        "item": "Cấp mặt hàng",
+        "itemSub": "1 dòng mỗi mặt hàng",
+        "purchase": "Lịch sử mua hàng",
+        "purchaseSub": "1 dòng mỗi\nPO / hóa đơn",
+        "clickKpi": "bấm vào KPI",
+        "clickValue": "bấm vào giá trị",
+        "note": "Bộ lọc đi theo người dùng tới mọi cấp, và mỗi cấp có URL riêng để chia sẻ."
+      }
+    },
     "value-analysis": {
       "title": "Value Analysis: một giá mỗi đơn vị chung",
       "desc": "Các đề nghị của nhà cung cấp theo hộp, thùng, gói được chuẩn hóa đơn vị và quy cách về một giá mỗi đơn vị chung. Sau đó công cụ tính tác động ước tính khoản tiết kiệm tiềm năng cho một nhóm mặt hàng trước khi hội đồng xem xét.",

@@ -32,6 +32,12 @@ On the front end, I built most of the reporting UI in React and TypeScript:
 - **Configurable grids:** resize, reorder and hide columns, saved per report type; sorting and filtering run on the server.
 - **Saved views:** users keep their own combinations of filters, columns and periods.
 
+### How a user reads a report
+
+The main report, Vendor Performance Summary, works like a funnel. A user starts from the KPI cards, clicks a number to see the vendors behind it, then the items, then every purchase line. The filters chosen once follow the user to every level.
+
+<Diagram name="insight-drilldown" />
+
 ## Architecture
 
 <Diagram />

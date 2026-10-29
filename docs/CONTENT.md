@@ -90,6 +90,7 @@ Definition (EN): *Insight Dashboard is a module of the healthcare supply chain p
 - Elasticsearch backs the price histogram and overpayment search; heavier analytics go to ClickHouse/Redshift.
 - Data design: indexing runs as a batch job per organization, in parallel (goroutines, channels, worker pools); ES repositories behind Clean Architecture interfaces. One index per organization, rebuilt with fresh data once a day (owner, Oct 2026).
 - Failure handling: index is rebuildable from PostgreSQL by re-running the indexing job. While data is not ready, users see a "data is being built" notice with one option: back to the main system (owner, Oct 2026).
+- Drill-down (owner's front-end notes, Oct 2026): the main report, Vendor Performance Summary, is a funnel: dashboard with **10** KPI cards → vendor level (1 row per vendor) → item level (1 row per item) → purchase history (1 row per PO / invoice line). Global filters (period, corporations & cost centers, vendors) carry to every level. Shown as diagram `insight-drilldown` in the Approach section.
 - Security: JWT on the API; SSO session shared with the main platform (background token/user/org sync). Every ES query is filtered by tenant (owner, Oct 2026).
 - Results: dashboard load 40s → 1s; database CPU 80% → 30% per query; engine replaceable behind interfaces (dependency inversion); 70+ front-end test files.
 

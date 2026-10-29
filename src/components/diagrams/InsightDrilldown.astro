@@ -1,0 +1,60 @@
+---
+import type { Locale } from '../../i18n/config';
+import Arrow from './parts/Arrow.astro';
+import Box from './parts/Box.astro';
+import { diagramLabels } from './parts/labels';
+
+interface Props {
+  lang: Locale;
+  marker: string;
+}
+
+const { lang, marker } = Astro.props;
+const l = diagramLabels(lang, 'insight-drilldown');
+
+// Global filters on top feed every level; the levels run left to right, one click apart.
+const col = [8, 176, 344, 512];
+const y = 168;
+const w = 120;
+const h = 72;
+const levels = [
+  { key: 'dashboard', focus: true },
+  { key: 'vendor', focus: false },
+  { key: 'item', focus: false },
+  { key: 'purchase', focus: false },
+];
+const clicks = ['clickKpi', 'clickValue', 'clickValue'];
+---
+
+<Box x={8} y={40} w={624} h={56} label={l('filters')} sub={l('filtersSub')} />
+
+{
+  levels.map(({ key, focus }, i) => (
+    <>
+      <Arrow
+        marker={marker}
+        points={[
+          [col[i] + w / 2, 96],
+          [col[i] + w / 2, y - 1],
+        ]}
+      />
+      <Box x={col[i]} y={y} w={w} h={h} label={l(key)} sub={l(`${key}Sub`)} focus={focus} />
+    </>
+  ))
+}
+
+{
+  clicks.map((key, i) => (
+    <Arrow
+      marker={marker}
+      points={[
+        [col[i] + w, y + h / 2],
+        [col[i + 1] - 1, y + h / 2],
+      ]}
+      label={l(key)}
+      labelAt={[col[i] + w + 24, y + h + 22]}
+    />
+  ))
+}
+
+<text class="dg-sub" x="320" y="320" text-anchor="middle">{l('note')}</text>
