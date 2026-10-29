@@ -1,0 +1,8 @@
+// Cloudflare deploy config: the site is static, so the Worker only serves the Astro build in dist/.
+{
+  "name": "tri-nguyen-portfolio",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+  },
+}
