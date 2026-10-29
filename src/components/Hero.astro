@@ -4,7 +4,7 @@ import { site } from '../data/site';
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../i18n/ui';
 import { resumeHref } from '../lib/resume';
-import ProfileCard from './ProfileCard.astro';
+import HeroShell from './HeroShell.astro';
 
 interface Props {
   lang: Locale;
@@ -15,59 +15,28 @@ const t = useTranslations(lang);
 const resume = resumeHref(lang);
 ---
 
-<div class="dark-band relative overflow-hidden">
-  <section
-    aria-labelledby="hero-title"
-    class="container-page pb-12 pt-8 sm:pt-12 lg:pb-16 lg:pt-14"
-  >
-    <!-- Left: portrait with name, title and location. Right: vision, summary, chips, CTAs. -->
-    <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-      <ProfileCard lang={lang} />
+<HeroShell lang={lang} id="hero-title" title={t('hero.vision')}>
+  <p slot="intro" class="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-slate-300">
+    {t('hero.positioning')}
+  </p>
 
-      <div class="flex flex-col justify-center lg:col-span-7">
-        <span aria-hidden="true" class="h-1 w-12 rounded-full bg-white/90"></span>
+  <div class="mt-8 flex flex-wrap items-center gap-4">
+    <a href="#projects" class="btn-primary">{t('hero.viewCaseStudies')}</a>
+    {
+      resume && (
+        <a href={resume} class="btn-light">
+          {t('hero.downloadResume')}
+        </a>
+      )
+    }
+    <a href={site.github} target="_blank" rel="noopener noreferrer" class="link text-sm">
+      {t('hero.github')}<span class="sr-only"> {t('a11y.newTab')}</span>
+    </a>
+  </div>
 
-        <h1
-          id="hero-title"
-          class="font-heading mt-6 text-[clamp(2rem,4vw,3rem)] font-bold leading-tight tracking-tight text-white"
-        >
-          {t('hero.vision')}
-        </h1>
-
-        <p class="mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-slate-300">
-          {t('hero.positioning')}
-        </p>
-
-        <ul class="mt-6 flex flex-wrap gap-2">
-          {
-            site.heroChips.map((chip) => (
-              <li>
-                <span class="tag">{chip}</span>
-              </li>
-            ))
-          }
-        </ul>
-
-        <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="#projects" class="btn-primary">{t('hero.viewCaseStudies')}</a>
-          {
-            resume && (
-              <a href={resume} class="btn-light">
-                {t('hero.downloadResume')}
-              </a>
-            )
-          }
-          <a href={site.github} target="_blank" rel="noopener noreferrer" class="link text-sm">
-            {t('hero.github')}<span class="sr-only"> {t('a11y.newTab')}</span>
-          </a>
-        </div>
-
-        <p class="mt-6 text-sm">
-          <a href={getRelativeLocaleUrl(lang, 'for-clients')} class="link">
-            {t('hero.forClientsLink')}
-          </a>
-        </p>
-      </div>
-    </div>
-  </section>
-</div>
+  <p class="mt-6 text-sm">
+    <a href={getRelativeLocaleUrl(lang, 'for-clients')} class="link">
+      {t('hero.forClientsLink')}
+    </a>
+  </p>
+</HeroShell>

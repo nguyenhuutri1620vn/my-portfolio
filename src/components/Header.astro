@@ -102,13 +102,9 @@ const anchors = [
   if (sections.length > 0 && 'IntersectionObserver' in window) {
     const setActive = (id: string | null) => {
       for (const [key, link] of links) {
-        if (key === id) {
-          link.setAttribute('aria-current', 'location');
-          link.classList.add('text-[#818cf8]', 'font-semibold');
-        } else {
-          link.removeAttribute('aria-current');
-          link.classList.remove('text-[#818cf8]', 'font-semibold');
-        }
+        // Styled by .nav-link[aria-current] in globals.css.
+        if (key === id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
       }
     };
 

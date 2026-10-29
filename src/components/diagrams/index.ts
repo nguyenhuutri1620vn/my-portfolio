@@ -7,10 +7,9 @@ import InsightDrilldown from './InsightDrilldown.astro';
 import PlatformOverview from './PlatformOverview.astro';
 import ValueAnalysis from './ValueAnalysis.astro';
 
-// The architecture diagram each case names in its frontmatter.
-export type CaseDiagramName = CollectionEntry<'case-studies'>['data']['diagram'];
-// Extra diagrams that MDX places by name with <Diagram name="..." />.
-export type DiagramName = CaseDiagramName | 'insight-drilldown';
+// The architecture diagram each case names in its frontmatter, plus extra diagrams that MDX
+// places by name with <Diagram name="..." />.
+export type DiagramName = CollectionEntry<'case-studies'>['data']['diagram'] | 'insight-drilldown';
 
 export const diagrams = {
   'platform-overview': PlatformOverview,

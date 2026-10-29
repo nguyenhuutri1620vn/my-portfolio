@@ -4,8 +4,6 @@ export const site = {
   email: 'nguyenhuutri1620vn@gmail.com',
   linkedin: 'https://linkedin.com/in/tri-nguyen-huu',
   github: 'https://github.com/nguyenhuutri1620vn',
-  // Square photo, at least 320×320. Until the file exists the hero shows initials.
-  avatar: '/images/avatar.png',
   resume: {
     en: '/resume/Backend_TriNguyen.pdf',
     vi: '/resume/Backend_TriNguyen.pdf',

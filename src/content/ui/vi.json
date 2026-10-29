@@ -18,8 +18,7 @@
     "engineering": "Kỹ thuật",
     "stack": "Công nghệ",
     "contact": "Liên hệ",
-    "label": "Điều hướng chính",
-    "current": "Mục hiện tại"
+    "label": "Điều hướng chính"
   },
   "langSwitch": {
     "label": "Ngôn ngữ",
@@ -32,8 +31,6 @@
     "location": "TP. Hồ Chí Minh, Việt Nam"
   },
   "hero": {
-    "titleLine1": "Kỹ sư phần mềm",
-    "titleLine2": "& Phát triển Backend",
     "vision": "Developer với tầm nhìn: Cùng nhau chiến thắng.",
     "positioning": "Kỹ sư phần mềm gần 5 năm xây dựng SaaS nhiều dữ liệu cho chuỗi cung ứng y tế. Mạnh nhất ở Go: PostgreSQL đa tenant cho 19+ tổ chức, phân tích Elasticsearch dưới 1 giây, export lớn qua Kafka và pipeline ClickHouse phía sau Superset. Đồng thời làm tính năng Ruby on Rails trong đội 12 người, vững với quy tắc phức tạp như hợp đồng, rebate và giá, và tự review code bằng Cursor và Claude Code.",
     "viewCaseStudies": "Xem dự án",

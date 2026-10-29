@@ -8,22 +8,14 @@
  */
 :root {
   --bg: 6 9 15; /* #06090f deep space dark */
-  --surface: 13 20 34; /* #0d1422 dark slate glass */
-  --surface-light: 22 34 54;
-  --brown: 99 102 241; /* Replaced legacy brown with indigo accent */
   --accent: 99 102 241; /* #6366F1 Electric Indigo */
   --ink: 248 250 252; /* #f8fafc clean white text */
   --white: 255 255 255;
 
   --radius-card: 16px;
   --radius-btn: 8px;
-  --radius-tag: 999px;
-  --radius-frame: 16px;
 
   --container: 1160px;
-  --article: 760px;
-
-  --shadow-sm: 0 2px 8px rgb(0 0 0 / 0.5);
 }
 
 @layer base {
@@ -116,13 +108,6 @@
     @apply transition duration-300 hover:-translate-y-1 hover:border-[#6366f1]/50 hover:shadow-[0_0_25px_-5px_rgba(99,102,241,0.28),0_8px_30px_rgba(0,0,0,0.6)] motion-reduce:hover:translate-y-0;
   }
 
-  /* Hero headline: bold, impactful display */
-  .display {
-    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-
   /* Small bold caps label above a block */
   .eyebrow {
     @apply text-xs font-semibold uppercase tracking-[0.1em] text-[#818cf8];
@@ -169,12 +154,8 @@
     @apply inline-flex items-center justify-center rounded-btn bg-[#6366f1] px-6 py-3 font-semibold text-white shadow-[0_0_20px_rgba(99,102,241,0.35)] transition-all duration-200 hover:bg-[#4f46e5] hover:shadow-[0_0_30px_rgba(99,102,241,0.6)] hover:-translate-y-0.5;
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-btn border border-white/15 bg-white/[0.05] px-6 py-3 font-medium text-white backdrop-blur-md transition-all duration-200 hover:border-white/30 hover:bg-white/[0.1] hover:-translate-y-0.5;
-  }
-
   .btn-light {
-    @apply btn-secondary;
+    @apply inline-flex items-center justify-center rounded-btn border border-white/15 bg-white/[0.05] px-6 py-3 font-medium text-white backdrop-blur-md transition-all duration-200 hover:border-white/30 hover:bg-white/[0.1] hover:-translate-y-0.5;
   }
 
   .link {

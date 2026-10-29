@@ -18,8 +18,7 @@
     "engineering": "Engineering",
     "stack": "Stack",
     "contact": "Contact",
-    "label": "Main navigation",
-    "current": "Current section"
+    "label": "Main navigation"
   },
   "langSwitch": {
     "label": "Language",
@@ -32,8 +31,6 @@
     "location": "Ho Chi Minh City, Vietnam"
   },
   "hero": {
-    "titleLine1": "Software Engineer",
-    "titleLine2": "& Backend Developer",
     "vision": "Developer with vision: Shared victory.",
     "positioning": "Software Engineer with 5 years building data-heavy SaaS for the healthcare supply chain. Strongest in Go: multi-tenant PostgreSQL for 19+ organizations, sub-second Elasticsearch analytics, large Kafka exports and ClickHouse pipelines behind Superset. Also ships Ruby on Rails features in a 12-person team, handles complex rules such as contracts, rebates and pricing, and self-reviews code with Cursor and Claude Code.",
     "viewCaseStudies": "View Case Studies",
