@@ -47,11 +47,6 @@ Bulk decisions run as background jobs, so approving or rejecting thousands of pr
 
 Each hospital system's prices stay in its own database. Only admin users, or users with full contract access, can approve or reject.
 
-## Trade-offs
-
-- **Two-level grids on ExtJS 3.4:** a lot of grid code to keep fast and readable, tuned for 1920px screens and 100%, 110% and 125% browser zoom.
-- **Background jobs:** results are not instant, so the screen has to show what is still running.
-
 ## Results
 
 - Price discrepancies are reviewed and resolved in bulk before they take effect, instead of after the wrong price has been paid.

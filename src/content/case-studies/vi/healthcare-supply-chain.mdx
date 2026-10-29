@@ -2,10 +2,10 @@
 title: Nền tảng chuỗi cung ứng y tế
 tag: Chuỗi cung ứng y tế
 intro: 'Hệ thống gốc ghi lại bệnh viện Mỹ mua gì, từ ai, theo giá hợp đồng nào và thực tế đã chi bao nhiêu. Tôi xây dựng tính năng trọn vẹn trên lõi Ruby on Rails của nó.'
-highlight: 'Rebate hợp đồng làm **trọn vẹn** · **165** PR đã merge'
+highlight: 'Rebate hợp đồng làm **trọn vẹn**'
 context: Hệ thống bệnh viện cần một nơi duy nhất cho việc họ mua gì, từ ai, theo giá hợp đồng nào và thực tế đã chi bao nhiêu.
 solution: 'Nền tảng Rails đa tenant, mỗi hệ thống bệnh viện một database PostgreSQL; tôi phụ trách tính năng từ database tới màn hình ExtJS.'
-result: '**165** pull request đã merge, **~80** migration cho database bệnh viện, **~150** file spec.'
+result: '**~80** migration cho database bệnh viện và **~150** file spec.'
 diagram: platform-overview
 lang: vi
 order: 1
@@ -34,11 +34,6 @@ Ruby 3.1 trên Rails 2.3 LTS, PostgreSQL, ExtJS 3.4, delayed_job, cùng Solr, El
 - **Lưu trữ hợp đồng:** chuyển dữ liệu hợp đồng cũ sang S3 và ClickHouse theo từng lô có kiểm tra, để database bệnh viện gọn nhẹ mà không mất lịch sử.
 - **Mua sắm và nạp dữ liệu:** giới hạn số lượng dùng chung (9.999 → 99.999), cài đặt punch-out, và tăng tốc các bước nạp dữ liệu hằng đêm.
 
-## Đánh đổi
-
-- **Framework từ năm 2009:** code mới phải theo cách viết của Rails 2.3 và RSpec 1.3.
-- **Schema dùng chung:** mỗi migration chạy trên mọi database bệnh viện và được các service khác đọc, nên phải chạy lại an toàn, có index và tương thích ngược.
-
 ## Kết quả
 
-Hơn <Metric>840</Metric> commit trên nhánh chính, <Metric>165</Metric> pull request đã merge, khoảng <Metric>80</Metric> migration cho database bệnh viện và khoảng <Metric>150</Metric> file spec.
+Khoảng <Metric>80</Metric> migration cho database bệnh viện và khoảng <Metric>150</Metric> file spec.

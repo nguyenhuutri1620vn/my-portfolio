@@ -46,10 +46,6 @@ Nạp full cho lần chạy đầu và backfill; nạp incremental giữ dữ li
 
 Thông tin xác thực lấy từ AWS Secrets Manager. Job nhận mã tổ chức làm tham số và chỉ ghi vào database của tổ chức đó, và dashboard nhân bản của mỗi tổ chức trỏ tới dataset của chính tổ chức đó.
 
-## Đánh đổi
-
-ClickHouse nhất quán sau (batch/incremental), chấp nhận được với báo cáo.
-
 ## Kết quả
 
 - Thời gian truy vấn <Metric>42 giây → 3 giây</Metric> mỗi truy vấn (nhanh hơn 90%) cho các báo cáo như Contract Spend Dashboard, Contract UOM Mismatch và VIM.

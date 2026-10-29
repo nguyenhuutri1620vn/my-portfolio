@@ -46,10 +46,6 @@ Full loads handle the first run and backfills; incremental loads keep data curre
 
 Credentials come from AWS Secrets Manager. Jobs take the organization ID as a parameter and write only to that organization's databases, and each organization's cloned dashboards point at its own datasets.
 
-## Trade-offs
-
-ClickHouse is eventually consistent via batch/incremental loads, which is acceptable for reporting.
-
 ## Results
 
 - Query time <Metric>42s → 3s</Metric> per query (over 90% faster) for reports such as Contract Spend Dashboard, Contract UOM Mismatch and VIM reports.

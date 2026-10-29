@@ -54,10 +54,6 @@ The index is a derived copy. If it is wrong, it can be rebuilt from PostgreSQL b
 
 The API uses JWT, and the app shares a single sign-on session with the main platform. Every Elasticsearch query is filtered by tenant.
 
-## Trade-offs
-
-A sync pipeline to run, and the index lags behind the source until the next daily build: changes show up within one day.
-
 ## Results
 
 - Dashboard load time <Metric>40s → 1s</Metric>.

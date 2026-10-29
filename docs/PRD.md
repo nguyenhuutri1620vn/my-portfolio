@@ -43,7 +43,7 @@ Profile card on the right (desktop) / below (mobile): avatar, name, title, locat
 5. Closing CTA block: "Ready to start a project?" + mailto + response note.
 
 ## 6. Case study page template
-Overview (Context · Solution · Result — clients can stop here) → "Technical deep dive" divider → Problem → Approach & alternatives considered → Architecture diagram → Data design → Failure handling → Security → Trade-offs → Results.
+Overview (Context · Solution · Result — clients can stop here) → "Technical deep dive" divider → Problem → Approach & alternatives considered → Architecture diagram → Data design → Failure handling → Security → Results. No Trade-offs section and no commit or PR counts on case pages (owner, Oct 2026).
 Any statement not backed by `docs/CONTENT.md` is a `[TODO]`, never filled by guessing.
 
 ## 7. Non-functional
