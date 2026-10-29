@@ -10,25 +10,30 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Each metric links to the case study that backs it; the review gate has no page, so it
-// points at the home Engineering section.
-const items = [
-  { key: 'tenants', href: getRelativeLocaleUrl(lang, 'case-studies/healthcare-supply-chain') },
-  { key: 'analytics', href: getRelativeLocaleUrl(lang, 'case-studies/insight-dashboard') },
-  { key: 'exports', href: getRelativeLocaleUrl(lang, 'case-studies/kafka-exports') },
-  { key: 'review', href: `${getRelativeLocaleUrl(lang)}#engineering` },
+// Domain-level proof (no performance numbers): each domain links to the case study that
+// shows it in production.
+const cases = [
+  { key: 'health', slug: 'healthcare-supply-chain' },
+  { key: 'pricing', slug: 'future-price-review' },
+  { key: 'analytics', slug: 'insight-dashboard' },
+  { key: 'data', slug: 'delta-build' },
 ] as const;
+const items = cases.map(({ key, slug }) => ({
+  key,
+  href: getRelativeLocaleUrl(lang, `case-studies/${slug}`),
+}));
 ---
 
+<!-- Two subgrid rows per card (domain, sentence) so the sentences line up across cards. -->
 <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
   {
     items.map(({ key, href }) => (
-      <li>
-        <a href={href} class="card block h-full hover:border-accent">
-          <span class="block text-h2 font-semibold text-accent">
+      <li class="row-span-2 grid grid-rows-subgrid gap-y-0">
+        <a href={href} class="card card-hover row-span-2 grid grid-rows-subgrid gap-y-0">
+          <span class="font-heading block text-2xl leading-snug text-[#818cf8]">
             {t(`forClients.proof.items.${key}.value`)}
           </span>
-          <span class="mt-2 block text-ink">{t(`forClients.proof.items.${key}.label`)}</span>
+          <span class="mt-2 block text-slate-300">{t(`forClients.proof.items.${key}.label`)}</span>
         </a>
       </li>
     ))

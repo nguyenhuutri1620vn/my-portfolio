@@ -1,9 +1,6 @@
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import { site } from '../data/site';
 import { defaultLocale, type Locale } from '../i18n/config';
-
-const inPublic = (href: string) => existsSync(join(process.cwd(), 'public', href));
+import { inPublic } from './public-file';
 
 // The CV for this language, else the default-language CV. Undefined when neither file
 // is in public/resume/, so callers hide the link instead of pointing at a 404.

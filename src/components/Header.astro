@@ -12,10 +12,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const home = getRelativeLocaleUrl(lang);
-const forClients = getRelativeLocaleUrl(lang, 'for-clients');
-const onForClients = Astro.url.pathname.replace(/\/$/, '') === forClients.replace(/\/$/, '');
 
-// Full /{lang}/#id links work from every page and only scroll when already on home.
 const anchors = [
   { id: 'projects', label: t('nav.projects') },
   { id: 'engineering', label: t('nav.engineering') },
@@ -24,38 +21,114 @@ const anchors = [
 ];
 ---
 
-<header class="sticky top-0 z-10 border-b border-brown/25 bg-bg/95 backdrop-blur-sm">
-  <div class="container-page flex flex-wrap items-center gap-x-6 gap-y-2 py-3">
-    <a href={home} class="font-semibold text-ink">{site.name}</a>
-
-    <nav aria-label={t('nav.label')} class="order-last w-full lg:order-none lg:w-auto">
-      <ul class="flex gap-x-5 overflow-x-auto text-sm">
-        {
-          anchors.map(({ id, label }) => (
-            <li>
-              <a href={`${home}#${id}`} class="whitespace-nowrap text-ink hover:text-accent">
-                {label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-
-    <div class="ml-auto flex items-center gap-4">
-      <a
-        href={forClients}
-        aria-current={onForClients ? 'page' : undefined}
-        class:list={[
-          'whitespace-nowrap rounded-btn border px-3 py-1.5 text-sm',
-          onForClients
-            ? 'border-accent text-accent'
-            : 'border-brown/40 text-brown hover:bg-surface/40',
-        ]}
+<header
+  class="sticky top-0 z-40 w-full border-b border-white/5 bg-[#06090f]/85 backdrop-blur-xl transition-all duration-300"
+>
+  <div class="container-page flex items-center justify-between py-4 sm:py-5">
+    <!-- Brand Logo in Developer X style: </> Tri Huu Nguyen -->
+    <a href={home} class="flex items-center gap-2.5 group">
+      <span
+        class="flex h-8 w-8 items-center justify-center rounded-lg bg-[#6366f1]/15 font-mono text-base font-bold text-[#6366f1] ring-1 ring-[#6366f1]/30 transition group-hover:bg-[#6366f1]/25 group-hover:scale-105"
       >
-        {t('nav.forClients')}
-      </a>
-      <LangSwitch lang={lang} />
+        &lt;/&gt;
+      </span>
+      <span
+        class="font-heading text-lg font-bold text-white tracking-tight transition group-hover:text-[#818cf8]"
+      >
+        {site.name}
+      </span>
+    </a>
+
+    <!-- Nav Links & Language Switcher -->
+    <div class="flex items-center gap-4 sm:gap-8">
+      <nav aria-label={t('nav.label')} class="hidden md:block">
+        <ul class="flex items-center gap-7 text-sm font-medium">
+          {
+            anchors.map(({ id, label }) => (
+              <li>
+                <a
+                  href={`${home}#${id}`}
+                  data-nav-link={id}
+                  class="nav-link text-slate-300 transition-colors hover:text-white"
+                >
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="pl-2 border-l border-white/10 flex items-center">
+        <LangSwitch lang={lang} />
+      </div>
     </div>
   </div>
+
+  <!-- Mobile navigation bar -->
+  <nav
+    aria-label={t('nav.label')}
+    class="block md:hidden border-t border-white/5 px-4 py-2 bg-[#06090f]/90"
+  >
+    <ul class="flex items-center justify-around gap-2 text-xs font-medium overflow-x-auto">
+      {
+        anchors.map(({ id, label }) => (
+          <li>
+            <a
+              href={`${home}#${id}`}
+              data-nav-link={id}
+              class="nav-link whitespace-nowrap text-slate-300 transition-colors hover:text-white py-1 px-2"
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </header>
+
+<script>
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')].map((link) => [
+      link.dataset.navLink ?? '',
+      link,
+    ]),
+  );
+  const sections = [...links.keys()]
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => el !== null);
+
+  if (sections.length > 0 && 'IntersectionObserver' in window) {
+    const setActive = (id: string | null) => {
+      for (const [key, link] of links) {
+        if (key === id) {
+          link.setAttribute('aria-current', 'location');
+          link.classList.add('text-[#818cf8]', 'font-semibold');
+        } else {
+          link.removeAttribute('aria-current');
+          link.classList.remove('text-[#818cf8]', 'font-semibold');
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: '-40% 0px -59% 0px' },
+    );
+    for (const section of sections) observer.observe(section);
+
+    const first = sections[0];
+    addEventListener(
+      'scroll',
+      () => {
+        if (first.getBoundingClientRect().top > innerHeight * 0.4) setActive(null);
+      },
+      { passive: true },
+    );
+  }
+</script>

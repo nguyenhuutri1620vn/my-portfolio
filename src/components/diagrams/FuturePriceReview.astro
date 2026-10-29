@@ -10,9 +10,9 @@ interface Props {
 }
 
 const { lang, marker } = Astro.props;
-const l = diagramLabels(lang, 'kafka-exports');
+const l = diagramLabels(lang, 'future-price-review');
 
-// Request side on the top row; the worker's output folds back along the bottom row.
+// Review flow on the top row; the approved price lands on the bottom right.
 const col = [8, 139, 270, 401, 532];
 const top = 90;
 const bottom = 216;
@@ -20,13 +20,13 @@ const w = 100;
 const h = 54;
 ---
 
-<Box x={col[0]} y={top} w={w} h={h} label={l('api')} sub={l('apiSub')} />
-<Box x={col[1]} y={top} w={w} h={h} label={l('kafka')} sub={l('kafkaSub')} store />
-<Box x={col[2]} y={top} w={w} h={h} label={l('worker')} sub={l('workerSub')} focus />
-<Box x={col[3]} y={top} w={w} h={h} label={l('chunks')} stack />
-<Box x={col[4]} y={top} w={w} h={h} label={l('zip')} />
-<Box x={col[4]} y={bottom} w={w} h={h} label={l('store')} store />
-<Box x={col[3]} y={bottom} w={w} h={h} label={l('notify')} />
+<Box x={col[0]} y={top} w={w} h={h} label={l('future')} sub={l('futureSub')} store />
+<Box x={col[1]} y={top} w={w} h={h} label={l('compare')} sub={l('compareSub')} />
+<Box x={col[2]} y={top} w={w} h={h} label={l('grid')} sub={l('gridSub')} focus />
+<Box x={col[3]} y={top} w={w} h={h} label={l('decide')} sub={l('decideSub')} />
+<Box x={col[4]} y={top} w={w} h={h} label={l('job')} sub={l('jobSub')} />
+<Box x={col[4]} y={bottom} w={w} h={h} label={l('rules')} sub={l('rulesSub')} />
+<Box x={col[3]} y={bottom} w={w} h={h} label={l('active')} sub={l('activeSub')} store stack />
 
 <Arrow
   marker={marker}
@@ -52,7 +52,7 @@ const h = 54;
 <Arrow
   marker={marker}
   points={[
-    [509, 117],
+    [501, 117],
     [531, 117],
   ]}
 />
@@ -66,7 +66,7 @@ const h = 54;
 <Arrow
   marker={marker}
   points={[
-    [531, 243],
-    [502, 243],
+    [532, 243],
+    [510, 243],
   ]}
 />

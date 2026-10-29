@@ -9,14 +9,14 @@ Two audiences, two entry points:
 - **`/{lang}/for-clients`** for clients: offerings, proof metrics, 6-step workflow, Start a Project.
 See `docs/PORTFOLIO-BACKEND.md` for the content principles of the home page.
 
-Vision line (hero): **"Build systems that make your business win."**
+Vision line (hero): **"Systems that help your business win."** (VI: "Hệ thống giúp doanh nghiệp bạn thắng.")
 
 ## Hard rules
 1. **Do not invent facts or numbers.** Use only numbers in `docs/CONTENT.md`. Where content says `[TODO: ...]`, render a visible placeholder in dev and fail the build in production (`npm run check:todo`).
 2. **Anonymity:** never write company or product names (no "BESTARION", no "Meperia", no "MSSS"). Use "Healthcare supply chain platform". Product/module names allowed: **Value Analysis**, **Insight Dashboard**, **Custom Report Builder**.
 3. No client data, screenshots with real data, or proprietary code. Diagrams are redrawn, generic, synthetic.
 4. Job title everywhere is **Software Engineer**. Do not use "Senior", "AI Engineer" or "Solution Architect" in titles.
-5. Experience wording: **"5 years"** (EN) / **"Gần 5 năm"** (VI).
+5. Experience wording: **"5 years"** (EN) / **"5 năm"** (VI).
 6. Max **4 palette colors** + neutral text. See `docs/DESIGN.md`. No gradients, no stock images, no emoji in UI.
 7. Every user-facing string exists in **both EN and VI**. No hard-coded strings in components.
 8. **Source of truth order:** `CONTENT.md` (facts, copy) > `PRD.md` (structure) > `DESIGN.md` (look) > `TASKS.md` (order). Prompt files are only instructions; if they conflict with docs, docs win.
@@ -38,7 +38,7 @@ src/
   components/ (Header, Footer, LangSwitch, Hero, CaseCard, DecisionCard, PracticeItem, StackGrid, ContactBlock, ClientHero, OfferCard, ProofStrip, WorkflowGrid, diagrams/*)
   layouts/
   pages/{en,vi}/index.astro, for-clients.astro, case-studies/[slug].astro
-public/resume/ (Tri-Nguyen-CV-EN.pdf, Tri-Nguyen-CV-VI.pdf)
+public/resume/ (one English CV, linked from both languages)
 docs/
 ```
 
@@ -53,4 +53,4 @@ docs/
 Plan first, small steps, tests/linters on, review diff before accepting. No generated boilerplate left unused.
 
 ## Open items owner must supply
-Portrait photo, UI mockups for case studies, Vietnamese CV PDF, Calendly link (optional), before/after numbers marked `[TODO]`.
+UI mockups for case studies (optional), Calendly link (optional), before/after numbers marked `[TODO]`.

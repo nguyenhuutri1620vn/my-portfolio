@@ -1,0 +1,49 @@
+---
+title: Build dữ liệu tăng dần hằng ngày
+tag: Pipeline dữ liệu
+intro: 'Mỗi ngày, dữ liệu báo cáo được build lại từ đầu. Giờ mỗi lần build lưu checkpoint và chỉ build lại phần đã thay đổi từ lần trước.'
+highlight: 'Build hằng ngày **8 giờ → 1 giờ**'
+context: Mỗi ngày build lại toàn bộ dữ liệu báo cáo mất 8 giờ, dù phần lớn dữ liệu không đổi.
+solution: Lưu checkpoint, rồi chỉ build lại những mặt hàng trên báo cáo đã thay đổi từ đó.
+result: 'Build **8 giờ → 1 giờ**, số dòng build **30M → 50K**, CPU đỉnh **90% → 50%**.'
+diagram: delta-build
+lang: vi
+order: 6
+---
+
+## Vấn đề
+
+Báo cáo gom dữ liệu từ nhiều nguồn: hóa đơn, đơn đặt hàng, dữ liệu mặt hàng và nhà cung cấp. Mỗi ngày toàn bộ dữ liệu được build lại từ đầu. Việc này mất 8 giờ và đẩy CPU lên 90%, trong khi phần lớn dữ liệu của hôm trước không thay đổi.
+
+## Hướng tiếp cận & phương án đã cân nhắc
+
+1. **Checkpoint.** Mỗi lần build lưu lại điểm dừng. Lần chạy hằng ngày tiếp theo chỉ đọc các thay đổi từ checkpoint đó.
+2. **Lấy mặt hàng trên báo cáo làm đơn vị.** Build gom các mặt hàng vừa thay đổi, xóa các dòng báo cáo cũ của chúng, rồi chỉ build lại dữ liệu hiện tại của những mặt hàng đó.
+3. **Phương án dự phòng an toàn.** Khi chưa có checkpoint, như ở lần chạy đầu, hệ thống quay về build toàn bộ.
+
+## Kiến trúc
+
+<Diagram />
+
+## Thiết kế dữ liệu
+
+Thay đổi được theo dõi bằng bảng lịch sử cho dòng hóa đơn và cho dữ liệu mặt hàng, nhà cung cấp, cờ delta trên các dòng đã đổi, cùng sequence và trigger kiểm tra duy nhất.
+
+## Xử lý lỗi
+
+- Giới hạn xử lý giúp một bệnh viện lớn không làm quá tải pipeline trong một lần chạy.
+- Build toàn bộ vẫn luôn sẵn sàng làm phương án dự phòng.
+
+## Bảo mật
+
+Mỗi lần chạy chỉ làm việc trong database riêng của một bệnh viện.
+
+## Đánh đổi
+
+Nhiều logic cần bảo trì hơn build toàn bộ: việc theo dõi thay đổi phải đầy đủ, nếu không sẽ bỏ sót mặt hàng đã đổi.
+
+## Kết quả
+
+- Build hằng ngày <Metric>8 giờ → 1 giờ</Metric>.
+- Số dòng build mỗi lần <Metric>30M → 50K</Metric>.
+- CPU đỉnh <Metric>90% → 50%</Metric>.

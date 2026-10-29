@@ -1,7 +1,8 @@
 import type { CollectionEntry } from 'astro:content';
 import ClickhouseSuperset from './ClickhouseSuperset.astro';
+import DeltaBuild from './DeltaBuild.astro';
+import FuturePriceReview from './FuturePriceReview.astro';
 import InsightDashboard from './InsightDashboard.astro';
-import KafkaExports from './KafkaExports.astro';
 import PlatformOverview from './PlatformOverview.astro';
 import ValueAnalysis from './ValueAnalysis.astro';
 
@@ -12,5 +13,6 @@ export const diagrams = {
   'insight-dashboard': InsightDashboard,
   'value-analysis': ValueAnalysis,
   'clickhouse-superset': ClickhouseSuperset,
-  'kafka-exports': KafkaExports,
+  'future-price-review': FuturePriceReview,
+  'delta-build': DeltaBuild,
 } satisfies Record<DiagramName, unknown>;

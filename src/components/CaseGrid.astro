@@ -1,5 +1,6 @@
 ---
 import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
 import { caseStudies } from '../lib/case-studies';
 import CaseCard from './CaseCard.astro';
 
@@ -8,33 +9,28 @@ interface Props {
 }
 
 const { lang } = Astro.props;
+const t = useTranslations(lang);
 const entries = caseStudies(lang);
-
-// Desktop uses a 6-column track with each card spanning 2, so a short last row can be
-// centered by its start column (3 + 2 layout: the last two start at 2 and 4).
-const lastRow = entries.length % 3;
-const desktopStart = (i: number) => {
-  const fromEnd = entries.length - i;
-  if (lastRow === 2 && fromEnd === 2) return 'lg:col-start-2';
-  if (lastRow === 1 && fromEnd === 1) return 'lg:col-start-3';
-  return undefined;
-};
-// Tablet has 2 columns; an odd last card is centered at single-card width.
-const tabletCentered = (i: number) => entries.length % 2 === 1 && i === entries.length - 1;
+// Key projects first in large cards (2 x 2), then the rest in smaller cards.
+const groups = [
+  { title: t('caseStudies.keyTitle'), featured: true },
+  { title: t('caseStudies.moreTitle'), featured: false },
+]
+  .map((g) => ({ ...g, entries: entries.filter((e) => e.data.featured === g.featured) }))
+  .filter((g) => g.entries.length > 0);
 ---
 
-<ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
-  {
-    entries.map((entry, i) => (
-      <li
-        class:list={[
-          'lg:col-span-2',
-          desktopStart(i),
-          { 'sm:col-span-2 sm:mx-auto sm:w-[calc(50%-12px)] lg:w-auto': tabletCentered(i) },
-        ]}
-      >
-        <CaseCard entry={entry} lang={lang} />
-      </li>
-    ))
-  }
-</ul>
+{
+  groups.map(({ title, featured, entries }) => (
+    <>
+      <h3 class:list={['eyebrow', featured ? 'mt-10' : 'mt-14']}>{title}</h3>
+      <ul class:list={['mt-5 grid gap-6 sm:grid-cols-2', featured ? 'lg:gap-8' : 'lg:gap-6']}>
+        {entries.map((entry) => (
+          <li class="row-span-5 grid grid-rows-subgrid gap-y-0">
+            <CaseCard entry={entry} lang={lang} featured={featured} />
+          </li>
+        ))}
+      </ul>
+    </>
+  ))
+}

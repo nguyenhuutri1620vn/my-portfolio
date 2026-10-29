@@ -1,0 +1,59 @@
+---
+title: Future Price Review
+tag: Contract pricing
+intro: 'Contract prices change before they go live. Hospitals compare upcoming and current prices across every facility, then approve or reject them in bulk, before a wrong price reaches a purchase order.'
+highlight: 'Bulk approve or reject, with **best-contract** and **non-linear** pricing rules'
+context: Future contract prices that differ from current ones had to be checked before they took effect, across many facilities and contracts.
+solution: 'A two-level review grid with threshold filters and Solr search; bulk decisions run as background jobs that apply best-contract and non-linear pricing rules.'
+result: 'Price discrepancies resolved in bulk before activation, and a daily job applies approved future prices to items, so no one creates and applies prices by hand on the day.'
+diagram: future-price-review
+lang: en
+order: 4
+featured: true
+---
+
+_A price discrepancy is the difference between a price a hospital will pay and the price its contract says it should pay._
+
+## Problem
+
+Group purchasing organizations and vendors send new contract prices ahead of time. Before a future price goes live, someone has to decide whether it is right. A wrong price that slips through is paid again on every purchase order at every facility that buys the item.
+
+The review is hard because one item can have a different future price per facility and per contract, a hospital system can have several corporations, and a single contract update can touch thousands of items.
+
+## Approach & alternatives considered
+
+I built the workflow end to end on the core platform (Oct 2025 – Oct 2026):
+
+1. **A two-level grid.** Each row is an item; its sub-rows are the facilities or contracts the price applies to. A GPO panel on the left narrows the list, and several corporations can be reviewed together. Sorting and paging run on the server so large lists stay fast.
+2. **Find the risky prices first.** Filters for percentage-change thresholds, date ranges and GPO, plus Solr search that also matches part of a contract number.
+3. **Decide in bulk.** Approve, reject or pre-reject a selection or everything that matches the filters. Each action runs as a background job.
+4. **Apply the pricing rules on approval.** Approving applies the best-contract and non-linear pricing rules before the price goes live.
+5. **Keep a record.** A reviewed-prices screen lists past decisions, with search and sort across the sub-levels.
+6. **Apply on schedule.** A job runs once a day and applies the approved future prices to their items when they take effect.
+
+## Architecture
+
+<Diagram />
+
+## Data design
+
+Pending future prices live in each hospital system's own database, grouped by item with one sub-row per facility or contract. Search runs on a Solr index so partial contract-number matches stay fast.
+
+## Failure handling
+
+Bulk decisions run as background jobs, so approving or rejecting thousands of prices never blocks the screen or times out the request.
+
+## Security
+
+Each hospital system's prices stay in its own database. Only admin users, or users with full contract access, can approve or reject.
+
+## Trade-offs
+
+- **Two-level grids on ExtJS 3.4:** a lot of grid code to keep fast and readable, tuned for 1920px screens and 100%, 110% and 125% browser zoom.
+- **Background jobs:** results are not instant, so the screen has to show what is still running.
+
+## Results
+
+- Price discrepancies are reviewed and resolved in bulk before they take effect, instead of after the wrong price has been paid.
+- Approved prices are applied to items by a daily job, instead of being created and applied by hand on the day they take effect.
+- Model and controller specs for each step of the workflow.

@@ -1,0 +1,59 @@
+---
+title: Duyệt giá hợp đồng tương lai
+tag: Giá hợp đồng
+intro: 'Giá hợp đồng thay đổi trước khi được áp dụng. Bệnh viện so sánh giá sắp áp dụng với giá hiện tại ở mọi cơ sở, rồi phê duyệt hoặc từ chối hàng loạt, trước khi một mức giá sai lọt vào đơn đặt hàng.'
+highlight: 'Duyệt hoặc từ chối hàng loạt, theo quy tắc **hợp đồng tốt nhất** và **giá phi tuyến**'
+context: Các giá hợp đồng tương lai khác giá hiện tại phải được kiểm tra trước khi có hiệu lực, trên nhiều cơ sở và nhiều hợp đồng.
+solution: 'Bảng duyệt hai cấp có bộ lọc ngưỡng và tìm kiếm Solr; quyết định hàng loạt chạy dưới dạng job nền, áp dụng quy tắc hợp đồng tốt nhất và giá phi tuyến.'
+result: 'Chênh lệch giá được xử lý hàng loạt trước khi có hiệu lực, và một job hằng ngày áp dụng giá tương lai đã duyệt vào mặt hàng, nên không ai phải tạo và áp giá thủ công vào đúng ngày.'
+diagram: future-price-review
+lang: vi
+order: 4
+featured: true
+---
+
+_Chênh lệch giá là khoảng cách giữa mức giá bệnh viện sẽ trả và mức giá hợp đồng quy định._
+
+## Vấn đề
+
+Các tổ chức mua chung (GPO) và nhà cung cấp gửi giá hợp đồng mới từ trước. Trước khi một giá tương lai có hiệu lực, phải có người quyết định nó đúng hay sai. Một mức giá sai lọt qua sẽ bị trả lại trên mọi đơn đặt hàng, ở mọi cơ sở mua mặt hàng đó.
+
+Việc duyệt khó vì một mặt hàng có thể có giá tương lai khác nhau theo từng cơ sở và từng hợp đồng, một hệ thống bệnh viện có thể gồm nhiều tập đoàn, và một lần cập nhật hợp đồng có thể chạm tới hàng nghìn mặt hàng.
+
+## Hướng tiếp cận & phương án đã cân nhắc
+
+Tôi xây dựng toàn bộ luồng này trên nền tảng lõi (10/2025 – 10/2026):
+
+1. **Bảng hai cấp.** Mỗi dòng là một mặt hàng; các dòng con là cơ sở hoặc hợp đồng mà giá áp dụng. Bảng GPO bên trái thu hẹp danh sách, và có thể duyệt nhiều tập đoàn cùng lúc. Sắp xếp và phân trang chạy phía server để danh sách lớn vẫn nhanh.
+2. **Tìm giá rủi ro trước.** Bộ lọc theo ngưỡng phần trăm thay đổi, khoảng ngày và GPO, cùng tìm kiếm Solr khớp được cả một phần số hợp đồng.
+3. **Quyết định hàng loạt.** Phê duyệt, từ chối hoặc từ chối trước cho một nhóm đã chọn hoặc toàn bộ kết quả lọc. Mỗi thao tác chạy dưới dạng job nền.
+4. **Áp dụng quy tắc giá khi phê duyệt.** Khi phê duyệt, hệ thống áp dụng quy tắc hợp đồng tốt nhất và giá phi tuyến trước khi mức giá có hiệu lực.
+5. **Lưu lại quyết định.** Màn hình giá đã duyệt liệt kê các quyết định trước đó, có tìm kiếm và sắp xếp trên các cấp con.
+6. **Áp dụng theo lịch.** Một job chạy mỗi ngày một lần, áp dụng giá tương lai đã duyệt vào mặt hàng khi tới ngày hiệu lực.
+
+## Kiến trúc
+
+<Diagram />
+
+## Thiết kế dữ liệu
+
+Giá tương lai chờ duyệt nằm trong database riêng của từng hệ thống bệnh viện, nhóm theo mặt hàng với một dòng con cho mỗi cơ sở hoặc hợp đồng. Tìm kiếm chạy trên index Solr để việc khớp một phần số hợp đồng vẫn nhanh.
+
+## Xử lý lỗi
+
+Các quyết định hàng loạt chạy dưới dạng job nền, nên phê duyệt hay từ chối hàng nghìn mức giá không làm treo màn hình hay timeout request.
+
+## Bảo mật
+
+Giá của mỗi hệ thống bệnh viện nằm trong database riêng. Chỉ người dùng admin, hoặc người dùng có toàn quyền với hợp đồng, mới được phê duyệt hoặc từ chối.
+
+## Đánh đổi
+
+- **Bảng hai cấp trên ExtJS 3.4:** nhiều code bảng cần giữ nhanh và dễ đọc, tối ưu cho màn hình 1920px và mức zoom 100%, 110%, 125%.
+- **Job nền:** kết quả không tức thời, nên màn hình phải cho thấy phần nào còn đang chạy.
+
+## Kết quả
+
+- Chênh lệch giá được xem xét và xử lý hàng loạt trước khi có hiệu lực, thay vì sau khi giá sai đã được trả.
+- Giá đã duyệt được áp dụng vào mặt hàng bằng job hằng ngày, thay vì tạo và áp giá thủ công vào đúng ngày có hiệu lực.
+- Có spec cho model và controller ở từng bước của luồng.

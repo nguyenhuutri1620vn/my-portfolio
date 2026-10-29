@@ -1,0 +1,24 @@
+---
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+import InlineText from './InlineText.astro';
+
+interface Props {
+  lang: Locale;
+  // Key under engineering.practices in ui/*.json, e.g. "p1".
+  id: 'p1' | 'p2' | 'p3' | 'p4';
+}
+
+const { lang, id } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="border-t border-white/10 pt-5">
+  <span class="font-heading text-sm font-semibold text-[#818cf8]">{id.toUpperCase()}</span>
+  <h4 class="font-heading mt-1 text-lg font-bold text-white">
+    {t(`engineering.practices.${id}.title`)}
+  </h4>
+  <p class="mt-2 text-[0.95rem] text-slate-300">
+    <InlineText text={t(`engineering.practices.${id}.text`)} />
+  </p>
+</div>

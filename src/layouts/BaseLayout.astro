@@ -18,23 +18,48 @@ const t = useTranslations(lang);
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <SeoHead lang={lang} title={title} description={description} />
   </head>
-  <body id="top">
+  <body
+    id="top"
+    class="relative min-h-screen bg-[#06090f] text-[#f8fafc] antialiased selection:bg-[#6366f1] selection:text-white"
+  >
+    <!-- Ambient indigo and violet background glow layers matching Electric Indigo #6366F1 theme -->
+    <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+      <!-- Top indigo radial glow behind hero -->
+      <div
+        class="absolute -top-32 left-1/2 -translate-x-1/2 h-[550px] w-[1000px] rounded-full bg-[radial-gradient(ellipse_at_top,_rgba(99,102,241,0.18),_transparent_70%)] blur-3xl"
+      >
+      </div>
+      <!-- Center-right violet aura behind hero portrait -->
+      <div
+        class="absolute top-[15%] -right-24 h-[650px] w-[650px] rounded-full bg-[radial-gradient(circle,_rgba(139,92,246,0.12),_transparent_65%)] blur-3xl"
+      >
+      </div>
+      <!-- Lower subtle indigo glow -->
+      <div
+        class="absolute bottom-[10%] -left-32 h-[600px] w-[600px] rounded-full bg-[radial-gradient(circle,_rgba(99,102,241,0.08),_transparent_65%)] blur-3xl"
+      >
+      </div>
+    </div>
+
     <a
       href="#main"
-      class="sr-only z-20 rounded-btn bg-accent px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      class="sr-only z-50 rounded-btn bg-[#6366f1] px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
     >
       {t('a11y.skipLink')}
     </a>
-    <Header lang={lang} />
-    <main id="main" tabindex="-1" class="focus:outline-none">
-      <slot />
-    </main>
-    <Footer lang={lang} />
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+      <Header lang={lang} />
+      <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
+        <slot />
+      </main>
+      <Footer lang={lang} />
+    </div>
   </body>
 </html>

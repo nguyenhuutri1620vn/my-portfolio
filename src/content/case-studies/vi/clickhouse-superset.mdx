@@ -1,25 +1,28 @@
 ---
-title: ClickHouse × Superset và Custom Report Builder
+title: Custom Report Builder
 tag: Data & BI
-context: Người dùng muốn báo cáo tự phục vụ, linh hoạt trên dữ liệu rất lớn, và dashboard của 19+ tổ chức cần được triển khai nhất quán.
-solution: Một engine phân tích duy nhất là ClickHouse, nạp qua ETL từ PostgreSQL qua S3 (full và incremental), phục vụ cả dashboard Superset lẫn Custom Report Builder; dashboard được nhân bản tự động cho từng tổ chức.
-result: 'Thời gian truy vấn giảm **hơn 90%** [TODO: mốc so sánh], dashboard triển khai cho **19+** tổ chức bằng cách nhân bản thay vì dựng lại.'
+intro: 'Người dùng tự tạo báo cáo bằng cách chọn tiêu chí họ cần, trên dữ liệu rất lớn. ClickHouse phục vụ các báo cáo này và dashboard Superset cho mọi bệnh viện.'
+highlight: 'Thời gian truy vấn **42 giây → 3 giây** mỗi báo cáo'
+context: Người dùng muốn tự tạo báo cáo trên dữ liệu rất lớn, cho 19+ bệnh viện.
+solution: Một engine duy nhất là ClickHouse, phía sau Superset và Custom Report Builder.
+result: 'Thời gian truy vấn **42 giây → 3 giây** (nhanh hơn 90%); dashboard nhân bản cho **19+** bệnh viện.'
 diagram: clickhouse-superset
 lang: vi
-order: 4
+order: 5
+featured: true
 ---
 
 _Custom Report Builder cho phép người dùng tự tạo báo cáo theo các tiêu chí họ cần._
 
 ## Vấn đề
 
-<Todo>problem statement for this case</Todo>
+Các phép tổng hợp nặng chạy trên database PostgreSQL của từng tổ chức, cũng chính là hệ thống giao dịch. Người dùng muốn tự chọn tiêu chí báo cáo trên dữ liệu mua hàng nhiều năm, và mỗi tổ chức mới cần cùng một bộ dashboard BI.
 
 ## Hướng tiếp cận & phương án đã cân nhắc
 
 Một nguồn, một engine. Insight Dashboard dùng Elasticsearch vì truy vấn là các phép tổng hợp có bộ lọc định sẵn. Custom Report Builder cố ý **không** dùng Elasticsearch: tiêu chí do người dùng tự chọn sẽ buộc phải duy trì hai chế độ truy vấn, nhân đôi đường code, job đồng bộ và kiểu lỗi. Quy về ClickHouse cho một nguồn dữ liệu và một đường truy vấn cho báo cáo dữ liệu lớn.
 
-Triển khai Superset: nhân bản dashboard, chart và dataset bằng script cho <Metric>19+</Metric> tổ chức thay vì dựng lại thủ công.
+Triển khai Superset bằng script. Dashboard, chart và dataset được nhân bản theo từng tổ chức và giữa các môi trường (production sang development) cho <Metric>19+</Metric> tổ chức, thay vì dựng lại thủ công. Công cụ viết lại tham chiếu dataset và database, hoặc trực tiếp trong database của Superset, hoặc bằng cách sửa gói ZIP đã export. Nó cũng xử lý xóa hàng loạt và tải lại dashboard nhúng.
 
 ## Kiến trúc
 
@@ -27,15 +30,21 @@ Triển khai Superset: nhân bản dashboard, chart và dataset bằng script ch
 
 ## Thiết kế dữ liệu
 
-ETL PostgreSQL → S3 → ClickHouse; nạp full cho lần đầu/backfill, incremental cho cập nhật thường xuyên; model ClickHouse xây cho phân tích chi tiêu và xu hướng. <Todo>engine/ordering keys if you want to show</Todo>
+- **PostgreSQL → ClickHouse.** Job đồng bộ đọc schema PostgreSQL, tạo bảng ClickHouse tương ứng theo bảng ánh xạ kiểu dữ liệu, export CSV lên S3, rồi nạp bằng hàm bảng S3 của ClickHouse.
+- **PostgreSQL → Redshift.** Cùng vùng đệm S3 nạp vào Redshift qua Redshift Data API (`COPY` từ S3).
+- **Hợp đồng đã lưu trữ.** Dữ liệu hợp đồng, cơ sở và mặt hàng đã lưu trữ được đẩy lên S3, nạp vào ClickHouse, và phục vụ qua materialized view chia theo năm cùng một báo cáo Superset.
+
+Nạp full cho lần chạy đầu và backfill; nạp incremental giữ dữ liệu luôn mới.
 
 ## Xử lý lỗi
 
-<Todo>ETL retries, idempotent loads, row-count checks, reconciliation</Todo>
+- Job đồng bộ kiểm tra bảng đích tồn tại trước khi nạp, và tạo bảng từ schema nguồn nếu chưa có.
+- Pipeline lưu trữ so số dòng của từng bản dump với bảng đang chạy trước khi xóa bất cứ thứ gì khỏi PostgreSQL.
+- Mỗi batch job ghi file log riêng, nên một lần chạy lỗi có thể truy vết theo từng tổ chức.
 
 ## Bảo mật
 
-Giới hạn dataset theo tổ chức <Todo>confirm</Todo>; thông tin xác thực qua Secrets Manager.
+Thông tin xác thực lấy từ AWS Secrets Manager. Job nhận mã tổ chức làm tham số và chỉ ghi vào database của tổ chức đó, và dashboard nhân bản của mỗi tổ chức trỏ tới dataset của chính tổ chức đó.
 
 ## Đánh đổi
 
@@ -43,8 +52,5 @@ ClickHouse nhất quán sau (batch/incremental), chấp nhận được với b�
 
 ## Kết quả
 
-Thời gian truy vấn giảm <Metric>hơn 90%</Metric> <Todo>mốc so sánh</Todo>, dashboard triển khai cho <Metric>19+</Metric> tổ chức bằng cách nhân bản thay vì dựng lại.
-
-## Hướng phát triển tiếp theo
-
-<Todo>what you would do next</Todo>
+- Thời gian truy vấn <Metric>42 giây → 3 giây</Metric> mỗi truy vấn (nhanh hơn 90%) cho các báo cáo như Contract Spend Dashboard, Contract UOM Mismatch và VIM.
+- Dashboard triển khai cho <Metric>19+</Metric> tổ chức bằng cách nhân bản thay vì dựng lại.

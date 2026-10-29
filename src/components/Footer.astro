@@ -2,7 +2,6 @@
 import { site } from '../data/site';
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../i18n/ui';
-import LangSwitch from './LangSwitch.astro';
 
 interface Props {
   lang: Locale;
@@ -12,12 +11,9 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<footer class="border-t border-brown/25">
-  <div
-    class="container-page flex flex-wrap items-center justify-between gap-4 py-8 text-sm text-ink"
-  >
+<footer class="dark-band">
+  <div class="container-page flex flex-wrap items-center justify-between gap-4 py-10 text-sm">
     <p>© {new Date().getFullYear()} {site.name}</p>
-    <LangSwitch lang={lang} />
     <a href="#top" class="link">{t('footer.backToTop')}</a>
   </div>
 </footer>

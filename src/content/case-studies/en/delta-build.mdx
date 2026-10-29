@@ -1,0 +1,49 @@
+---
+title: Daily Delta Build
+tag: Data pipeline
+intro: 'Every day, the report data was rebuilt from zero. Now the build saves a checkpoint and only rebuilds what changed since the last run.'
+highlight: 'Daily build **8h → 1h**'
+context: Rebuilding all report data every day took 8 hours, though most of it had not changed.
+solution: Save a checkpoint, then rebuild only the report items that changed since it.
+result: 'Build **8h → 1h**, rows rebuilt **30M → 50K**, CPU peak **90% → 50%**.'
+diagram: delta-build
+lang: en
+order: 6
+---
+
+## Problem
+
+Reports collect data from many sources: invoices, purchase orders, and item and vendor data. Every day the whole dataset was rebuilt from scratch. That took 8 hours and pushed CPU to 90%, even though most of the previous day's data had not changed.
+
+## Approach & alternatives considered
+
+1. **Checkpoint.** Each build saves where it stopped. The next daily run reads only the changes since that checkpoint.
+2. **Report items as the unit of work.** The build collects the items that changed, deletes their old report rows, and rebuilds only the current data for those items.
+3. **Safe fallback.** When there is no checkpoint yet, such as on the first run, it falls back to a full build.
+
+## Architecture
+
+<Diagram />
+
+## Data design
+
+Changes are tracked with history tables for invoice lines and for item and vendor data, a delta flag on changed rows, and sequences with uniqueness triggers.
+
+## Failure handling
+
+- A processing limit keeps a large hospital from overloading the pipeline in one run.
+- The full build stays available as the fallback.
+
+## Security
+
+Each run works inside one hospital's own database.
+
+## Trade-offs
+
+More logic to maintain than a full rebuild: change tracking has to be complete, or a changed item is missed.
+
+## Results
+
+- Daily build <Metric>8h → 1h</Metric>.
+- Rows rebuilt per run <Metric>30M → 50K</Metric>.
+- CPU peak <Metric>90% → 50%</Metric>.

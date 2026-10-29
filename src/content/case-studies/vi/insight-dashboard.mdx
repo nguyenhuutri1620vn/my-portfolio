@@ -1,29 +1,36 @@
 ---
 title: Insight Dashboard
 tag: Phân tích chi tiêu
-context: Truy vấn phân tích chi tiêu trên lượng lịch sử mua hàng lớn quá chậm để dùng tương tác.
-solution: Lớp tìm kiếm và tổng hợp trên Elasticsearch, với một nguồn dữ liệu gốc rõ ràng, lọc theo kỳ, tập đoàn và nhà cung cấp.
-result: 'Một API phân tích chi tiêu giảm từ **15 giây xuống 1 giây** so với truy vấn trực tiếp PostgreSQL.'
+intro: 'Báo cáo chi tiêu cho bệnh viện thấy tiền của họ đi đâu. Báo cáo từng rất chậm, nên tôi chuyển phần tính tổng nặng sang Elasticsearch.'
+highlight: 'Thời gian tải báo cáo **40 giây → 1 giây**'
+context: 10 báo cáo mua hàng với nhiều join và bộ lọc mất hơn 40 giây để tải.
+solution: PostgreSQL giữ vai trò nguồn dữ liệu gốc; Elasticsearch chạy các phép tổng hợp nặng.
+result: 'Thời gian tải **40 giây → 1 giây**, CPU database **80% → 30%** mỗi truy vấn.'
 diagram: insight-dashboard
 lang: vi
 order: 2
+featured: true
 ---
 
 _Insight Dashboard là một module của nền tảng chuỗi cung ứng y tế, giúp người dùng xem báo cáo chi tiêu và phân tích mua bán theo từng tổ chức bệnh viện._
 
 ## Vấn đề
 
-Người dùng mở dashboard, lọc chi tiêu theo kỳ, tập đoàn, nhà cung cấp, rồi đi sâu vào chi tiết.
+Insight Dashboard có 10 báo cáo mua hàng. Mỗi báo cáo join nhiều bảng và tổng hợp trên nhiều bộ lọc: kỳ, tập đoàn, phòng ban, nhà cung cấp và mặt hàng. Dashboard cần hơn 40 giây để hiển thị đủ dữ liệu, quá chậm cho công việc hằng ngày.
+
+Quy mô: <Metric>19+</Metric> bệnh viện tại Mỹ, hơn <Metric>50M</Metric> bản ghi xử lý mỗi ngày, khoảng <Metric>5.000</Metric> người dùng mỗi ngày. Tôi làm full-stack trong một đội ba kỹ sư.
 
 ## Hướng tiếp cận & phương án đã cân nhắc
 
-Vì sao dùng Elasticsearch ở đây:
+1. **Đo trước.** Tôi chạy `EXPLAIN ANALYZE` cho từng truy vấn chậm để xem vấn đề nằm ở câu truy vấn hay ở index còn thiếu.
+2. **Chọn engine theo kiểu truy cập.** Các báo cáo là phép tổng hợp đọc nặng với cấu trúc cố định. PostgreSQL vẫn là **nguồn dữ liệu gốc duy nhất**. Elasticsearch phục vụ các phép tổng hợp: tổng chi phí theo nhà cung cấp và theo mặt hàng, chia theo phòng ban và các bộ phận của phòng ban.
+3. **Giữ engine thay thế được.** Logic nghiệp vụ phụ thuộc vào repository interface (dependency inversion), không phụ thuộc PostgreSQL hay Elasticsearch. Chuyển một báo cáo sang engine khác, như ClickHouse, chỉ cần viết repository mới, không phải viết lại use case.
 
-1. Kiểu truy cập là đọc và tổng hợp nặng với nhiều bộ lọc và group-by; PostgreSQL mất khoảng 15 giây cho một API.
-2. Dữ liệu được dẫn xuất từ database chính, nên PostgreSQL vẫn là **nguồn dữ liệu gốc duy nhất** và Elasticsearch là bản đọc có thể dựng lại.
-3. Ở đây tốc độ lọc nhanh và nhất quán quan trọng hơn ràng buộc giao dịch.
+Ở front-end, tôi xây dựng phần lớn giao diện báo cáo bằng React và TypeScript:
 
-Phương án đã cân nhắc: index và materialized view trong PostgreSQL (hạn chế với tổng hợp linh hoạt nhiều bộ lọc) <Todo>confirm alternatives you actually evaluated</Todo>; ClickHouse (được chọn cho một workload khác, xem case Custom Report Builder).
+- **Drill-down chia sẻ được** (dashboard → tổng hợp nhà cung cấp → chi tiết mặt hàng): bộ lọc và kỳ nằm trên URL, nên mọi màn hình đều đánh dấu được.
+- **Bảng dữ liệu tùy chỉnh:** đổi độ rộng, sắp xếp lại và ẩn cột, lưu theo từng loại báo cáo; sắp xếp và lọc chạy phía server.
+- **Saved views:** người dùng lưu các tổ hợp bộ lọc, cột và kỳ của riêng mình.
 
 ## Kiến trúc
 
@@ -31,25 +38,23 @@ Phương án đã cân nhắc: index và materialized view trong PostgreSQL (h�
 
 ## Thiết kế dữ liệu
 
-Index theo tổ chức hoặc routing theo tenant <Todo>confirm</Todo>, mapping tối ưu cho bộ lọc keyword và tổng hợp số; đồng bộ từ PostgreSQL qua <Todo>describe sync mechanism and refresh latency</Todo>.
+Việc đánh index vào Elasticsearch chạy thành batch job theo từng bệnh viện, song song bằng goroutine, channel và worker pool. Mỗi tổ chức có index riêng, được dựng lại với dữ liệu mới mỗi ngày một lần.
 
 ## Xử lý lỗi
 
-<Todo>reindex strategy, behavior when ES unavailable</Todo>
+Index là bản sao dẫn xuất. Nếu sai, có thể dựng lại từ PostgreSQL bằng cách chạy lại job đánh index. Khi dữ liệu chưa sẵn sàng, người dùng thấy thông báo dữ liệu đang được build, với một lựa chọn duy nhất: quay về hệ thống chính.
 
 ## Bảo mật
 
-Giới hạn theo tenant trên mọi truy vấn <Todo>confirm</Todo>.
+API dùng JWT, và ứng dụng dùng chung phiên đăng nhập một lần với nền tảng chính. Mọi truy vấn Elasticsearch đều được lọc theo tenant.
 
 ## Đánh đổi
 
-Phải vận hành pipeline đồng bộ, và index có thể chậm hơn dữ liệu gốc. <Todo>sync mechanism and typical lag</Todo>
+Phải vận hành pipeline đồng bộ, và index chậm hơn dữ liệu gốc cho tới lần build hằng ngày tiếp theo: thay đổi hiện ra trong vòng một ngày.
 
 ## Kết quả
 
-<Metric>15 giây → 1 giây</Metric> trên một API (dưới 1 giây với phần lớn request có bộ lọc).
-<Todo>confirm the exact percentage; 15s→1s is ~93% / ~15x</Todo>
-
-## Hướng phát triển tiếp theo
-
-<Todo>what you would do next</Todo>
+- Thời gian tải dashboard <Metric>40 giây → 1 giây</Metric>.
+- CPU database <Metric>80% → 30%</Metric> mỗi truy vấn.
+- Engine lưu trữ có thể thay sau interface mà không động tới logic nghiệp vụ.
+- <Metric>70+</Metric> file kiểm thử front-end cho các module báo cáo, export và Value Analysis.

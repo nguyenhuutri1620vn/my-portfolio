@@ -15,12 +15,12 @@ if (!entry || !isLocale(lang)) {
 const { diagram, image } = entry.data;
 ---
 
-<figure class="my-8 rounded-card border border-brown/25 bg-white/70 p-4">
+<figure class="card my-8 p-4">
   <Diagram name={diagram} lang={lang} />
 </figure>
 {
   image && (
-    <figure class="my-8 rounded-frame border border-brown/25 bg-white p-2">
+    <figure class="card my-8 p-2">
       <Image src={image.src} alt={image.alt} class="h-auto w-full rounded-btn" />
     </figure>
   )

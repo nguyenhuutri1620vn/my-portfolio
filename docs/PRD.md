@@ -16,16 +16,16 @@ Success signals: Resume downloads, GitHub clicks, case-study detail views (home)
 | 404 | — | Minimal, bilingual |
 
 ## 3. Shared header & footer
-- Header: logo text "Tri Huu Nguyen"; anchors `Projects · Engineering · Stack · Contact` (on other pages they link to `/{lang}/#anchor`); a separate, visually distinct link **"For clients"**; EN/VI switch (keeps the current path). Sticky, minimal.
-- Footer: © year, language switch, back to top.
+- Header: logo text "Tri Huu Nguyen"; anchors `Projects · Engineering · Stack · Contact` (on other pages they link to `/{lang}/#anchor`); EN/VI switch. No header button between home and `/for-clients` (hidden by owner request); the pages link to each other through the hero line and contact line (keeps the current path). Sticky, minimal.
+- Footer: © year, back to top (language switch lives in the header only).
 
 ## 4. Home sections
 **1. Hero (backend credibility).**
 Vision line, title "Software Engineer · 5 years", backend positioning paragraph, server-side tech chips.
 CTAs: **Primary** "View Case Studies" (→ `#projects`). **Secondary outline** "Download Resume (PDF)" + text link "GitHub". Below, one small line linking to `/for-clients`. No "Start a Project" button on home.
-Optional portrait slot; layout works without it.
+Profile card on the right (desktop) / below (mobile): avatar, name, title, location, then the At a glance numbers. Layout works without the photo (initials shown).
 
-**2. Featured Case Studies** (`#projects`). 5 cards, grid 3 + 2 centered (2 tablet, 1 mobile): Healthcare supply chain platform · Insight Dashboard · Value Analysis · ClickHouse × Superset · Large Exports with Kafka. Card: title, tag, Context → Solution → Result, SVG diagram thumbnail, "View details".
+**2. Featured Case Studies** (`#projects`). 6 cards in two groups. **Key projects** first, large accent cards in a 2 × 2 grid (1 column on mobile): Insight Dashboard · Value Analysis · Future Price Review · Custom Report Builder. Then **More from the platform**, smaller cards: Healthcare supply chain platform · Daily Delta Build. Card: tag, title, short plain-English intro, one highlight line with the key number, "View details".
 
 **3. Engineering** (`#engineering`). Two parts:
 - **Decisions** — 4 cards, each `Decision / Why / Trade-off / Outcome` (2×2 grid).
@@ -43,7 +43,7 @@ Optional portrait slot; layout works without it.
 5. Closing CTA block: "Ready to start a project?" + mailto + response note.
 
 ## 6. Case study page template
-Overview (Context · Solution · Result — clients can stop here) → "Technical deep dive" divider → Problem → Approach & alternatives considered → Architecture diagram → Data design → Failure handling → Security → Trade-offs → Results → What I'd do next.
+Overview (Context · Solution · Result — clients can stop here) → "Technical deep dive" divider → Problem → Approach & alternatives considered → Architecture diagram → Data design → Failure handling → Security → Trade-offs → Results.
 Any statement not backed by `docs/CONTENT.md` is a `[TODO]`, never filled by guessing.
 
 ## 7. Non-functional

@@ -1,0 +1,64 @@
+---
+import type { Locale } from '../../i18n/config';
+import Arrow from './parts/Arrow.astro';
+import Box from './parts/Box.astro';
+import { diagramLabels } from './parts/labels';
+
+interface Props {
+  lang: Locale;
+  marker: string;
+}
+
+const { lang, marker } = Astro.props;
+const l = diagramLabels(lang, 'delta-build');
+
+// Delta path on the middle row; the full-build fallback sits under the checkpoint.
+const col = [8, 176, 344, 512];
+const y = 110;
+const w = 120;
+const h = 68;
+const fallbackY = 240;
+---
+
+<Box x={col[0]} y={y} w={w} h={h} label={l('checkpoint')} sub={l('checkpointSub')} store />
+<Box x={col[1]} y={y} w={w} h={h} label={l('changed')} sub={l('changedSub')} focus />
+<Box x={col[2]} y={y} w={w} h={h} label={l('rebuild')} sub={l('rebuildSub')} />
+<Box x={col[3]} y={y} w={w} h={h} label={l('report')} sub={l('reportSub')} store stack />
+<Box x={col[0]} y={fallbackY} w={w} h={h} label={l('full')} sub={l('fullSub')} />
+
+<Arrow
+  marker={marker}
+  points={[
+    [128, 144],
+    [175, 144],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [296, 144],
+    [343, 144],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [464, 144],
+    [503, 144],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [68, 178],
+    [68, 239],
+  ]}
+/>
+<Arrow
+  marker={marker}
+  points={[
+    [128, 274],
+    [572, 274],
+    [572, 179],
+  ]}
+/>

@@ -21,8 +21,10 @@ for (const slug of slugs) {
   for (const lang of locales) {
     if (!versions.some((e) => e.data.lang === lang)) problems.push(`${slug}: missing in ${lang}`);
   }
-  if (new Set(versions.map((e) => `${e.data.order}|${e.data.diagram}`)).size > 1) {
-    problems.push(`${slug}: order or diagram differs between languages`);
+  if (
+    new Set(versions.map((e) => `${e.data.order}|${e.data.diagram}|${e.data.featured}`)).size > 1
+  ) {
+    problems.push(`${slug}: order, diagram or featured differs between languages`);
   }
 }
 if (problems.length > 0) {

@@ -22,16 +22,16 @@ Work top to bottom. One task per commit/PR. Tick `[x]` when done. Read `CLAUDE.m
 ## Phase 2 — Case studies
 - [x] T2.1 Content collection schema (`title, tag, context, solution, result, slug, diagram, lang, order`); 5 MDX files × 2 languages from CONTENT §2.
 - [x] T2.2 `CaseCard` + grid (3 + 2 centered desktop, 2 tablet, 1 mobile) in `#projects`.
-- [x] T2.3 Diagram components (SVG, themed via CSS variables): `platform-overview`, `insight-dashboard`, `value-analysis`, `clickhouse-superset`, `kafka-exports`. Generic labels, `<title>`/`<desc>`.
+- [x] T2.3 Diagram components (SVG, themed via CSS variables): `platform-overview`, `insight-dashboard`, `value-analysis`, `clickhouse-superset`, `delta-build`, `future-price-review` (the `kafka-exports` case was replaced by `future-price-review` in Oct 2026). Generic labels, `<title>`/`<desc>`.
 - [x] T2.4 Case-study page per PRD §6 (Overview → Technical deep dive → … → What I'd do next), prev/next links, back to `#projects`.
 - [x] T2.5 `<Metric>` MDX component for accent key numbers.
 - [x] T2.6 Optional UI image slot (disabled until images supplied).
 
 ## Phase 3 — Engineering, Stack, Contact (home)
-- [ ] T3.1 `DecisionCard` ×4 (Decision / Why / Trade-off / Outcome, 2×2) and `PracticeItem` ×4 in `#engineering` (CONTENT §3).
-- [ ] T3.2 `StackGrid`: grouped mono chips, statement, anonymous timeline, certification (CONTENT §4).
-- [ ] T3.3 `ContactBlock` (CONTENT §5): email, LinkedIn, GitHub, resume, small link to `/for-clients`.
-- [ ] T3.4 Active nav state on scroll; smooth scroll respecting reduced motion.
+- [x] T3.1 `DecisionCard` ×4 (Decision / Why / Trade-off / Outcome, 2×2) and `PracticeItem` ×4 in `#engineering` (CONTENT §3).
+- [x] T3.2 `StackGrid`: grouped mono chips, statement, anonymous timeline, certification (CONTENT §4).
+- [x] T3.3 `ContactBlock` (CONTENT §5): email, LinkedIn, GitHub, resume, small link to `/for-clients`.
+- [x] T3.4 Active nav state on scroll; smooth scroll respecting reduced motion.
 
 ## Phase 4 — Quality
 - [ ] T4.1 SEO: titles/descriptions per language, OpenGraph image (generated from tokens), sitemap, robots, JSON-LD `Person`.

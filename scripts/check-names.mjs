@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { extname, join } from 'node:path';
 
-const FORBIDDEN = /bestarion|meperia|msss/gi;
+const FORBIDDEN = /bestarion|meperia|msss|\bmss\b/gi;
 const ROOTS = ['src', 'public', 'dist'];
 const BINARY_EXTENSIONS = new Set([
   '.png',

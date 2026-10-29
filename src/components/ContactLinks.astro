@@ -1,0 +1,42 @@
+---
+import { site } from '../data/site';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+// Email, LinkedIn and GitHub as name-only buttons; used on home and /for-clients.
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+// Only the channel name is shown; the address stays in the link.
+const links = [
+  { label: t('contact.email'), href: `mailto:${site.email}`, external: false },
+  { label: t('contact.linkedin'), href: site.linkedin, external: true },
+  { label: t('contact.github'), href: site.github, external: true },
+];
+---
+
+<ul class="grid gap-4 sm:grid-cols-3">
+  {
+    links.map(({ label, href, external }) => (
+      <li>
+        <a
+          href={href}
+          target={external ? '_blank' : undefined}
+          rel={external ? 'noopener noreferrer' : undefined}
+          class="card card-hover font-heading flex items-center justify-between gap-3 text-xl text-ink hover:text-accent"
+        >
+          <span>
+            {label}
+            {external && <span class="sr-only"> {t('a11y.newTab')}</span>}
+          </span>
+          <span aria-hidden="true" class="text-accent">
+            →
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

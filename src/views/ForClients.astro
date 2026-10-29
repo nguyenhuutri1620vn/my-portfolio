@@ -1,5 +1,6 @@
 ---
 import ClientHero from '../components/ClientHero.astro';
+import ContactLinks from '../components/ContactLinks.astro';
 import OfferCard from '../components/OfferCard.astro';
 import ProofStrip from '../components/ProofStrip.astro';
 import Section from '../components/Section.astro';
@@ -15,7 +16,13 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const offers = ['apis', 'search', 'pipelines', 'jobs'] as const;
+// Each offer links to the case study that shows it in production.
+const offers = [
+  { key: 'apps', caseSlug: 'healthcare-supply-chain' },
+  { key: 'workflows', caseSlug: 'future-price-review' },
+  { key: 'reports', caseSlug: 'insight-dashboard' },
+  { key: 'integrations', caseSlug: 'delta-build' },
+] as const;
 ---
 
 <BaseLayout
@@ -25,14 +32,21 @@ const offers = ['apis', 'search', 'pipelines', 'jobs'] as const;
 >
   <ClientHero lang={lang} />
 
-  <Section id="offers" title={t('forClients.offers.title')}>
-    <ul class="mt-8 grid gap-6 sm:grid-cols-2">
+  <Section
+    id="offers"
+    title={t('forClients.offers.title')}
+    subtitle={t('forClients.offers.subtitle')}
+  >
+    <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
-        offers.map((key) => (
-          <li>
+        offers.map(({ key, caseSlug }, i) => (
+          <li class="row-span-4 grid grid-rows-subgrid gap-y-0">
             <OfferCard
+              lang={lang}
+              n={String(i + 1).padStart(2, '0')}
               title={t(`forClients.offers.items.${key}.title`)}
               text={t(`forClients.offers.items.${key}.text`)}
+              caseSlug={caseSlug}
             />
           </li>
         ))
@@ -40,7 +54,7 @@ const offers = ['apis', 'search', 'pipelines', 'jobs'] as const;
     </ul>
   </Section>
 
-  <Section id="proof" title={t('forClients.proof.title')}>
+  <Section id="proof" title={t('forClients.proof.title')} subtitle={t('forClients.proof.subtitle')}>
     <ProofStrip lang={lang} />
   </Section>
 
@@ -48,8 +62,14 @@ const offers = ['apis', 'search', 'pipelines', 'jobs'] as const;
     <WorkflowGrid lang={lang} />
   </Section>
 
-  <Section id="start" title={t('forClients.closing.title')} subtitle={t('forClients.closing.text')}>
-    <a href={projectMailto(lang)} class="btn-primary mt-6">{t('forClients.startProject')}</a>
-    <p class="mt-4 text-sm">{t('forClients.closing.note')}</p>
+  <Section id="start" title={t('forClients.closing.title')}>
+    <div class="mt-8 grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+      <div>
+        <p class="max-w-prose text-[1.0625rem]">{t('forClients.closing.text')}</p>
+        <a href={projectMailto(lang)} class="btn-primary mt-8">{t('forClients.startProject')}</a>
+        <p class="mt-4 text-sm text-slate-400">{t('forClients.closing.note')}</p>
+      </div>
+      <ContactLinks lang={lang} />
+    </div>
   </Section>
 </BaseLayout>

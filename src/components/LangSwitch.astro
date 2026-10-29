@@ -13,13 +13,13 @@ const path = pathWithoutLocale(Astro.url.pathname, lang);
 ---
 
 <nav aria-label={t('langSwitch.label')}>
-  <ul class="flex items-center gap-2 font-mono text-sm">
+  <ul class="flex items-center gap-1.5 font-mono text-xs">
     {
       locales.map((l, i) => (
-        <li class="flex items-center gap-2">
+        <li class="flex items-center gap-1.5">
           {i > 0 && (
-            <span aria-hidden="true" class="text-brown/60">
-              |
+            <span aria-hidden="true" class="text-white/20">
+              /
             </span>
           )}
           <a
@@ -29,8 +29,10 @@ const path = pathWithoutLocale(Astro.url.pathname, lang);
             data-lang-link={l}
             aria-current={l === lang ? 'true' : undefined}
             class:list={[
-              'underline-offset-4',
-              l === lang ? 'text-accent underline' : 'text-ink hover:underline',
+              'rounded px-1.5 py-0.5 transition-colors',
+              l === lang
+                ? 'font-bold text-[#818cf8] bg-[#6366f1]/20'
+                : 'text-slate-400 hover:text-white',
             ]}
           >
             {t(`langSwitch.${l}`)}

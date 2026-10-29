@@ -1,23 +1,38 @@
 ---
 title: Value Analysis
 tag: Phân tích giá
-context: Cùng một sản phẩm bán theo hộp, thùng, gói; đội mua hàng khó biết đề nghị nào thực sự rẻ hơn.
-solution: Backend chuẩn hóa đơn vị và quy cách về giá mỗi đơn vị, rồi tính khoản tiết kiệm tiềm năng và lãi/lỗ cho một nhóm mặt hàng.
-result: 'So sánh giá minh bạch giữa các nhà cung cấp; [TODO: kết quả đo được].'
+intro: 'Cùng một sản phẩm được bán theo hộp, thùng hoặc gói. Value Analysis quy mọi mức giá về một giá "mỗi đơn vị", để đội mua hàng thấy đề nghị nào thực sự rẻ hơn.'
+highlight: 'Hộp, thùng, gói → **một giá mỗi đơn vị**'
+context: Cùng một sản phẩm bán theo hộp, thùng hoặc gói, nên khó so sánh giá trực tiếp.
+solution: Quy mọi mức giá về một giá "mỗi đơn vị", rồi ước tính khoản tiết kiệm cho một nhóm mặt hàng.
+result: 'Khách hàng so sánh nhanh khoản tiết kiệm, với mọi mức giá được quy về quy cách nhỏ nhất (mỗi đơn vị) theo nhà cung cấp và nhà sản xuất. Tiết kiệm hàng giờ phân tích thủ công.'
 diagram: value-analysis
 lang: vi
 order: 3
+featured: true
 ---
 
 _Value Analysis quy đổi nhiều đơn vị và quy cách đóng gói về một giá "mỗi đơn vị" chung để so sánh công bằng các mặt hàng của nhiều nhà cung cấp, nhà sản xuất._
 
 ## Vấn đề
 
-<Todo>domain glossary: each price, pack size, conversion factor</Todo>
+Hội đồng phân tích giá trị của bệnh viện chạy các dự án để chuẩn hóa sản phẩm và giảm chi phí. Để so sánh công bằng, mọi mức giá phải được quy về cùng một đơn vị:
+
+- **Đơn vị tính:** cách một mặt hàng được bán, như hộp, thùng hoặc gói.
+- **Giá mỗi đơn vị:** giá của một đơn vị lẻ sau khi quy đổi quy cách đóng gói.
+- **Mặt hàng đã chuẩn hóa:** mặt hàng có đơn vị quy được về giá mỗi đơn vị chung. Mặt hàng chưa chuẩn hóa là những mặt hàng không quy được.
 
 ## Hướng tiếp cận & phương án đã cân nhắc
 
-<Todo>rules engine vs hard-coded conversions</Todo>
+Luồng làm việc đi theo cách một hội đồng làm việc:
+
+1. Phân tích theo cost center để tìm nơi chi tiêu tập trung.
+2. Nhóm sản phẩm, dựng từ danh từ, loại và thuộc tính.
+3. Chọn mặt hàng và phân tích mặt hàng qua nhiều bước.
+4. Công cụ tính tác động, ước tính ảnh hưởng của một thay đổi cho nhóm đã chọn.
+5. Quản lý hội đồng và dự án, với dashboard Superset nhúng trong luồng làm việc.
+
+Ở front-end, tôi xây dựng wizard tạo dự án (nhóm sản phẩm, rồi mặt hàng, rồi thông tin dự án), các màn hình danh sách, chi tiết dự án và mặt hàng, và phần cài đặt hội đồng. Khu vực này có layout riêng và chặn "rời trang khi chưa lưu".
 
 ## Kiến trúc
 
@@ -25,24 +40,22 @@ _Value Analysis quy đổi nhiều đơn vị và quy cách đóng gói về m�
 
 ## Thiết kế dữ liệu
 
-Quy tắc quy đổi lưu dưới dạng dữ liệu; độ chính xác bằng kiểu decimal, không dùng số thực dấu phẩy động. <Todo>confirm</Todo>
+Chuẩn hóa bắt đầu từ danh mục sản phẩm. Mặt hàng được nhóm theo nhà sản xuất và mã hàng của nhà sản xuất, gắn mã UNSPSC và GMDN, rồi xếp vào danh từ và loại. Các trường lệch đơn vị tính được trả qua API, để phần phân tích chỉ ra chỗ đơn vị không khớp.
 
 ## Xử lý lỗi
 
-Dữ liệu đơn vị thiếu hoặc không nhất quán được gắn cờ, không đoán. <Todo>confirm</Todo>
+Phần phân tích hiển thị riêng mặt hàng đã chuẩn hóa và chưa chuẩn hóa, nên mặt hàng thiếu dữ liệu đơn vị vẫn hiện ra thay vì bị trộn vào phép so sánh giá mỗi đơn vị.
 
 ## Bảo mật
 
-<Todo>security approach for this module</Todo>
+Quyền truy cập khu vực Value Analysis được kiểm tra theo từng người dùng, có trang riêng cho lỗi quyền và lỗi chung.
 
 ## Đánh đổi
 
-<Todo>trade-offs for this module</Todo>
+Đánh đổi phạm vi lấy tốc độ. Phân tích hơn <Metric>10.000</Metric> mặt hàng khiến người dùng phải chờ quá lâu, nên nghiệp vụ giới hạn mỗi lần phân tích tối đa <Metric>1.000</Metric> mặt hàng.
 
 ## Kết quả
 
-So sánh giá minh bạch giữa các nhà cung cấp. <Todo>kết quả đo được</Todo>
-
-## Hướng phát triển tiếp theo
-
-<Todo>what you would do next</Todo>
+- Khách hàng so sánh nhanh khoản tiết kiệm: giá của từng mặt hàng được quy về quy cách nhỏ nhất (mỗi đơn vị) theo nhà cung cấp và nhà sản xuất.
+- Tiết kiệm hàng giờ phân tích thủ công.
+- So sánh giá minh bạch giữa các nhà cung cấp, từ nhóm sản phẩm tới duyệt của hội đồng trong một luồng.

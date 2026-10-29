@@ -1,0 +1,49 @@
+---
+import { inPublic } from '../lib/public-file';
+import Avatar from './Avatar.astro';
+
+// Cutout portrait on a glowing indigo disc: the head rises above the disc and the body
+// fades into the page, so the photo sits in the dark background instead of on top of it.
+// Falls back to the round Avatar when the cutout file is missing.
+interface Props {
+  alt: string;
+  // Max width of the stage in px on large screens (phones cap it at 260px, tablets at 340px).
+  width?: number;
+}
+
+const { alt, width = 420 } = Astro.props;
+const src = '/images/avatar-cutout-840.png';
+const hasCutout = inPublic(src);
+---
+
+{
+  hasCutout ? (
+    <div
+      class="relative mx-auto w-full max-w-[260px] sm:max-w-[340px] lg:max-w-[var(--portrait-w)]"
+      style={{ '--portrait-w': `${width}px` }}
+    >
+      <div
+        aria-hidden="true"
+        class="absolute inset-x-[10%] bottom-[6%] aspect-square rounded-full bg-[radial-gradient(circle_at_50%_40%,rgba(129,140,248,0.45),rgba(79,70,229,0.18)_55%,rgba(6,9,15,0)_72%)]"
+      />
+      <div
+        aria-hidden="true"
+        class="absolute inset-x-[10%] bottom-[6%] aspect-square rounded-full border border-indigo-300/20"
+      />
+      <div
+        aria-hidden="true"
+        class="absolute inset-x-[3%] bottom-0 aspect-square rounded-full border border-indigo-300/10"
+      />
+      <img
+        src={src}
+        alt={alt}
+        width="840"
+        height="840"
+        loading="eager"
+        class="relative h-auto w-full [-webkit-mask-image:linear-gradient(to_bottom,black_72%,transparent_98%)] [mask-image:linear-gradient(to_bottom,black_72%,transparent_98%)] [filter:brightness(0.94)_drop-shadow(0_0_28px_rgba(99,102,241,0.25))]"
+      />
+    </div>
+  ) : (
+    <Avatar alt={alt} size={260} />
+  )
+}

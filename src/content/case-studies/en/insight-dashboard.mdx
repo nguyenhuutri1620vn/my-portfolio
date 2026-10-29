@@ -1,29 +1,36 @@
 ---
 title: Insight Dashboard
 tag: Spend analytics
-context: Spend analytics queries over large purchase history were too slow to use interactively.
-solution: A search and aggregation layer on Elasticsearch, with a clear single source of truth, filtered by period, corporation, and vendor.
-result: 'One spend-analytics API went from **15s to 1s** against direct PostgreSQL queries.'
+intro: 'Spend reports that show hospitals where their money goes. The reports were slow, so I moved the heavy totals to Elasticsearch.'
+highlight: 'Report load time **40s → 1s**'
+context: Ten purchasing reports with heavy joins and filters took 40+ seconds to load.
+solution: PostgreSQL stays the source of truth; Elasticsearch runs the heavy aggregations.
+result: 'Load time **40s → 1s**, database CPU **80% → 30%** per query.'
 diagram: insight-dashboard
 lang: en
 order: 2
+featured: true
 ---
 
 _Insight Dashboard is a module of the healthcare supply chain platform. It lets users view spend reports and analyze purchasing for each hospital organization._
 
 ## Problem
 
-Users open the dashboard and filter spend by period, corporation, vendor, then drill down.
+Insight Dashboard has 10 purchasing reports. Each one joins several tables and aggregates across many filters: period, corporation, department, vendor and item. The dashboard needed 40+ seconds to show all of its data, too slow for daily work.
+
+Scale: <Metric>19+</Metric> US hospitals, <Metric>50M+</Metric> records processed daily, about <Metric>5,000</Metric> daily users. I work on it as a full-stack engineer in a team of three.
 
 ## Approach & alternatives considered
 
-Why Elasticsearch here:
+1. **Measure first.** I ran `EXPLAIN ANALYZE` on each slow query to see whether the query itself or a missing index was the problem.
+2. **Pick the engine by access pattern.** The reports are read-heavy aggregations with fixed shapes. PostgreSQL stays the **single source of truth**. Elasticsearch serves the aggregations: total cost by vendor and by item, broken down by department and its units.
+3. **Keep the engine replaceable.** Business logic depends on repository interfaces (dependency inversion), not on PostgreSQL or Elasticsearch. Moving a report to another engine, such as ClickHouse, means writing a new repository, not rewriting the use case.
 
-1. The access pattern is read-heavy aggregation with several filters and group-bys, which PostgreSQL handled at about 15s for one API.
-2. Data is derived from the primary database, so PostgreSQL stays the **single source of truth** and Elasticsearch is a rebuildable read model.
-3. Fast, consistent filtering matters more here than transactional guarantees.
+On the front end, I built most of the reporting UI in React and TypeScript:
 
-Alternatives considered: indexes and materialized views in PostgreSQL (limited for flexible multi-filter aggregations) <Todo>confirm alternatives you actually evaluated</Todo>; ClickHouse (chosen for a different workload, see the Custom Report Builder case).
+- **Shareable drill-downs** (dashboard → vendor summary → item detail): filters and period live in the URL, so any view can be bookmarked.
+- **Configurable grids:** resize, reorder and hide columns, saved per report type; sorting and filtering run on the server.
+- **Saved views:** users keep their own combinations of filters, columns and periods.
 
 ## Architecture
 
@@ -31,25 +38,23 @@ Alternatives considered: indexes and materialized views in PostgreSQL (limited f
 
 ## Data design
 
-Index per org or per-tenant routing <Todo>confirm</Todo>, mapping tuned for keyword filters and numeric aggregations; sync from PostgreSQL via <Todo>describe sync mechanism and refresh latency</Todo>.
+Indexing into Elasticsearch runs as a batch job per hospital, in parallel with goroutines, channels and worker pools. Each organization has its own index, rebuilt with fresh data once a day.
 
 ## Failure handling
 
-<Todo>reindex strategy, behavior when ES unavailable</Todo>
+The index is a derived copy. If it is wrong, it can be rebuilt from PostgreSQL by running the indexing job again. While the data is not ready, users see a notice that it is being built, with one option: back to the main system.
 
 ## Security
 
-Tenant scoping on every query <Todo>confirm</Todo>.
+The API uses JWT, and the app shares a single sign-on session with the main platform. Every Elasticsearch query is filtered by tenant.
 
 ## Trade-offs
 
-A sync pipeline to run, and the index can lag behind the source. <Todo>sync mechanism and typical lag</Todo>
+A sync pipeline to run, and the index lags behind the source until the next daily build: changes show up within one day.
 
 ## Results
 
-<Metric>15s → 1s</Metric> on one API (sub-second for most filtered requests).
-<Todo>confirm the exact percentage; 15s→1s is ~93% / ~15x</Todo>
-
-## What I'd do next
-
-<Todo>what you would do next</Todo>
+- Dashboard load time <Metric>40s → 1s</Metric>.
+- Database CPU <Metric>80% → 30%</Metric> per query.
+- The storage engine can change behind an interface without touching business logic.
+- <Metric>70+</Metric> front-end test files across the reporting, export and Value Analysis modules.

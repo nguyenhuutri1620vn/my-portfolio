@@ -6,19 +6,20 @@
     },
     "forClients": {
       "title": "Work with Tri Huu Nguyen — Backend & Data Systems",
-      "description": "APIs, analytics dashboards, data pipelines, and automation, delivered with demos every 3 days and full handover."
+      "description": "Your success is my success: APIs, analytics dashboards, data pipelines and automation, with demos every 3 days and full handover."
     }
   },
   "a11y": {
-    "skipLink": "Skip to content"
+    "skipLink": "Skip to content",
+    "newTab": "(opens in a new tab)"
   },
   "nav": {
     "projects": "Projects",
     "engineering": "Engineering",
     "stack": "Stack",
     "contact": "Contact",
-    "forClients": "For clients",
-    "label": "Main navigation"
+    "label": "Main navigation",
+    "current": "Current section"
   },
   "langSwitch": {
     "label": "Language",
@@ -31,16 +32,21 @@
     "location": "Ho Chi Minh City, Vietnam"
   },
   "hero": {
-    "vision": "Build systems that make your business win.",
-    "positioning": "Software Engineer with 5 years of experience building backend and data systems for multi-tenant SaaS: sub-second search and analytics, large-scale async exports, and data pipelines behind BI dashboards. I care about clear architecture, measurable performance, and a disciplined review process, with AI tools used inside that process, not instead of it.",
+    "titleLine1": "Software Engineer",
+    "titleLine2": "& Backend Developer",
+    "vision": "Developer with vision: Shared victory.",
+    "positioning": "Software Engineer with 5 years building data-heavy SaaS for the healthcare supply chain. Strongest in Go: multi-tenant PostgreSQL for 19+ organizations, sub-second Elasticsearch analytics, large Kafka exports and ClickHouse pipelines behind Superset. Also ships Ruby on Rails features in a 12-person team, handles complex rules such as contracts, rebates and pricing, and self-reviews code with Cursor and Claude Code.",
     "viewCaseStudies": "View Case Studies",
     "downloadResume": "Download Resume (PDF)",
     "github": "GitHub",
-    "forClientsLink": "Need a system built? See how I work with clients →"
+    "forClientsLink": "Need a system built? See how I work with clients →",
+    "avatarAlt": "Portrait of Tri Huu Nguyen"
   },
   "caseStudies": {
     "title": "Featured Case Studies",
-    "subtitle": "Real systems, anonymized. Results first; the technical write-up is one click away.",
+    "subtitle": "Real systems I helped build, with names removed. Each card tells the short story; open it for the details.",
+    "keyTitle": "Key projects",
+    "moreTitle": "More from the platform",
     "viewDetails": "View details",
     "labels": {
       "context": "Context",
@@ -52,79 +58,154 @@
     "back": "Back to case studies",
     "overview": "Overview",
     "deepDive": "Technical deep dive",
+    "onThisPage": "On this page",
     "navLabel": "More case studies",
     "prev": "Previous",
     "next": "Next"
   },
   "engineering": {
     "title": "Engineering Decisions & Practices",
-    "subtitle": "The choices behind the results, and what each one cost."
+    "subtitle": "The choices behind the results, and what each one cost.",
+    "decisionsTitle": "Decisions",
+    "practicesTitle": "Practices",
+    "labels": {
+      "why": "Why",
+      "tradeoff": "Trade-off",
+      "outcome": "Outcome"
+    },
+    "decisions": {
+      "d1": {
+        "title": "One database per organization",
+        "why": "Hard isolation for 19+ healthcare organizations; per-organization backup, restore, and archiving; a missed filter cannot expose another tenant's data.",
+        "tradeoff": "More databases to migrate and monitor. Every schema change runs against every org database and is read by other services, so migrations are idempotent, indexed and backward compatible.",
+        "outcome": "**19+** organizations on one codebase."
+      },
+      "d2": {
+        "title": "Elasticsearch as a read model for Insight Dashboard",
+        "why": "The dashboard runs predefined, filter-heavy aggregations (period, corporation, vendor). PostgreSQL stays the single source of truth; the index can be rebuilt from it.",
+        "tradeoff": "A sync pipeline to run: indexing is a scheduled batch job per organization, so the index lags by up to one day.",
+        "outcome": "Report load time **40s → 1s**, database CPU **80% → 30%** per query."
+      },
+      "d3": {
+        "title": "One engine for Custom Report Builder: ClickHouse",
+        "why": "Users choose their own criteria over big data. Adding Elasticsearch here would mean two query modes, two code paths, and two sync jobs to keep correct. One engine keeps one path.",
+        "tradeoff": "Data arrives through full and incremental loads, not in real time; acceptable for reporting.",
+        "outcome": "Query time **42s → 3s** (over 90% faster); Superset dashboards rolled out to **19+** organizations by cloning."
+      },
+      "d4": {
+        "title": "Exports off the request path, on Kafka",
+        "why": "Generating 1M+ rows inside an HTTP request timed out.",
+        "tradeoff": "More moving parts: a topic, workers, and job status to track.",
+        "outcome": "**1M+ row** exports with streaming writes, back-off up to 30 minutes and automatic retries, split into files and zipped, without timeouts; users are e-mailed if an export fails."
+      }
+    },
+    "practices": {
+      "p1": {
+        "title": "Clean, concurrent Go",
+        "text": "Business logic separated from infrastructure through repository interfaces; goroutines, worker pools, bulk loading, transactions, and query tuning for high-volume processing."
+      },
+      "p2": {
+        "title": "Tests where the risk is",
+        "text": "Automated tests covering multi-facility approval workflows, tiered rebate calculations, and lifecycle state transitions: about 450 Go unit tests with mocked repositories, about 150 RSpec files on the core platform, and 70+ front-end test files."
+      },
+      "p3": {
+        "title": "AI-assisted PR quality gate",
+        "text": "Static analysis, security scan, dependency scan, then AI plus human review with checklists for code and unit tests. Review time from **30 to 5 minutes**."
+      },
+      "p4": {
+        "title": "Backward-compatible APIs",
+        "text": "**90+** REST APIs consumed by React applications, kept compatible across releases."
+      }
+    }
   },
   "stack": {
     "title": "Technical Stack & Experience",
-    "statement": "I am strongest in Go, with React on the front end, for problems that combine heavy computation with real performance requirements: high-volume data processing, search and analytics, and long-running jobs, built so business logic stays clean and replaceable underneath.",
+    "statement": "I am strongest in Go, with React on the front end and Ruby on Rails on the core platform, for problems that combine heavy computation with real performance requirements: high-volume data processing, search and analytics, and long-running jobs, built so business logic stays clean and replaceable underneath.",
     "timeline": "Software Engineer, healthcare supply chain product company · Feb 2022 – Present",
-    "certification": "AWS Certified Cloud Practitioner (CLF-C02)"
+    "certification": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "groups": {
+      "backend": "Backend",
+      "data": "Data",
+      "bi": "BI & Reporting",
+      "infra": "Infrastructure",
+      "frontend": "Frontend",
+      "testing": "Testing",
+      "ai": "AI tools"
+    },
+    "experienceTitle": "Experience",
+    "certificationTitle": "Certification",
+    "tracks": {
+      "analytics": "Analytics backend: Go, data platform",
+      "frontend": "Analytics front end: React, Insight Dashboard and Value Analysis",
+      "core": "Core platform: Ruby on Rails, contract rebates and price-discrepancy approval"
+    }
   },
   "contact": {
     "title": "Let's talk",
     "text": "Hiring, or want to talk about a system design? Reach me here.",
     "downloadResume": "Download Resume",
-    "forClientsLink": "Looking to build something? → For clients"
+    "forClientsLink": "Looking to build something? → For clients",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
   },
   "forClients": {
     "startProject": "Start a Project",
     "hero": {
-      "title": "Backend and data systems, delivered with a clear process.",
-      "intro": "I build systems that handle real data volume: APIs, search and analytics, reporting, and background automation. You get regular demos, documentation, and a system your team can operate.",
-      "seeCaseStudies": "See case studies"
+      "title": "I count a project as done only when it works for your business.",
+      "intro": "For 5 years I have built systems that hospitals rely on every day, and I bring the same care to yours. We agree on what success looks like first; then I build in small steps and show you working software every 3 days. You get a fast, reliable system, full documentation, and someone who stays until it runs smoothly.",
+      "seeCaseStudies": "See case studies",
+      "vision": "My success is your success."
     },
     "offers": {
-      "title": "What I can build for you",
+      "title": "Whatever your business, I can build it",
+      "subtitle": "You bring the problem. I turn it into software your team uses every day.",
       "items": {
-        "apis": {
-          "title": "Backend APIs & SaaS",
-          "text": "REST APIs and multi-tenant backends in Go, structured to stay maintainable."
+        "apps": {
+          "title": "Web apps & SaaS products",
+          "text": "From idea to a working product: customer portals, internal tools, or a SaaS platform that serves many clients from one system."
         },
-        "search": {
-          "title": "Search & analytics dashboards",
-          "text": "Fast filtering and aggregation over large datasets."
+        "workflows": {
+          "title": "Business workflows & rules",
+          "text": "Approvals, pricing, contracts, billing. The rules your team keeps in spreadsheets and heads become software that applies them the same way every time."
         },
-        "pipelines": {
-          "title": "Data pipelines & reporting",
-          "text": "ETL into an analytics database and BI dashboards your team can explore."
+        "reports": {
+          "title": "Reports & dashboards",
+          "text": "Bring your data together in one place, with reports and dashboards your team can explore without waiting on IT."
         },
-        "jobs": {
-          "title": "Background jobs & automation",
-          "text": "Large exports, batch processing, and scheduled work that runs reliably off the request path."
+        "integrations": {
+          "title": "Integrations & automation",
+          "text": "Connect the tools you already use, bring in data from partners, and move slow, repetitive work into jobs that run on their own."
         }
-      }
+      },
+      "seeCase": "See it in a case study"
     },
     "proof": {
-      "title": "Results from production systems",
+      "title": "Proven in real systems",
+      "subtitle": "Live products used every day, with names removed.",
       "items": {
-        "tenants": {
-          "value": "19+",
-          "label": "organizations on one multi-tenant platform"
+        "health": {
+          "value": "Healthcare supply chain",
+          "label": "A multi-tenant platform used by hospital systems across the US"
+        },
+        "pricing": {
+          "value": "Contracts & pricing",
+          "label": "Rebates, contract prices and price-change approvals with strict business rules"
         },
         "analytics": {
-          "value": "15s → 1s",
-          "label": "spend-analytics API"
+          "value": "Analytics & reporting",
+          "label": "Spend dashboards and self-service reports for every customer"
         },
-        "exports": {
-          "value": "1M+",
-          "label": "row exports without timeouts"
-        },
-        "review": {
-          "value": "30 → 5 min",
-          "label": "code review with an AI-assisted gate"
+        "data": {
+          "value": "Data integration",
+          "label": "Daily data from ERPs and distributors, loaded and kept up to date"
         }
       }
     },
     "closing": {
-      "title": "Ready to start a project?",
-      "text": "Tell me what you need; I'll reply with next steps.",
-      "note": "Reply within 1 business day. [TODO: confirm promise]"
+      "title": "Let's make your project a success.",
+      "text": "Tell me about your idea or the problem slowing your team down. I'll reply with honest next steps, what I would build first, and how we will measure success together.",
+      "note": "Reply within 1 business day."
     }
   },
   "mailto": {
@@ -169,12 +250,12 @@
   "diagrams": {
     "platform-overview": {
       "title": "Healthcare supply chain platform: architecture overview",
-      "desc": "A React client calls the Go API (Echo). The API reads and writes a separate PostgreSQL database per organization, sends async work through Kafka to workers, and serves the Insight Dashboard from Elasticsearch. An analytics branch moves data by ETL through S3 into ClickHouse for Superset.",
+      "desc": "React and ExtJS clients call the platform services (Go with Echo, and a Ruby on Rails core). The services read and write a separate PostgreSQL database per organization, send async work through Kafka to workers, and serve the Insight Dashboard from Elasticsearch. An analytics branch moves data by ETL through S3 into ClickHouse for Superset.",
       "labels": {
         "client": "Client",
-        "clientSub": "React",
-        "api": "API",
-        "apiSub": "Go · Echo",
+        "clientSub": "React · ExtJS",
+        "api": "Services",
+        "apiSub": "Go · Rails",
         "orgDb": "Org DB",
         "orgDbSub": "PostgreSQL × N",
         "kafka": "Kafka",
@@ -204,14 +285,14 @@
     },
     "value-analysis": {
       "title": "Value Analysis: one common each price",
-      "desc": "Vendor offers sold in boxes, cases, and packs are normalized by unit and pack size to a common each price, which is then used to calculate potential savings and profit or loss for a group of items.",
+      "desc": "Vendor offers sold in boxes, cases, and packs are normalized by unit and pack size to a common each price. An impact calculator then estimates potential savings for a group of items before the committee reviews it.",
       "labels": {
         "offers": "Vendor offers",
         "offersSub": "box · case · pack",
         "normalize": "Normalize",
         "normalizeSub": "units, pack sizes",
         "eachPrice": "Each price",
-        "savings": "Savings &\nprofit/loss",
+        "savings": "Impact\ncalculator",
         "savingsSub": "group of items"
       }
     },
@@ -229,20 +310,40 @@
         "reports": "Custom Report\nBuilder"
       }
     },
-    "kafka-exports": {
-      "title": "Large exports: async flow on Kafka",
-      "desc": "The API enqueues an export job on a Kafka topic, off the request path. A worker streams rows into file chunks, zips them, stores the result, and sends a notification.",
+    "delta-build": {
+      "title": "Daily delta build: rebuild only what changed",
+      "desc": "Each build saves a checkpoint. The next daily run collects the report items changed since that checkpoint, rebuilds only their data, and writes it to the report tables. When there is no checkpoint yet, a full build runs instead.",
       "labels": {
-        "api": "API",
-        "apiSub": "enqueue job",
-        "kafka": "Kafka",
-        "kafkaSub": "topic",
-        "worker": "Worker",
-        "workerSub": "stream rows",
-        "chunks": "File chunks",
-        "zip": "Zip",
-        "store": "Store",
-        "notify": "Notify"
+        "checkpoint": "Checkpoint",
+        "checkpointSub": "last build",
+        "changed": "Changed items",
+        "changedSub": "since checkpoint",
+        "rebuild": "Rebuild",
+        "rebuildSub": "only those items",
+        "report": "Report\ndata",
+        "reportSub": "per hospital",
+        "full": "Full build",
+        "fullSub": "no checkpoint yet"
+      }
+    },
+    "future-price-review": {
+      "title": "Future price review: catch wrong prices before they go live",
+      "desc": "Future contract prices are compared with current prices per facility and contract. Reviewers filter and search a two-level grid, then approve, reject or pre-reject in bulk. A background job applies the best-contract and non-linear pricing rules and writes the approved price to the active contract prices.",
+      "labels": {
+        "future": "Future prices",
+        "futureSub": "from contracts",
+        "compare": "Compare",
+        "compareSub": "vs current price",
+        "grid": "Review grid",
+        "gridSub": "item → facility",
+        "decide": "Decide",
+        "decideSub": "approve · reject",
+        "job": "Background job",
+        "jobSub": "bulk",
+        "rules": "Pricing rules",
+        "rulesSub": "best contract",
+        "active": "Active prices",
+        "activeSub": "per hospital"
       }
     }
   }

@@ -2,23 +2,24 @@
   "meta": {
     "home": {
       "title": "Tri Huu Nguyen — Kỹ sư phần mềm (Go, Backend & Hệ thống dữ liệu)",
-      "description": "Kỹ sư phần mềm gần 5 năm xây dựng backend đa tenant và hệ thống dữ liệu: tìm kiếm, phân tích, xử lý bất đồng bộ. Dự án và CV."
+      "description": "Kỹ sư phần mềm 5 năm xây dựng backend đa tenant và hệ thống dữ liệu: tìm kiếm, phân tích, xử lý bất đồng bộ. Dự án và CV."
     },
     "forClients": {
       "title": "Hợp tác với Tri Huu Nguyen — Backend & Hệ thống dữ liệu",
-      "description": "API, dashboard phân tích, pipeline dữ liệu và tự động hóa, có demo mỗi 3 ngày và bàn giao đầy đủ."
+      "description": "Thành công của tôi là thành công của bạn: API, dashboard phân tích, pipeline dữ liệu và tự động hóa, có demo mỗi 3 ngày và bàn giao đầy đủ."
     }
   },
   "a11y": {
-    "skipLink": "Chuyển đến nội dung chính"
+    "skipLink": "Chuyển đến nội dung chính",
+    "newTab": "(mở trong tab mới)"
   },
   "nav": {
     "projects": "Dự án",
     "engineering": "Kỹ thuật",
     "stack": "Công nghệ",
     "contact": "Liên hệ",
-    "forClients": "Dành cho khách hàng",
-    "label": "Điều hướng chính"
+    "label": "Điều hướng chính",
+    "current": "Mục hiện tại"
   },
   "langSwitch": {
     "label": "Ngôn ngữ",
@@ -27,20 +28,25 @@
   },
   "profile": {
     "title": "Kỹ sư phần mềm",
-    "experience": "Gần 5 năm",
+    "experience": "5 năm",
     "location": "TP. Hồ Chí Minh, Việt Nam"
   },
   "hero": {
-    "vision": "Xây dựng hệ thống giúp doanh nghiệp của bạn thắng.",
-    "positioning": "Kỹ sư phần mềm với gần 5 năm kinh nghiệm xây dựng hệ thống backend và dữ liệu cho SaaS đa tenant: tìm kiếm và phân tích dưới 1 giây, export bất đồng bộ quy mô lớn, và pipeline dữ liệu phía sau dashboard BI. Tôi chú trọng kiến trúc rõ ràng, hiệu năng đo được và quy trình review chặt chẽ, trong đó AI là công cụ hỗ trợ chứ không thay thế quy trình.",
+    "titleLine1": "Kỹ sư phần mềm",
+    "titleLine2": "& Phát triển Backend",
+    "vision": "Developer với tầm nhìn: Cùng nhau chiến thắng.",
+    "positioning": "Kỹ sư phần mềm gần 5 năm xây dựng SaaS nhiều dữ liệu cho chuỗi cung ứng y tế. Mạnh nhất ở Go: PostgreSQL đa tenant cho 19+ tổ chức, phân tích Elasticsearch dưới 1 giây, export lớn qua Kafka và pipeline ClickHouse phía sau Superset. Đồng thời làm tính năng Ruby on Rails trong đội 12 người, vững với quy tắc phức tạp như hợp đồng, rebate và giá, và tự review code bằng Cursor và Claude Code.",
     "viewCaseStudies": "Xem dự án",
     "downloadResume": "Tải CV (PDF)",
     "github": "GitHub",
-    "forClientsLink": "Cần xây dựng hệ thống? Xem cách tôi làm việc với khách hàng →"
+    "forClientsLink": "Cần xây dựng hệ thống? Xem cách tôi làm việc với khách hàng →",
+    "avatarAlt": "Ảnh chân dung Tri Huu Nguyen"
   },
   "caseStudies": {
     "title": "Dự án tiêu biểu",
-    "subtitle": "Hệ thống thực tế, đã ẩn danh. Kết quả ở ngay trên thẻ; bài phân tích kỹ thuật nằm trong phần chi tiết.",
+    "subtitle": "Hệ thống thực tế tôi đã tham gia xây dựng, đã ẩn tên. Mỗi card kể ngắn gọn; mở ra để xem chi tiết.",
+    "keyTitle": "Dự án trọng điểm",
+    "moreTitle": "Thêm từ nền tảng",
     "viewDetails": "Xem chi tiết",
     "labels": {
       "context": "Bối cảnh",
@@ -52,79 +58,154 @@
     "back": "Quay lại các dự án",
     "overview": "Tổng quan",
     "deepDive": "Phân tích kỹ thuật chuyên sâu",
+    "onThisPage": "Trên trang này",
     "navLabel": "Các dự án khác",
     "prev": "Trước",
     "next": "Tiếp theo"
   },
   "engineering": {
     "title": "Quyết định & Thực hành kỹ thuật",
-    "subtitle": "Những lựa chọn phía sau kết quả, và cái giá của từng lựa chọn."
+    "subtitle": "Những lựa chọn phía sau kết quả, và cái giá của từng lựa chọn.",
+    "decisionsTitle": "Quyết định",
+    "practicesTitle": "Thực hành",
+    "labels": {
+      "why": "Lý do",
+      "tradeoff": "Đánh đổi",
+      "outcome": "Kết quả"
+    },
+    "decisions": {
+      "d1": {
+        "title": "Mỗi tổ chức một database",
+        "why": "Cô lập cứng cho 19+ tổ chức y tế; backup, restore và lưu trữ theo từng tổ chức; quên một bộ lọc cũng không thể lộ dữ liệu tenant khác.",
+        "tradeoff": "Nhiều database hơn để migrate và giám sát. Mỗi thay đổi schema chạy trên mọi database tổ chức và được các service khác đọc, nên migration chạy lại an toàn, có index và tương thích ngược.",
+        "outcome": "**19+** tổ chức trên cùng một codebase."
+      },
+      "d2": {
+        "title": "Elasticsearch làm bản đọc cho Insight Dashboard",
+        "why": "Dashboard chạy các phép tổng hợp định sẵn, nhiều bộ lọc (kỳ, tập đoàn, nhà cung cấp). PostgreSQL vẫn là nguồn dữ liệu gốc duy nhất; index có thể dựng lại từ đó.",
+        "tradeoff": "Phải vận hành pipeline đồng bộ: đánh index là batch job định kỳ theo từng tổ chức, nên index chậm hơn dữ liệu gốc tối đa một ngày.",
+        "outcome": "Thời gian tải báo cáo **40 giây → 1 giây**, CPU database **80% → 30%** mỗi truy vấn."
+      },
+      "d3": {
+        "title": "Một engine cho Custom Report Builder: ClickHouse",
+        "why": "Người dùng tự chọn tiêu chí trên dữ liệu lớn. Thêm Elasticsearch ở đây nghĩa là hai chế độ truy vấn, hai đường code và hai job đồng bộ phải giữ đúng. Một engine giữ một đường duy nhất.",
+        "tradeoff": "Dữ liệu đến qua nạp full và incremental, không tức thời; chấp nhận được với báo cáo.",
+        "outcome": "Thời gian truy vấn **42 giây → 3 giây** (nhanh hơn 90%); dashboard Superset triển khai cho **19+** tổ chức bằng cách nhân bản."
+      },
+      "d4": {
+        "title": "Đưa export ra khỏi request, chạy trên Kafka",
+        "why": "Tạo hơn 1 triệu dòng trong một HTTP request bị timeout.",
+        "tradeoff": "Nhiều thành phần hơn: topic, worker và trạng thái job cần theo dõi.",
+        "outcome": "Export **hơn 1M dòng** với ghi theo luồng, chờ giãn cách tối đa 30 phút và tự động thử lại, chia nhiều file và nén zip, không còn timeout; người dùng nhận e-mail nếu export thất bại."
+      }
+    },
+    "practices": {
+      "p1": {
+        "title": "Go sạch và xử lý đồng thời",
+        "text": "Tách logic nghiệp vụ khỏi hạ tầng qua repository interface; goroutine, worker pool, bulk loading, transaction và tối ưu truy vấn cho xử lý khối lượng lớn."
+      },
+      "p2": {
+        "title": "Kiểm thử đúng chỗ rủi ro",
+        "text": "Kiểm thử tự động cho luồng phê duyệt nhiều cơ sở, tính rebate theo bậc và chuyển trạng thái vòng đời: khoảng 450 unit test Go với repository giả lập, khoảng 150 file RSpec ở nền tảng lõi và hơn 70 file kiểm thử front-end."
+      },
+      "p3": {
+        "title": "Cổng chất lượng PR có AI hỗ trợ",
+        "text": "Phân tích tĩnh, quét bảo mật, quét dependency, rồi AI cùng người review theo checklist cho code và unit test. Thời gian review từ **30 xuống 5 phút**."
+      },
+      "p4": {
+        "title": "API tương thích ngược",
+        "text": "**90+** REST API phục vụ ứng dụng React, giữ tương thích qua các bản phát hành."
+      }
+    }
   },
   "stack": {
     "title": "Công nghệ & Kinh nghiệm",
-    "statement": "Tôi mạnh nhất ở Go, kết hợp React phía front-end, cho các bài toán vừa tính toán nặng vừa đòi hỏi hiệu năng: xử lý dữ liệu khối lượng lớn, tìm kiếm và phân tích, tác vụ chạy dài, với logic nghiệp vụ sạch và dễ thay thế bên dưới.",
+    "statement": "Tôi mạnh nhất ở Go, kết hợp React phía front-end và Ruby on Rails ở nền tảng lõi, cho các bài toán vừa tính toán nặng vừa đòi hỏi hiệu năng: xử lý dữ liệu khối lượng lớn, tìm kiếm và phân tích, tác vụ chạy dài, với logic nghiệp vụ sạch và dễ thay thế bên dưới.",
     "timeline": "Kỹ sư phần mềm, công ty sản phẩm chuỗi cung ứng y tế · 02/2022 – nay",
-    "certification": "AWS Certified Cloud Practitioner (CLF-C02)"
+    "certification": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "groups": {
+      "backend": "Backend",
+      "data": "Dữ liệu",
+      "bi": "BI & Báo cáo",
+      "infra": "Hạ tầng",
+      "frontend": "Front-end",
+      "testing": "Kiểm thử",
+      "ai": "Công cụ AI"
+    },
+    "experienceTitle": "Kinh nghiệm",
+    "certificationTitle": "Chứng chỉ",
+    "tracks": {
+      "analytics": "Backend phân tích: Go, nền tảng dữ liệu",
+      "frontend": "Front-end phân tích: React, Insight Dashboard và Value Analysis",
+      "core": "Nền tảng lõi: Ruby on Rails, rebate hợp đồng và duyệt chênh lệch giá"
+    }
   },
   "contact": {
     "title": "Cùng trao đổi",
     "text": "Bạn đang tuyển dụng, hoặc muốn trao đổi về thiết kế hệ thống? Liên hệ tôi tại đây.",
     "downloadResume": "Tải CV",
-    "forClientsLink": "Muốn xây dựng sản phẩm? → Dành cho khách hàng"
+    "forClientsLink": "Muốn xây dựng sản phẩm? → Dành cho khách hàng",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
   },
   "forClients": {
     "startProject": "Bắt đầu dự án",
     "hero": {
-      "title": "Hệ thống backend và dữ liệu, giao hàng với quy trình rõ ràng.",
-      "intro": "Tôi xây dựng hệ thống chịu được khối lượng dữ liệu thực tế: API, tìm kiếm và phân tích, báo cáo, và tự động hóa chạy nền. Bạn nhận demo định kỳ, tài liệu đầy đủ và một hệ thống đội của bạn tự vận hành được.",
-      "seeCaseStudies": "Xem dự án"
+      "title": "Tôi chỉ coi một dự án là xong khi nó thật sự hiệu quả cho doanh nghiệp của bạn.",
+      "intro": "Gần 5 năm qua tôi xây dựng những hệ thống mà các bệnh viện dựa vào mỗi ngày, và tôi mang đúng sự cẩn trọng đó vào dự án của bạn. Chúng ta thống nhất thế nào là thành công trước; sau đó tôi làm theo từng bước nhỏ và cho bạn xem phần mềm chạy được sau mỗi 3 ngày. Bạn nhận được một hệ thống nhanh, ổn định, tài liệu đầy đủ, và một người đồng hành tới khi mọi thứ vận hành trơn tru.",
+      "seeCaseStudies": "Xem dự án",
+      "vision": "Thành công của tôi là thành công của bạn."
     },
     "offers": {
-      "title": "Tôi có thể xây dựng gì cho bạn",
+      "title": "Dù bạn làm trong lĩnh vực nào, tôi đều có thể xây dựng",
+      "subtitle": "Bạn mang đến bài toán. Tôi biến nó thành phần mềm đội của bạn dùng mỗi ngày.",
       "items": {
-        "apis": {
-          "title": "Backend API & SaaS",
-          "text": "REST API và backend đa tenant bằng Go, cấu trúc dễ bảo trì."
+        "apps": {
+          "title": "Ứng dụng web & sản phẩm SaaS",
+          "text": "Từ ý tưởng tới sản phẩm chạy được: cổng khách hàng, công cụ nội bộ, hoặc nền tảng SaaS phục vụ nhiều khách hàng trên cùng một hệ thống."
         },
-        "search": {
-          "title": "Dashboard tìm kiếm & phân tích",
-          "text": "Lọc và tổng hợp nhanh trên dữ liệu lớn."
+        "workflows": {
+          "title": "Quy trình & quy tắc nghiệp vụ",
+          "text": "Phê duyệt, giá, hợp đồng, thanh toán. Những quy tắc đội bạn đang giữ trong bảng tính và trong đầu trở thành phần mềm áp dụng chúng đúng như nhau mọi lúc."
         },
-        "pipelines": {
-          "title": "Pipeline dữ liệu & báo cáo",
-          "text": "ETL vào cơ sở dữ liệu phân tích và dashboard BI để đội của bạn tự khai thác."
+        "reports": {
+          "title": "Báo cáo & dashboard",
+          "text": "Gom dữ liệu về một nơi, với báo cáo và dashboard đội bạn tự khai thác mà không phải chờ bộ phận IT."
         },
-        "jobs": {
-          "title": "Tác vụ nền & tự động hóa",
-          "text": "Export lớn, xử lý theo lô và tác vụ định kỳ chạy ổn định ngoài luồng request."
+        "integrations": {
+          "title": "Tích hợp & tự động hóa",
+          "text": "Kết nối các công cụ bạn đang dùng, nhận dữ liệu từ đối tác, và chuyển việc chậm, lặp lại sang các tác vụ tự chạy."
         }
-      }
+      },
+      "seeCase": "Xem trong case thực tế"
     },
     "proof": {
-      "title": "Kết quả từ hệ thống thực tế",
+      "title": "Đã chứng minh trên hệ thống thực tế",
+      "subtitle": "Sản phẩm đang vận hành, được dùng mỗi ngày, đã ẩn tên.",
       "items": {
-        "tenants": {
-          "value": "19+",
-          "label": "tổ chức trên cùng một nền tảng đa tenant"
+        "health": {
+          "value": "Chuỗi cung ứng y tế",
+          "label": "Nền tảng đa tenant được các hệ thống bệnh viện khắp nước Mỹ sử dụng"
+        },
+        "pricing": {
+          "value": "Hợp đồng & giá",
+          "label": "Rebate, giá hợp đồng và duyệt thay đổi giá với quy tắc nghiệp vụ chặt chẽ"
         },
         "analytics": {
-          "value": "15 giây → 1 giây",
-          "label": "API phân tích chi tiêu"
+          "value": "Phân tích & báo cáo",
+          "label": "Dashboard chi tiêu và báo cáo tự phục vụ cho từng khách hàng"
         },
-        "exports": {
-          "value": "1M+",
-          "label": "dòng export không còn timeout"
-        },
-        "review": {
-          "value": "30 → 5 phút",
-          "label": "review code với cổng chất lượng có AI"
+        "data": {
+          "value": "Tích hợp dữ liệu",
+          "label": "Dữ liệu hằng ngày từ ERP và nhà phân phối, được nạp và cập nhật liên tục"
         }
       }
     },
     "closing": {
-      "title": "Sẵn sàng bắt đầu dự án?",
-      "text": "Cho tôi biết nhu cầu, tôi sẽ phản hồi các bước tiếp theo.",
-      "note": "Phản hồi trong 1 ngày làm việc. [TODO: xác nhận cam kết]"
+      "title": "Cùng làm dự án của bạn thành công.",
+      "text": "Hãy kể cho tôi về ý tưởng hoặc vấn đề đang làm chậm đội của bạn. Tôi sẽ phản hồi với các bước tiếp theo rõ ràng, phần tôi sẽ làm trước, và cách chúng ta cùng đo thành công.",
+      "note": "Phản hồi trong 1 ngày làm việc."
     }
   },
   "mailto": {
@@ -169,12 +250,12 @@
   "diagrams": {
     "platform-overview": {
       "title": "Nền tảng chuỗi cung ứng y tế: tổng quan kiến trúc",
-      "desc": "Client React gọi API Go (Echo). API đọc ghi một cơ sở dữ liệu PostgreSQL riêng cho mỗi tổ chức, gửi tác vụ bất đồng bộ qua Kafka tới các worker, và phục vụ Insight Dashboard từ Elasticsearch. Nhánh phân tích chuyển dữ liệu bằng ETL qua S3 vào ClickHouse cho Superset.",
+      "desc": "Client React và ExtJS gọi các service của nền tảng (Go với Echo, và lõi Ruby on Rails). Các service đọc ghi một cơ sở dữ liệu PostgreSQL riêng cho mỗi tổ chức, gửi tác vụ bất đồng bộ qua Kafka tới các worker, và phục vụ Insight Dashboard từ Elasticsearch. Nhánh phân tích chuyển dữ liệu bằng ETL qua S3 vào ClickHouse cho Superset.",
       "labels": {
         "client": "Client",
-        "clientSub": "React",
-        "api": "API",
-        "apiSub": "Go · Echo",
+        "clientSub": "React · ExtJS",
+        "api": "Service",
+        "apiSub": "Go · Rails",
         "orgDb": "DB tổ chức",
         "orgDbSub": "PostgreSQL × N",
         "kafka": "Kafka",
@@ -204,14 +285,14 @@
     },
     "value-analysis": {
       "title": "Value Analysis: một giá mỗi đơn vị chung",
-      "desc": "Các đề nghị của nhà cung cấp theo hộp, thùng, gói được chuẩn hóa đơn vị và quy cách về một giá mỗi đơn vị chung, rồi dùng để tính khoản tiết kiệm tiềm năng và lãi/lỗ cho một nhóm mặt hàng.",
+      "desc": "Các đề nghị của nhà cung cấp theo hộp, thùng, gói được chuẩn hóa đơn vị và quy cách về một giá mỗi đơn vị chung. Sau đó công cụ tính tác động ước tính khoản tiết kiệm tiềm năng cho một nhóm mặt hàng trước khi hội đồng xem xét.",
       "labels": {
         "offers": "Các đề nghị",
         "offersSub": "hộp · thùng · gói",
         "normalize": "Chuẩn hóa",
         "normalizeSub": "đơn vị, quy cách",
         "eachPrice": "Giá mỗi\nđơn vị",
-        "savings": "Tiết kiệm &\nlãi/lỗ",
+        "savings": "Tính\ntác động",
         "savingsSub": "nhóm mặt hàng"
       }
     },
@@ -229,20 +310,40 @@
         "reports": "Custom Report\nBuilder"
       }
     },
-    "kafka-exports": {
-      "title": "Export lớn: luồng bất đồng bộ trên Kafka",
-      "desc": "API đưa job export vào một topic Kafka, ngoài luồng request. Worker ghi các dòng theo luồng thành nhiều phần file, nén zip, lưu kết quả và gửi thông báo.",
+    "delta-build": {
+      "title": "Build tăng dần hằng ngày: chỉ build lại phần đã đổi",
+      "desc": "Mỗi lần build lưu một checkpoint. Lần chạy hằng ngày tiếp theo gom các mặt hàng trên báo cáo đã đổi từ checkpoint đó, chỉ build lại dữ liệu của chúng và ghi vào bảng báo cáo. Khi chưa có checkpoint, hệ thống chạy build toàn bộ.",
       "labels": {
-        "api": "API",
-        "apiSub": "tạo job",
-        "kafka": "Kafka",
-        "kafkaSub": "topic",
-        "worker": "Worker",
-        "workerSub": "ghi theo luồng",
-        "chunks": "Các phần file",
-        "zip": "Nén zip",
-        "store": "Lưu trữ",
-        "notify": "Thông báo"
+        "checkpoint": "Checkpoint",
+        "checkpointSub": "lần build trước",
+        "changed": "Mặt hàng đã đổi",
+        "changedSub": "từ checkpoint",
+        "rebuild": "Build lại",
+        "rebuildSub": "chỉ các mặt hàng đó",
+        "report": "Dữ liệu\nbáo cáo",
+        "reportSub": "theo bệnh viện",
+        "full": "Build toàn bộ",
+        "fullSub": "chưa có checkpoint"
+      }
+    },
+    "future-price-review": {
+      "title": "Duyệt giá tương lai: chặn giá sai trước khi có hiệu lực",
+      "desc": "Giá hợp đồng tương lai được so với giá hiện tại theo từng cơ sở và hợp đồng. Người duyệt lọc và tìm kiếm trên bảng hai cấp, rồi phê duyệt, từ chối hoặc từ chối trước hàng loạt. Một job nền áp dụng quy tắc hợp đồng tốt nhất và giá phi tuyến, rồi ghi giá đã duyệt vào giá hợp đồng đang áp dụng.",
+      "labels": {
+        "future": "Giá tương lai",
+        "futureSub": "từ hợp đồng",
+        "compare": "So sánh",
+        "compareSub": "với giá hiện tại",
+        "grid": "Bảng duyệt",
+        "gridSub": "mặt hàng → cơ sở",
+        "decide": "Quyết định",
+        "decideSub": "duyệt · từ chối",
+        "job": "Job nền",
+        "jobSub": "hàng loạt",
+        "rules": "Quy tắc giá",
+        "rulesSub": "hợp đồng tốt nhất",
+        "active": "Giá áp dụng",
+        "activeSub": "theo bệnh viện"
       }
     }
   }

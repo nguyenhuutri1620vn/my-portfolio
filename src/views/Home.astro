@@ -1,7 +1,11 @@
 ---
 import CaseGrid from '../components/CaseGrid.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import DecisionCard from '../components/DecisionCard.astro';
 import Hero from '../components/Hero.astro';
+import PracticeItem from '../components/PracticeItem.astro';
 import Section from '../components/Section.astro';
+import StackGrid from '../components/StackGrid.astro';
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../i18n/ui';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -12,6 +16,8 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const decisions = ['d1', 'd2', 'd3', 'd4'] as const;
+const practices = ['p1', 'p2', 'p3', 'p4'] as const;
 ---
 
 <BaseLayout lang={lang} title={t('meta.home.title')} description={t('meta.home.description')}>
@@ -19,7 +25,35 @@ const t = useTranslations(lang);
   <Section id="projects" title={t('caseStudies.title')} subtitle={t('caseStudies.subtitle')}>
     <CaseGrid lang={lang} />
   </Section>
-  <Section id="engineering" title={t('engineering.title')} subtitle={t('engineering.subtitle')} />
-  <Section id="stack" title={t('stack.title')} />
-  <Section id="contact" title={t('contact.title')} />
+
+  <Section id="engineering" title={t('engineering.title')} subtitle={t('engineering.subtitle')}>
+    <h3 class="mt-8 text-2xl">{t('engineering.decisionsTitle')}</h3>
+    <ul class="mt-6 grid gap-6 md:grid-cols-2">
+      {
+        decisions.map((id) => (
+          <li>
+            <DecisionCard lang={lang} id={id} />
+          </li>
+        ))
+      }
+    </ul>
+    <h3 class="mt-12 text-2xl">{t('engineering.practicesTitle')}</h3>
+    <ul class="mt-6 grid gap-x-10 gap-y-8 md:grid-cols-2">
+      {
+        practices.map((id) => (
+          <li>
+            <PracticeItem lang={lang} id={id} />
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="stack" dark title={t('stack.title')}>
+    <StackGrid lang={lang} />
+  </Section>
+
+  <Section id="contact" title={t('contact.title')}>
+    <ContactBlock lang={lang} />
+  </Section>
 </BaseLayout>

@@ -1,0 +1,44 @@
+---
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+import InlineText from './InlineText.astro';
+
+interface Props {
+  lang: Locale;
+  // Key under engineering.decisions in ui/*.json, e.g. "d1".
+  id: 'd1' | 'd2' | 'd3' | 'd4';
+}
+
+const { lang, id } = Astro.props;
+const t = useTranslations(lang);
+const base = `engineering.decisions.${id}` as const;
+const rows = [
+  { label: t('engineering.labels.why'), text: t(`${base}.why`) },
+  { label: t('engineering.labels.tradeoff'), text: t(`${base}.tradeoff`) },
+] as const;
+---
+
+<article class="card flex h-full flex-col">
+  <span class="font-heading text-sm font-semibold text-[#818cf8]">{id.toUpperCase()}</span>
+  <h4 class="font-heading mt-2 text-xl font-bold text-white leading-snug">{t(`${base}.title`)}</h4>
+  <dl class="mt-5 flex flex-1 flex-col gap-4 text-[0.95rem]">
+    {
+      rows.map(({ label, text }) => (
+        <div>
+          <dt class="font-heading text-xs uppercase tracking-[0.08em] text-slate-400">{label}</dt>
+          <dd class="mt-1 text-slate-300">
+            <InlineText text={text} />
+          </dd>
+        </div>
+      ))
+    }
+    <div class="callout mt-auto">
+      <dt class="font-heading text-xs uppercase tracking-[0.08em] text-[#818cf8]">
+        {t('engineering.labels.outcome')}
+      </dt>
+      <dd class="mt-1 font-medium text-white">
+        <InlineText text={t(`${base}.outcome`)} />
+      </dd>
+    </div>
+  </dl>
+</article>

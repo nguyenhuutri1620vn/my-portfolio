@@ -16,14 +16,15 @@ interface Props {
 
 const { entry, lang } = Astro.props;
 const t = useTranslations(lang);
-const { title, tag, context, solution, result } = entry.data;
-const { Content } = await entry.render();
+const { title, tag, intro, context, solution, result } = entry.data;
+const { Content, headings } = await entry.render();
+const toc = headings.filter((h) => h.depth === 2);
 
 const all = caseStudies(lang);
 const index = all.findIndex((e) => e.caseSlug === entry.caseSlug);
 const overview = [
-  { label: t('caseStudies.labels.context'), text: context },
-  { label: t('caseStudies.labels.solution'), text: solution },
+  { label: t('caseStudies.labels.context'), text: context, callout: false },
+  { label: t('caseStudies.labels.solution'), text: solution, callout: false },
   { label: t('caseStudies.labels.result'), text: result, callout: true },
 ];
 // Next always sits in the right column, even on the first case.
@@ -35,64 +36,105 @@ const caseUrl = (e: CaseStudy) => getRelativeLocaleUrl(lang, `case-studies/${e.c
 ---
 
 <BaseLayout lang={lang} title={`${title} — Tri Huu Nguyen`} description={context}>
-  <article class="container-page section">
-    <div class="mx-auto max-w-prose">
-      <a href={`${getRelativeLocaleUrl(lang)}#projects`} class="link text-sm">
-        <span aria-hidden="true">← </span>{t('caseStudy.back')}
-      </a>
+  <article>
+    <!-- Header and overview use the full page width; the deep dive below reads in one column. -->
+    <header class="dark-band">
+      <div class="container-page pb-10 pt-8 sm:pt-12 lg:pb-14 lg:pt-14">
+        <a href={`${getRelativeLocaleUrl(lang)}#projects`} class="link text-sm">
+          <span aria-hidden="true">← </span>{t('caseStudy.back')}
+        </a>
 
-      <header class="mt-8">
-        <span class="tag">{tag}</span>
-        <h1 class="mt-4">{title}</h1>
-      </header>
+        <div class="mt-8 max-w-3xl">
+          <span class="tag">{tag}</span>
+          <h1
+            class="font-heading mt-4 text-[clamp(2.25rem,5vw,3.5rem)] font-bold leading-tight tracking-tight text-white"
+          >
+            {title}
+          </h1>
+          <p class="mt-5 text-lg leading-relaxed text-slate-300 sm:text-xl sm:!text-left">
+            <InlineText text={intro} />
+          </p>
+        </div>
 
-      <section aria-labelledby="overview-title" class="mt-10">
-        <h2
-          id="overview-title"
-          class="font-mono text-sm font-medium uppercase tracking-wider text-brown"
-        >
-          {t('caseStudy.overview')}
-        </h2>
-        <dl class="mt-4 space-y-4">
-          {
-            overview.map(({ label, text, callout }) => (
-              <div class:list={{ callout }}>
-                <dt class="font-mono text-[11px] uppercase tracking-wider text-brown">{label}</dt>
-                <dd class="mt-1">
-                  <InlineText text={text} />
-                </dd>
-              </div>
-            ))
-          }
-        </dl>
-      </section>
+        <section aria-labelledby="overview-title" class="mt-10 lg:mt-12">
+          <h2 id="overview-title" class="eyebrow">{t('caseStudy.overview')}</h2>
+          <dl class="mt-4 grid gap-4 md:grid-cols-3 lg:gap-6">
+            {
+              overview.map(({ label, text, callout }) => (
+                <div
+                  class:list={[
+                    'card !p-5 sm:!p-6',
+                    { 'border-[#6366f1]/40 bg-[#6366f1]/[0.08]': callout },
+                  ]}
+                >
+                  <dt class="font-mono text-[11px] uppercase tracking-wider text-[#818cf8]">
+                    {label}
+                  </dt>
+                  <dd class="mt-2 leading-relaxed text-slate-200 sm:!text-left">
+                    <InlineText text={text} />
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </section>
+      </div>
+    </header>
 
-      <div
-        class="mt-16 flex items-center gap-4"
-        role="separator"
-        aria-label={t('caseStudy.deepDive')}
-      >
-        <span class="h-px flex-1 bg-brown/25"></span>
-        <span class="font-mono text-sm text-brown" aria-hidden="true"
+    <div class="container-page pb-12 lg:pb-16">
+      <div class="flex items-center gap-4" role="separator" aria-label={t('caseStudy.deepDive')}>
+        <span class="h-px flex-1 bg-white/10"></span>
+        <span class="font-mono text-xs uppercase tracking-wider text-[#818cf8]" aria-hidden="true"
           >{t('caseStudy.deepDive')}</span
         >
-        <span class="h-px flex-1 bg-brown/25"></span>
+        <span class="h-px flex-1 bg-white/10"></span>
       </div>
 
-      <div class="prose-case">
-        <Content components={{ Diagram: CaseFigure, Metric, Todo }} />
+      <div class="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-12">
+        {
+          toc.length > 0 && (
+            <nav aria-labelledby="toc-title" class="hidden lg:col-span-3 lg:block">
+              <div class="sticky top-24">
+                <p id="toc-title" class="eyebrow">
+                  {t('caseStudy.onThisPage')}
+                </p>
+                <ul class="mt-4 space-y-1 border-l border-white/10">
+                  {toc.map((h) => (
+                    <li>
+                      <a
+                        href={`#${h.slug}`}
+                        class="-ml-px block border-l border-transparent py-1.5 pl-4 text-sm text-slate-400 transition-colors hover:border-[#818cf8] hover:text-white"
+                      >
+                        {h.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </nav>
+          )
+        }
+
+        <div class="min-w-0 lg:col-span-9">
+          <div class="prose-case">
+            <Content components={{ Diagram: CaseFigure, Metric, Todo }} />
+          </div>
+        </div>
       </div>
 
-      <nav aria-label={t('caseStudy.navLabel')} class="mt-16 border-t border-brown/25 pt-8">
-        <ul class="grid gap-4 sm:grid-cols-2">
+      <nav aria-label={t('caseStudy.navLabel')} class="mt-16 border-t border-white/10 pt-8">
+        <ul class="grid gap-4 sm:grid-cols-2 lg:gap-6">
           {
             neighbors.map((n) => (
               <li class={n.class}>
-                <a href={caseUrl(n.entry)} class="card block hover:border-accent">
-                  <span class="block font-mono text-[11px] uppercase tracking-wider text-brown">
+                <a href={caseUrl(n.entry)} class="card card-hover block">
+                  <span class="block font-mono text-[11px] uppercase tracking-wider text-[#818cf8]">
                     {n.label}
                   </span>
-                  <span class="mt-1 block font-medium text-accent">{n.entry.data.title}</span>
+                  <span class="font-heading mt-2 block text-lg font-semibold text-white">
+                    {n.entry.data.title}
+                  </span>
+                  <span class="mt-1 block text-sm text-slate-400">{n.entry.data.tag}</span>
                 </a>
               </li>
             ))

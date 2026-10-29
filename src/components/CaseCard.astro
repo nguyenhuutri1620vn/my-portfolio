@@ -3,47 +3,40 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../i18n/ui';
 import type { CaseStudy } from '../lib/case-studies';
-import Diagram from './diagrams/Diagram.astro';
 import InlineText from './InlineText.astro';
 
 interface Props {
   entry: CaseStudy;
   lang: Locale;
+  // Key project: larger card with an accent border and a bigger title.
+  featured?: boolean;
 }
 
-const { entry, lang } = Astro.props;
+const { entry, lang, featured = false } = Astro.props;
 const t = useTranslations(lang);
-const { title, tag, context, solution, result, diagram } = entry.data;
-const rows = [
-  { label: t('caseStudies.labels.context'), text: context },
-  { label: t('caseStudies.labels.solution'), text: solution },
-  { label: t('caseStudies.labels.result'), text: result },
-];
+const { title, tag, intro, highlight } = entry.data;
 ---
 
-<article class="card flex h-full flex-col">
-  <span class="tag self-start">{tag}</span>
-  <h3 class="mt-3">{title}</h3>
-  <div class="mt-4 aspect-video overflow-hidden rounded-btn bg-surface/40 p-2">
-    <Diagram name={diagram} lang={lang} decorative />
-  </div>
-  <dl class="mb-6 mt-4 space-y-3 text-sm">
-    {
-      rows.map(({ label, text }) => (
-        <div>
-          <dt class="font-mono text-[11px] uppercase tracking-wider text-brown">{label}</dt>
-          <dd class="mt-0.5">
-            <InlineText text={text} />
-          </dd>
-        </div>
-      ))
-    }
-  </dl>
+<!-- Five rows (tag, title, intro, highlight, link) on the parent grid's subgrid, so each
+     row lines up across the cards in one visual row. -->
+<article
+  class:list={[
+    'card card-hover row-span-5 grid grid-rows-subgrid gap-y-0',
+    { 'border-[#6366f1]/40 bg-[#6366f1]/[0.07] lg:!p-9': featured },
+  ]}
+>
+  <span class="tag self-start justify-self-start">{tag}</span>
+  <h4 class:list={['mt-5', featured ? 'text-2xl sm:text-3xl' : 'text-xl']}>{title}</h4>
+  <p class:list={['mt-3 leading-relaxed', featured ? 'text-base' : 'text-[0.95rem]']}>{intro}</p>
+  <p class:list={['callout mb-4 mt-4 self-start font-medium', featured ? 'text-base' : 'text-sm']}>
+    <InlineText text={highlight} />
+  </p>
   <a
     href={getRelativeLocaleUrl(lang, `case-studies/${entry.caseSlug}`)}
-    class="btn-secondary mt-auto self-start"
+    class="link-arrow self-end justify-self-start"
     aria-label={`${t('caseStudies.viewDetails')}: ${title}`}
   >
     {t('caseStudies.viewDetails')}
+    <span aria-hidden="true">→</span>
   </a>
 </article>

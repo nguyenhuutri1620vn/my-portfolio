@@ -1,25 +1,28 @@
 ---
-title: ClickHouse × Superset and Custom Report Builder
+title: Custom Report Builder
 tag: Data & BI
-context: Users wanted flexible, self-service reports over very large datasets, and dashboards for 19+ organizations had to be rolled out consistently.
-solution: One analytics engine, ClickHouse, fed by ETL from PostgreSQL through S3 (full and incremental loads), serving both Superset dashboards and the Custom Report Builder; dashboards cloned automatically per organization.
-result: 'Query time down by **over 90%** [TODO: baseline and measured query], dashboards rolled out to **19+** organizations by cloning instead of rebuilding.'
+intro: 'Users build their own reports by picking the criteria they need, over very large data. ClickHouse powers these reports and the Superset dashboards for every hospital.'
+highlight: 'Query time **42s → 3s** per report'
+context: Users wanted their own reports over very large data, for 19+ hospitals.
+solution: One engine, ClickHouse, behind Superset and the Custom Report Builder.
+result: 'Query time **42s → 3s** (over 90% faster); dashboards cloned to **19+** hospitals.'
 diagram: clickhouse-superset
 lang: en
-order: 4
+order: 5
+featured: true
 ---
 
 _Custom Report Builder lets users build their own reports by choosing the criteria they need._
 
 ## Problem
 
-<Todo>problem statement for this case</Todo>
+Heavy aggregation ran on each organization's PostgreSQL database, which is also the transactional system. Users wanted to choose their own report criteria over years of purchase data, and every new organization needed the same set of BI dashboards.
 
 ## Approach & alternatives considered
 
 One source, one engine. Insight Dashboard uses Elasticsearch because its queries are predefined filtered aggregations. Custom Report Builder deliberately does **not** use Elasticsearch: arbitrary user-chosen criteria would require supporting two query modes (ES for some reports, another path for big data), doubling the code paths, the sync jobs, and the failure modes. Consolidating on ClickHouse gives a single data source and one query path for big-data reports.
 
-Superset rollout: scripted cloning of dashboards, charts, and datasets across <Metric>19+</Metric> organizations instead of manual rebuild.
+Superset rollout is scripted. Dashboards, charts and datasets are cloned per organization, and across environments (production to development), for <Metric>19+</Metric> organizations instead of being rebuilt by hand. The tool rewrites dataset and database references either directly in the Superset database or by editing exported ZIP bundles. It also handles bulk deletion and reloads of embedded dashboards.
 
 ## Architecture
 
@@ -27,15 +30,21 @@ Superset rollout: scripted cloning of dashboards, charts, and datasets across <M
 
 ## Data design
 
-ETL PostgreSQL → S3 → ClickHouse; full load for initial/backfill, incremental for ongoing; ClickHouse models built for spend and trend analysis. <Todo>engine/ordering keys if you want to show</Todo>
+- **PostgreSQL → ClickHouse.** The sync job reads the PostgreSQL schema, creates matching ClickHouse tables with a type mapping, exports CSV to S3, and loads it with ClickHouse's S3 table function.
+- **PostgreSQL → Redshift.** The same S3 staging feeds Redshift through the Redshift Data API (`COPY` from S3).
+- **Archived contracts.** Archived contract, facility and item data is pushed to S3, imported into ClickHouse, and served through year-partitioned materialized views and a Superset report.
+
+Full loads handle the first run and backfills; incremental loads keep data current.
 
 ## Failure handling
 
-<Todo>ETL retries, idempotent loads, row-count checks, reconciliation</Todo>
+- The sync checks that target tables exist before loading, and creates them from the source schema when they don't.
+- The archive pipeline verifies each dump's row count against the live table before anything is deleted from PostgreSQL.
+- Each batch job writes its own log file, so a failed run can be traced per organization.
 
 ## Security
 
-Org scoping on datasets <Todo>confirm</Todo>; credentials via Secrets Manager.
+Credentials come from AWS Secrets Manager. Jobs take the organization ID as a parameter and write only to that organization's databases, and each organization's cloned dashboards point at its own datasets.
 
 ## Trade-offs
 
@@ -43,8 +52,5 @@ ClickHouse is eventually consistent via batch/incremental loads, which is accept
 
 ## Results
 
-Query time down by <Metric>over 90%</Metric> <Todo>baseline and measured query</Todo>, dashboards rolled out to <Metric>19+</Metric> organizations by cloning instead of rebuilding.
-
-## What I'd do next
-
-<Todo>what you would do next</Todo>
+- Query time <Metric>42s → 3s</Metric> per query (over 90% faster) for reports such as Contract Spend Dashboard, Contract UOM Mismatch and VIM reports.
+- Dashboards rolled out to <Metric>19+</Metric> organizations by cloning instead of rebuilding.

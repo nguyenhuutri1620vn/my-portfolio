@@ -1,9 +1,11 @@
 ---
 title: Healthcare supply chain platform
 tag: Healthcare supply chain
-context: Hospitals need one place to track procurement spend, vendor performance, and savings across many organizations.
-solution: Multi-tenant SaaS backend in Go (Clean Architecture) with a separate PostgreSQL database per organization, plus search, analytics, and async export layers.
-result: '**19+** organizations isolated on one platform, **90+** REST APIs in production.'
+intro: 'The system of record for what US hospitals buy, from whom, at what contract price, and what they actually spent. I build features end to end on its Ruby on Rails core.'
+highlight: 'Contract rebates built **end to end** · **165** PRs merged'
+context: Hospital systems need one place for what they buy, from whom, at what contract price, and what they actually spent.
+solution: 'A multi-tenant Rails platform with one PostgreSQL database per hospital system; I own features from the database to the ExtJS screens.'
+result: '**165** pull requests merged, **~80** hospital-database migrations, **~150** spec files.'
 diagram: platform-overview
 lang: en
 order: 1
@@ -11,42 +13,33 @@ order: 1
 
 ## Problem
 
-The platform helps hospitals track procurement spending, vendor performance, and cost savings. Each hospital organization is a tenant with its own data and reporting needs.
+A hospital system buys from many vendors, often through a group purchasing organization (GPO) that negotiates contract prices for many hospitals. The platform keeps all of it in one place, in this flow:
 
-## Approach & alternatives considered
-
-Clean Architecture in Go, business rules separated from infrastructure through repository interfaces, so storage engines (PostgreSQL, Elasticsearch, ClickHouse) can change without touching use cases. Concurrency with goroutines and worker pools, bulk loading and transactions for high-volume writes.
+1. **Data load:** hospital ERP and distributor data arrives as EDI (810 invoices, 850 purchase orders), HL7 and flat files.
+2. **Item master:** each product is normalized into one master record (vendor, catalog number, unit of measure, UNSPSC).
+3. **Contracts:** purchases are matched to contract prices; rebates pay out when spend reaches tier thresholds; price discrepancies are reviewed and approved or rejected.
+4. **Requisitions and purchasing:** request, approval, then a purchase order sent to the vendor by EDI or punch-out.
+5. **Spend analytics:** spend, invoice and purchase-order history, and savings.
 
 ## Architecture
 
 <Diagram />
 
-- Client (React) → API (Go, Echo) → Org DB (PostgreSQL, one per organization)
-- Async branch: Kafka → Workers
-- Read branch: Elasticsearch (Insight Dashboard)
-- Analytics branch: ETL → S3 → ClickHouse → Superset
+Ruby 3.1 on Rails 2.3 LTS, PostgreSQL, ExtJS 3.4, delayed_job, and Solr, Elasticsearch and OpenSearch for search. There is one main database, one centralized database, and one database per hospital system. Newer services read those per-hospital schemas directly, so every schema change is coordinated across teams.
 
-## Data design
+## What I built
 
-**Database-per-organization.** Each organization has its own PostgreSQL database; a request resolves its tenant first and the repository layer receives that tenant's connection. Why: hard data isolation, per-tenant backup/restore and archiving, no cross-tenant query by accident.
-
-## Failure handling
-
-Kafka export workers retry automatically. <Todo>confirm patterns, e.g. timeouts, retries, idempotency, structured errors</Todo>
-
-## Security
-
-Credentials in AWS Secrets Manager, never in code; tenant isolation at the database level; AWS S3 for archival. <Todo>authn/authz approach, encryption at rest/in transit if you want to claim it</Todo>
+- **Contract Rebate Management**, end to end: rebates and tiers on contracts, spend tracking against baselines per cycle, an impact check before a change is applied, and audit history written by PostgreSQL triggers.
+- **Future price review:** a two-level grid to compare upcoming and current contract prices across facilities, with bulk approve and reject running as background jobs.
+- **Contract archiving:** moves old contract data to S3 and ClickHouse in verified batches, so hospital databases stay small without losing history.
+- **Procurement and data loads:** shared quantity limits (9,999 → 99,999), punch-out settings, and faster nightly data-load steps.
 
 ## Trade-offs
 
-More databases to migrate and monitor; handled by <Todo>describe migration/rollout approach</Todo>
+- **A 2009-era framework:** new code has to fit Rails 2.3 and RSpec 1.3 idioms.
+- **Shared schemas:** every migration runs on every hospital database and is read by other services, so it must be idempotent, indexed and backward compatible.
 
 ## Results
 
-<Metric>19+</Metric> organizations, <Metric>90+</Metric> REST APIs; backward compatible across
-releases for React clients.
-
-## What I'd do next
-
-<Todo>what you would do next</Todo>
+<Metric>840+</Metric> commits on the main branch, <Metric>165</Metric> pull requests merged, about
+<Metric>80</Metric> hospital-database migrations and about <Metric>150</Metric> spec files.

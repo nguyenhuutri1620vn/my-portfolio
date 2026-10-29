@@ -1,0 +1,59 @@
+---
+import { site } from '../data/site';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const groups = Object.entries(site.stackGroups) as [
+  keyof typeof site.stackGroups,
+  readonly string[],
+][];
+const tracks = ['analytics', 'frontend', 'core'] as const;
+---
+
+<p class="mt-4 max-w-prose text-[1.0625rem]">{t('stack.statement')}</p>
+
+<div class="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    groups.map(([key, chips]) => (
+      <div>
+        <h3 class="text-xs uppercase tracking-[0.08em] text-slate-400">
+          {t(`stack.groups.${key}`)}
+        </h3>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {chips.map((chip) => (
+            <li>
+              <span class="tag">{chip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>
+
+<div class="mt-10 grid gap-6 lg:grid-cols-[2fr_1fr]">
+  <div class="card">
+    <h3 class="eyebrow">{t('stack.experienceTitle')}</h3>
+    <p class="font-heading mt-4 text-xl">{t('stack.timeline')}</p>
+    <ul class="mt-4 space-y-2 text-[0.95rem] text-slate-300">
+      {
+        tracks.map((key) => (
+          <li class="flex gap-3">
+            <span aria-hidden="true" class="mt-[0.7em] h-px w-4 shrink-0 bg-accent/60" />
+            {t(`stack.tracks.${key}`)}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div class="card">
+    <h3 class="eyebrow">{t('stack.certificationTitle')}</h3>
+    <p class="font-heading mt-4 text-xl">{t('stack.certification')}</p>
+  </div>
+</div>

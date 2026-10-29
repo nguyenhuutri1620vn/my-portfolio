@@ -1,0 +1,35 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+import { resumeHref } from '../lib/resume';
+import ContactLinks from './ContactLinks.astro';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const resume = resumeHref(lang);
+---
+
+<div class="mt-8 grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+  <div>
+    <p class="max-w-prose text-[1.0625rem]">{t('contact.text')}</p>
+    {
+      resume && (
+        <a href={resume} class="btn-primary mt-8">
+          {t('contact.downloadResume')}
+        </a>
+      )
+    }
+    <p class="mt-8 text-sm">
+      <a href={getRelativeLocaleUrl(lang, 'for-clients')} class="link">
+        {t('contact.forClientsLink')}
+      </a>
+    </p>
+  </div>
+
+  <ContactLinks lang={lang} />
+</div>
