@@ -206,7 +206,7 @@ Small line: EN `Looking to build something? → For clients` · VI `Muốn xây 
 
 ## 6. For-clients page (`/{lang}/for-clients`)
 **Hero**
-- H1 (largest text) — client vision: EN `Your success is our success.` · VI `Thành công của bạn là thành công của tôi.`. Title under it — EN: I count a project as done only when it works for your business. · VI: Tôi chỉ coi một dự án là xong khi nó thật sự hiệu quả cho doanh nghiệp của bạn.
+- H1 (largest text) — client vision: EN `Your success is our success.` · VI `Thành công của bạn là thành công của chúng ta.`. Title under it — EN: I count a project as done only when it works for your business. · VI: Tôi chỉ coi một dự án là xong khi nó thật sự hiệu quả cho doanh nghiệp của bạn.
 - Vision line (same as home).
 - Intro — EN: For 5 years I have built systems that hospitals rely on every day. I don't just build to a spec: I help you analyze the problem and shape the product first, then build in small steps with working software every 3 days. You get a reliable system, full documentation, and someone who stays until it runs smoothly. · VI: 5 năm qua tôi xây dựng những hệ thống mà các bệnh viện dựa vào mỗi ngày. Tôi không chỉ làm theo yêu cầu: tôi cùng bạn phân tích bài toán, tư vấn và định hình sản phẩm trước, rồi làm theo từng bước nhỏ, có phần mềm chạy được sau mỗi 3 ngày. Bạn nhận được một hệ thống ổn định, tài liệu đầy đủ, và một người đồng hành tới khi mọi thứ vận hành trơn tru. (Nov 2026: owner asked to show product analysis and consulting, not only building to a spec.)
 - CTAs: Primary `Start a Project` / `Bắt đầu dự án` (mailto, same subject/body as below) · Secondary outline `See case studies` / `Xem dự án` → `/{lang}/#projects`
