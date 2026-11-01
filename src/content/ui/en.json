@@ -6,7 +6,7 @@
     },
     "forClients": {
       "title": "Work with Tri Huu Nguyen — Backend & Data Systems",
-      "description": "Your success is my success: APIs, analytics dashboards, data pipelines and automation, with demos every 3 days and full handover."
+      "description": "Your success is my success: product analysis and consulting, then APIs, analytics dashboards, data pipelines and automation, with demos every 3 days and full handover."
     }
   },
   "a11y": {
@@ -150,13 +150,13 @@
     "startProject": "Start a Project",
     "hero": {
       "title": "I count a project as done only when it works for your business.",
-      "intro": "For 5 years I have built systems that hospitals rely on every day, and I bring the same care to yours. We agree on what success looks like first; then I build in small steps and show you working software every 3 days. You get a fast, reliable system, full documentation, and someone who stays until it runs smoothly.",
+      "intro": "For 5 years I have built systems that hospitals rely on every day. I don't just build to a spec: I help you analyze the problem and shape the product first, then build in small steps with working software every 3 days. You get a reliable system, full documentation, and someone who stays until it runs smoothly.",
       "seeCaseStudies": "See case studies",
       "vision": "My success is your success."
     },
     "offers": {
       "title": "Whatever your business, I can build it",
-      "subtitle": "You bring the problem. I turn it into software your team uses every day.",
+      "subtitle": "You bring the problem. I help you shape the right product, then build software your team uses every day.",
       "items": {
         "apps": {
           "title": "Web apps & SaaS products",
@@ -214,8 +214,8 @@
     "subtitle": "A clear process from first call to stable operation.",
     "steps": {
       "01": {
-        "title": "Discovery & Scope",
-        "text": "Listen to the problem, analyze business requirements, and lock a clear scope."
+        "title": "Discovery & Product Consulting",
+        "text": "Analyze the problem and your users, advise on what to build first, and lock a clear scope."
       },
       "02": {
         "title": "Architecture & Design",
@@ -231,7 +231,7 @@
       },
       "05": {
         "title": "AI-Assisted Engineering",
-        "text": "AI speeds up coding and cuts cost and time, inside a strict process (BMAD, Superpowers, TEA) and MCP tooling, so no AI junk reaches your codebase. Example: an AI-assisted pull-request quality gate (static analysis, security and dependency scans, AI plus human review) cut review time from 30 to 5 minutes.",
+        "text": "AI speeds up coding, with strict review so no AI junk reaches your code. AI-assisted pull-request checks cut review time from 30 to 5 minutes.",
         "tag": "AI"
       },
       "06": {

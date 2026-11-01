@@ -6,7 +6,7 @@
     },
     "forClients": {
       "title": "Hợp tác với Tri Huu Nguyen — Backend & Hệ thống dữ liệu",
-      "description": "Thành công của tôi là thành công của bạn: API, dashboard phân tích, pipeline dữ liệu và tự động hóa, có demo mỗi 3 ngày và bàn giao đầy đủ."
+      "description": "Thành công của tôi là thành công của bạn: phân tích và tư vấn sản phẩm, rồi API, dashboard phân tích, pipeline dữ liệu và tự động hóa, có demo mỗi 3 ngày và bàn giao đầy đủ."
     }
   },
   "a11y": {
@@ -150,13 +150,13 @@
     "startProject": "Bắt đầu dự án",
     "hero": {
       "title": "Tôi chỉ coi một dự án là xong khi nó thật sự hiệu quả cho doanh nghiệp của bạn.",
-      "intro": "Gần 5 năm qua tôi xây dựng những hệ thống mà các bệnh viện dựa vào mỗi ngày, và tôi mang đúng sự cẩn trọng đó vào dự án của bạn. Chúng ta thống nhất thế nào là thành công trước; sau đó tôi làm theo từng bước nhỏ và cho bạn xem phần mềm chạy được sau mỗi 3 ngày. Bạn nhận được một hệ thống nhanh, ổn định, tài liệu đầy đủ, và một người đồng hành tới khi mọi thứ vận hành trơn tru.",
+      "intro": "5 năm qua tôi xây dựng những hệ thống mà các bệnh viện dựa vào mỗi ngày. Tôi không chỉ làm theo yêu cầu: tôi cùng bạn phân tích bài toán, tư vấn và định hình sản phẩm trước, rồi làm theo từng bước nhỏ, có phần mềm chạy được sau mỗi 3 ngày. Bạn nhận được một hệ thống ổn định, tài liệu đầy đủ, và một người đồng hành tới khi mọi thứ vận hành trơn tru.",
       "seeCaseStudies": "Xem dự án",
       "vision": "Thành công của tôi là thành công của bạn."
     },
     "offers": {
       "title": "Dù bạn làm trong lĩnh vực nào, tôi đều có thể xây dựng",
-      "subtitle": "Bạn mang đến bài toán. Tôi biến nó thành phần mềm đội của bạn dùng mỗi ngày.",
+      "subtitle": "Bạn mang đến bài toán. Tôi cùng bạn định hình sản phẩm phù hợp, rồi xây dựng phần mềm đội bạn dùng mỗi ngày.",
       "items": {
         "apps": {
           "title": "Ứng dụng web & sản phẩm SaaS",
@@ -214,8 +214,8 @@
     "subtitle": "Quy trình rõ ràng từ cuộc trao đổi đầu tiên đến khi vận hành ổn định.",
     "steps": {
       "01": {
-        "title": "Khám phá & Phạm vi",
-        "text": "Lắng nghe bài toán, phân tích nghiệp vụ và chốt phạm vi công việc rõ ràng."
+        "title": "Khám phá & Tư vấn sản phẩm",
+        "text": "Phân tích bài toán và người dùng, tư vấn nên làm gì trước, và chốt phạm vi rõ ràng."
       },
       "02": {
         "title": "Kiến trúc & Thiết kế",
@@ -231,7 +231,7 @@
       },
       "05": {
         "title": "Kỹ thuật có AI hỗ trợ",
-        "text": "AI tăng tốc coding, giảm chi phí và thời gian, trong một quy trình chặt chẽ (BMAD, Superpowers, TEA) cùng công cụ MCP, để không có \"rác AI\" lọt vào codebase. Ví dụ: cổng chất lượng pull request có AI (phân tích tĩnh, quét bảo mật và dependency, AI cùng review của người) giảm thời gian review từ 30 xuống 5 phút.",
+        "text": "AI giúp code nhanh hơn, có review chặt chẽ nên không có \"rác AI\" lọt vào code. Kiểm tra pull request có AI hỗ trợ giảm thời gian review từ 30 xuống 5 phút.",
         "tag": "AI"
       },
       "06": {
